@@ -1,7 +1,7 @@
 import React from 'react';
 import { makeStyles } from '@mui/styles';
 import { styled } from '@mui/material/styles';
-import { TextField, InputLabel } from '@mui/material';
+import { TextField, Input } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 
 const styles = makeStyles((theme) => ({
@@ -26,7 +26,7 @@ const styles = makeStyles((theme) => ({
     },
     leftBinderSection: {
         borderRight: 'solid white 2px',
-        "-webkit-scrollbar": {display: "none"},
+        "-webkit-scrollbar": { display: "none" },
         display: 'grid',
         gap: '5%',
         gridTemplateColumns: 'repeat(3, auto)',
@@ -42,7 +42,7 @@ const styles = makeStyles((theme) => ({
     },
     rightBinderSection: {
         borderLeft: 'solid white 2px',
-        "-webkit-scrollbar": {display: "none"},
+        "-webkit-scrollbar": { display: "none" },
         display: 'grid',
         gap: '5%',
         gridTemplateColumns: 'repeat(3, auto)',
@@ -75,27 +75,33 @@ const styles = makeStyles((theme) => ({
 
     },
     searchBarContainer: {
+        position: 'absolute',
         backgroundColor: '#333844',
-        height: '5.5vh',
-        postition: 'absolute',
-        left: '77vw',
+        justifyContent: 'center',
+        height: '3.1vh',
+        display: 'flex',
+        left: '64vw',
         top: '93vh',
         border: 'solid black 2px',
         borderBottomRightRadius: '5px',
         borderBottomLeftRadius: '5px',
         color: 'white',
-        '& .MuiOutlinedInput-root': {
-            color: 'white',
-            '& fieldset': {
-              borderColor: 'white',
-            },
-          },
+        padding: '0 0.5vh 0.5vh 0.5vh',
+    },
+    searchBar: {
+        '& .MuiInput-input': {
+            color: "white",
+            borderBottomColor: 'white',
+        },
+        '& .MuiInput-input:after': {
+            borderBottomColor: 'white',
+        },
     }
 }))
 
 const CssTextField = styled(TextField)({
     '& label.Mui-focused': {
-      color: 'white',
+        color: 'white',
     },
     // '& label': {
     //     color: 'white',
@@ -104,22 +110,22 @@ const CssTextField = styled(TextField)({
         color: 'white',
         paddingBottom: '5vh',
     },
-    '& .MuiInput-underline:after': {
-      borderBottomColor: 'green',
+    '& .MuiInput-standard:after': {
+        borderBottomColor: 'green',
     },
     '& .MuiOutlinedInput-root': {
         height: '3vh',
-      '& fieldset': {
-        borderColor: 'darkgrey',
-      },
-      '&:hover fieldset': {
-        borderColor: 'grey',
-      },
-      '&.Mui-focused fieldset': {
-        borderColor: 'white',
-      },
+        '& fieldset': {
+            borderColor: 'darkgrey',
+        },
+        '&:hover fieldset': {
+            borderColor: 'grey',
+        },
+        '&.Mui-focused fieldset': {
+            borderColor: 'white',
+        },
     },
-  });
+});
 
 const BinderContainer = () => {
     const classes = styles();
@@ -155,9 +161,12 @@ const BinderContainer = () => {
                 <button>LEGENDARY</button>
             </div>
             <div className={classes.searchBarContainer}>
-                <InputLabel htmlFor='card_search'>
-                    <CssTextField  id='card_search' label="Search" variant="outlined"/>   
-                </InputLabel>
+                {/* <InputLabel htmlFor='card_search'>
+                <CssTextField id='card_search' label="Search" variant="outlined" />
+            </InputLabel> */}
+                {/* <TextField variant="standard"></TextField> */}
+                <SearchIcon style={{ marginTop: '0.8vh' }} />
+                <Input placeholder='Search' className={classes.searchBar} />
             </div>
         </div>
     )
