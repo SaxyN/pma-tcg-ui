@@ -70,6 +70,8 @@ const styles = makeStyles((theme) => ({
         display: 'flex',
         justifyContent: 'space-evenly',
         border: 'solid black 2px',
+        borderBottomRightRadius: '5px',
+        borderBottomLeftRadius: '5px',
     },
     rarityButton: {
 
