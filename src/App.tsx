@@ -4,6 +4,7 @@ import { Provider } from "react-redux";
 import { Route, HashRouter } from "react-router-dom";
 import { store } from "./redux";
 import BinderContainer from "./containers/BinderContainer";
+import CardProfileContainer from "./containers/CardProfileContainer";
 
 function App() {
     return (
@@ -11,6 +12,7 @@ function App() {
             <HashRouter>
                 <div>
                     <Route exact path={"/"} component={BinderContainer} />
+                    <Route exact path={"/profile"} component={CardProfileContainer} />
                 </div>
             </HashRouter>
         </Provider>

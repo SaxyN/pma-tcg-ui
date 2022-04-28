@@ -3,6 +3,7 @@ import { makeStyles } from '@mui/styles';
 import { styled } from '@mui/material/styles';
 import { TextField, Input } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
+import CardProfile from '../components/CardProfile/CardProfile';
 
 const styles = makeStyles((theme) => ({
     binderOuter: {
