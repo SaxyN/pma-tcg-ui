@@ -3,15 +3,15 @@ import { makeStyles, styled } from '@mui/styles';
 import CARD_IMAGE from "../../assets/jeremy_s.png";
 import { StyledEngineProvider } from '@mui/material/styles';
 import LinearProgress, { linearProgressClasses } from '@mui/material/LinearProgress';
-import { Typography } from '@mui/material';
+import { Typography } from '@mui/material/';
 
 import { RatingBar } from './RatingBar';
 import { ColorPallete } from '../../models/colors';
 
 const styles = makeStyles((theme) => ({
     mainDiv: {
-        position: 'absolute',
-        // width: "50%",
+        // position: 'absolute',
+        width: "50%",
         top: '25vh',
         left: '30vw',
         border: 'solid black 2px'
@@ -57,16 +57,16 @@ const BorderLinearProgress = styled(LinearProgress)(() => ({
     border: 'solid black 2px',
 
     [`& .${linearProgressClasses.colorPrimary}`]: {
-        backgroundColor: ColorPallete.blue.hex,
+        backgroundColor: ColorPallete.red.hex,
     },
     [`& .${linearProgressClasses.bar}`]: {
         // borderRadius: 5,
-        backgroundColor: ColorPallete.blue.hex,
+        backgroundColor: ColorPallete.red.hex,
     },
 
 }));
 
-const CardProfile = () => {
+const CardProfile2 = () => {
     const classes = styles();
     return (
         <StyledEngineProvider injectFirst>
@@ -79,14 +79,14 @@ const CardProfile = () => {
                         </div>
                     </div>
                     <div className={classes.qualitySection}>
-                        <RatingBar percent={61} colorHex={ColorPallete.yellow.hex} title="Quality" />
+                        {/* <RatingBar percent={61} colorHex={ColorPallete.yellow.hex} title="Quality" />
                         <RatingBar percent={20} colorHex={ColorPallete.red.hex} title="Centering" />
                         <RatingBar percent={40} colorHex={ColorPallete.orange.hex} title="Corners" />
                         <RatingBar percent={60} colorHex={ColorPallete.yellow.hex} title="Edges" />
-                        <RatingBar percent={90} colorHex={ColorPallete.green.hex} title="Face" />
-                        {/* <div className={classes.ratingBar}>
-                            <Typography className={classes.ratingBarText} variant="subtitle1">Centering</Typography>
-                            <BorderLinearProgress variant="determinate" value={90} color='inherit' />
+                        <RatingBar percent={90} colorHex={ColorPallete.green.hex} title="Face" /> */}
+                        <div className={classes.ratingBar}>
+                            <Typography className={classes.ratingBarText} variant="subtitle1">Corners</Typography>
+                            <BorderLinearProgress variant="determinate" value={20} color='inherit' />
                         </div>
                         <div className={classes.ratingBar}>
                             <Typography className={classes.ratingBarText} variant="subtitle1">Corners</Typography>
@@ -103,7 +103,7 @@ const CardProfile = () => {
                         <div className={classes.ratingBar}>
                             <Typography className={classes.ratingBarText} variant="subtitle1">Quality</Typography>
                             <BorderLinearProgress variant="determinate" value={50} color='inherit' />
-                        </div> */}
+                        </div>
                     </div>
                 </div>
             </div>
@@ -111,4 +111,4 @@ const CardProfile = () => {
     )
 }
 
-export default CardProfile;
+export default CardProfile2;
