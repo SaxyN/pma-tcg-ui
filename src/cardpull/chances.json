@@ -161,6 +161,13 @@
             "img": "g_demon_t",
             "name": "Demon Time Tony",
             "rarity": 6
+        },
+        {
+            "id": 121,
+            "set": "1A",
+            "img": "g_georgia_p",
+            "name": "Georgia Pat",
+            "rarity": 6
         }
     ],
     "black_pearl_cards": [

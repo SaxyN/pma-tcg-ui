@@ -1,9 +1,7 @@
 import React from 'react';
 import { makeStyles } from '@mui/styles';
-import { styled } from '@mui/material/styles';
-import { TextField, Input } from '@mui/material';
-import SearchIcon from '@mui/icons-material/Search';
-import CardProfile from '../components/CardProfile/CardProfile';
+import FilterSection from '../components/FilterSection';
+import ExitButton from '../components/Buttons/ExitButton';
 
 const styles = makeStyles((theme) => ({
     binderOuter: {
@@ -24,118 +22,59 @@ const styles = makeStyles((theme) => ({
         backgroundColor: '#333844',
         color: 'white',
         borderRadius: '5px',
+        zIndex: 5,
+        // overflow: 'scroll',
+        // "-webkit-scrollbar": { display: "none" },
+        // overflowX: 'hidden',
     },
-    leftBinderSection: {
-        borderRight: 'solid white 2px',
-        "-webkit-scrollbar": { display: "none" },
+    binderSection: {
         display: 'grid',
         gap: '5%',
-        gridTemplateColumns: 'repeat(3, auto)',
+        gridTemplateColumns: 'repeat(6, auto)',
         width: '100%',
         justifyContent: 'space-evenly',
         justifyItems: 'center',
-        alignContent: 'space-evenly',
-        alignItems: 'center',
         paddingLeft: '2vw',
         paddingRight: '2vw',
-        borderTopLeftRadius: '5px',
-        borderBottomLeftRadius: '5px',
-    },
-    rightBinderSection: {
-        borderLeft: 'solid white 2px',
-        "-webkit-scrollbar": { display: "none" },
-        display: 'grid',
-        gap: '5%',
-        gridTemplateColumns: 'repeat(3, auto)',
-        width: '100%',
-        justifyContent: 'space-evenly',
-        justifyItems: 'center',
-        alignContent: 'space-evenly',
-        alignItems: 'center',
-        paddingLeft: '2vw',
-        paddingRight: '2vw',
-        borderTopRightRadius: '5px',
-        borderBottomRightRadius: '5px',
+        overflowX: 'hidden',
+        padding: '2vh 0 2vh 0',
     },
     cardSlot: {
-        height: '21vh',
-        width: '15vh',
-        borderLeft: 'solid red 2px',
-        borderBottom: 'solid red 2px',
-        borderRight: 'solid red 2px',
+        height: '22.75vh',
+        width: '16.25vh',
+        border: 'solid red 2px'
     },
     rarityButtons: {
         position: 'absolute',
         left: '27vw',
-        top: '93vh',
-        display: 'flex',
+        top: '92.75vh',
+        display: 'grid',
+        gridTemplateColumns: 'repeat(3, auto)',
+        gap: '1vh',
         justifyContent: 'space-evenly',
-        border: 'solid black 2px',
         borderBottomRightRadius: '5px',
         borderBottomLeftRadius: '5px',
+        zIndex: 2,
     },
     rarityButton: {
-
-    },
-    searchBarContainer: {
-        position: 'absolute',
-        backgroundColor: '#333844',
-        justifyContent: 'center',
-        height: '3.1vh',
-        display: 'flex',
-        left: '64vw',
-        top: '93vh',
-        border: 'solid black 2px',
-        borderBottomRightRadius: '5px',
         borderBottomLeftRadius: '5px',
-        color: 'white',
-        padding: '0 0.5vh 0.5vh 0.5vh',
+        borderBottomRightRadius: '5px',
+        border: 'none',
+        backgroundColor: 'grey',
+        zIndex: 2,
+        padding: '1vh 0.5vh 0.5vh 0.5vh',
+        '&:hover': {
+            backgroundColor: 'lightgrey',
+        }
     },
-    searchBar: {
-        '& .MuiInput-input': {
-            color: "white",
-            borderBottomColor: 'white',
-        },
-        '& .MuiInput-input:after': {
-            borderBottomColor: 'white',
-        },
-    }
 }))
-
-const CssTextField = styled(TextField)({
-    '& label.Mui-focused': {
-        color: 'white',
-    },
-    // '& label': {
-    //     color: 'white',
-    // },
-    '& .MuiInputLabel-root': {
-        color: 'white',
-        paddingBottom: '5vh',
-    },
-    '& .MuiInput-standard:after': {
-        borderBottomColor: 'green',
-    },
-    '& .MuiOutlinedInput-root': {
-        height: '3vh',
-        '& fieldset': {
-            borderColor: 'darkgrey',
-        },
-        '&:hover fieldset': {
-            borderColor: 'grey',
-        },
-        '&.Mui-focused fieldset': {
-            borderColor: 'white',
-        },
-    },
-});
 
 const BinderContainer = () => {
     const classes = styles();
     return (
         <div className={classes.binderOuter}>
             <div className={classes.binderMain}>
-                <div className={classes.leftBinderSection}>
+                <div className={classes.binderSection}>
                     <div className={classes.cardSlot}></div>
                     <div className={classes.cardSlot}></div>
                     <div className={classes.cardSlot}></div>
@@ -145,8 +84,9 @@ const BinderContainer = () => {
                     <div className={classes.cardSlot}></div>
                     <div className={classes.cardSlot}></div>
                     <div className={classes.cardSlot}></div>
-                </div>
-                <div className={classes.rightBinderSection}>
+                    <div className={classes.cardSlot}></div>
+                    <div className={classes.cardSlot}></div>
+                    <div className={classes.cardSlot}></div>
                     <div className={classes.cardSlot}></div>
                     <div className={classes.cardSlot}></div>
                     <div className={classes.cardSlot}></div>
@@ -159,18 +99,14 @@ const BinderContainer = () => {
                 </div>
             </div>
             <div className={classes.rarityButtons}>
-                <button>HOLO</button>
-                <button>EPIC</button>
-                <button>LEGENDARY</button>
+                <button className={classes.rarityButton}>HOLO</button>
+                <button className={classes.rarityButton}>EPIC</button>
+                <button className={classes.rarityButton}>LEGENDARY</button>
             </div>
-            <div className={classes.searchBarContainer}>
-                {/* <InputLabel htmlFor='card_search'>
-                <CssTextField id='card_search' label="Search" variant="outlined" />
-            </InputLabel> */}
-                {/* <TextField variant="standard"></TextField> */}
-                <SearchIcon style={{ marginTop: '0.8vh' }} />
-                <Input placeholder='Search' className={classes.searchBar} />
-            </div>
+            <FilterSection />
+            <ExitButton />
+            {/* <div className={classes.searchBarContainer}>
+            </div> */}
         </div>
     )
 }
