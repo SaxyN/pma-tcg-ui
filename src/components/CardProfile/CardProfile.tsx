@@ -1,11 +1,11 @@
 import React from 'react';
 import { makeStyles, styled } from '@mui/styles';
-import CARD_IMAGE from "../../assets/jeremy_s.png";
+import CARD_IMAGE from "../../assets/img/jeremy_s.png";
 import { StyledEngineProvider } from '@mui/material/styles';
 import LinearProgress, { linearProgressClasses } from '@mui/material/LinearProgress';
 import { Typography } from '@mui/material';
 
-import { RatingBar } from './RatingBar';
+import { RatingBarCircular } from './RatingBarCircular';
 import { ColorPallete } from '../../models/colors';
 
 const styles = makeStyles((theme) => ({
@@ -79,11 +79,11 @@ const CardProfile = () => {
                         </div>
                     </div>
                     <div className={classes.qualitySection}>
-                        <RatingBar percent={61} colorHex={ColorPallete.yellow.hex} title="Quality" />
-                        <RatingBar percent={20} colorHex={ColorPallete.red.hex} title="Centering" />
-                        <RatingBar percent={40} colorHex={ColorPallete.orange.hex} title="Corners" />
-                        <RatingBar percent={60} colorHex={ColorPallete.yellow.hex} title="Edges" />
-                        <RatingBar percent={90} colorHex={ColorPallete.green.hex} title="Face" />
+                        <RatingBarCircular percent={61} colorHex={ColorPallete.yellow.hex} title="Quality" qualityBar={true} />
+                        <RatingBarCircular percent={20} colorHex={ColorPallete.red.hex} title="Centering" qualityBar={false} />
+                        <RatingBarCircular percent={40} colorHex={ColorPallete.orange.hex} title="Corners" qualityBar={false} />
+                        <RatingBarCircular percent={60} colorHex={ColorPallete.yellow.hex} title="Edges" qualityBar={false} />
+                        <RatingBarCircular percent={90} colorHex={ColorPallete.green.hex} title="Face" qualityBar={false} />
                         {/* <div className={classes.ratingBar}>
                             <Typography className={classes.ratingBarText} variant="subtitle1">Centering</Typography>
                             <BorderLinearProgress variant="determinate" value={90} color='inherit' />

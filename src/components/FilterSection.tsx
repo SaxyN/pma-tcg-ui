@@ -49,7 +49,7 @@ const styles = makeStyles((theme) => ({
     filterButton: {
         position: 'absolute',
         top: '35vh',
-        left: '13.2vw',
+        left: '13.5vw',
         borderTopLeftRadius: '5px',
         borderBottomLeftRadius: '5px',
         border: 'none',

@@ -1,16 +1,17 @@
 import React from 'react';
 import { makeStyles, styled } from '@mui/styles';
-import CARD_IMAGE from "../../assets/jeremy_s.png";
+import CARD_IMAGE from "../../assets/img/jeremy_s.png";
 import { StyledEngineProvider } from '@mui/material/styles';
 import LinearProgress, { linearProgressClasses } from '@mui/material/LinearProgress';
 import { Typography } from '@mui/material/';
 
-import { RatingBar } from './RatingBar';
+import { RatingBarCircular } from './RatingBarCircular';
 import { ColorPallete } from '../../models/colors';
+import RatingBar from './RatingBar';
 
 const styles = makeStyles((theme) => ({
     mainDiv: {
-        // position: 'absolute',
+        position: 'absolute',
         width: "50%",
         top: '25vh',
         left: '30vw',
@@ -39,15 +40,26 @@ const styles = makeStyles((theme) => ({
         borderRadius: '10px',
     },
     qualitySection: {
-        width: '5vw',
+        width: '15vw',
         zIndex: 5,
-        display: 'grid'
+        display: 'grid',
+        // justifyContent: 'center',
+        alignItems: 'center'
     },
     ratingBar: {
         // margin: '1vh 0 1vh 0'
     },
     ratingBarText: {
-        marginLeft: '1.2vh'
+        marginLeft: '1.2vh',
+        textAlign: 'center',
+    },
+    ratingBarOuter: {
+        width: '100%',
+        border: 'solid red 2px',
+        height: '30px',
+    },
+    ratingBarInner: {
+
     }
 }))
 
@@ -57,14 +69,26 @@ const BorderLinearProgress = styled(LinearProgress)(() => ({
     border: 'solid black 2px',
 
     [`& .${linearProgressClasses.colorPrimary}`]: {
-        backgroundColor: ColorPallete.red.hex,
+        backgroundColor: ColorPallete.green.hex,
     },
     [`& .${linearProgressClasses.bar}`]: {
         // borderRadius: 5,
-        backgroundColor: ColorPallete.red.hex,
+        backgroundColor: 'linear-gradient(to right, red,orange,yellow,green,blue,indigo,violet)',
     },
 
 }));
+
+const QualityBar = (props: any) => {
+    return (
+        <div style={{
+            height: '100%',
+            width: props.progressWidth,
+            // border: 'solid yellow 2px',
+        }}>
+            Hello
+        </div>
+    )
+};
 
 const CardProfile2 = () => {
     const classes = styles();
@@ -85,8 +109,12 @@ const CardProfile2 = () => {
                         <RatingBar percent={60} colorHex={ColorPallete.yellow.hex} title="Edges" />
                         <RatingBar percent={90} colorHex={ColorPallete.green.hex} title="Face" /> */}
                         <div className={classes.ratingBar}>
-                            <Typography className={classes.ratingBarText} variant="subtitle1">Corners</Typography>
-                            <BorderLinearProgress variant="determinate" value={20} color='inherit' />
+                            <Typography className={classes.ratingBarText} variant="subtitle1">Quality</Typography>
+                            {/* <BorderLinearProgress variant="determinate" value={20} color='inherit' /> */}
+                            {/* <div className={classes.ratingBarOuter}> */}
+                            {/* <QualityBar progressWidth={"75%"} /> */}
+                            <RatingBar barWidth={(100 - 90) + "%"} />
+                            {/* </div> */}
                         </div>
                         <div className={classes.ratingBar}>
                             <Typography className={classes.ratingBarText} variant="subtitle1">Corners</Typography>

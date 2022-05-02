@@ -1,12 +1,14 @@
 import { Action, configureStore, ThunkAction } from "@reduxjs/toolkit";
 import { cardsReducer } from "./cards/cards.slice";
 import { userReducer } from "./user/user.slice";
+import { binderReducer } from "./binder/binder.slice";
 import logger from "redux-logger";
 
 export const store = configureStore({
     reducer: {
         cards: cardsReducer,
         user: userReducer,
+        binder: binderReducer,
     },
     middleware: (getDefaultMiddleware) => getDefaultMiddleware({
         serializableCheck: false
