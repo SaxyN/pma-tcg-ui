@@ -2,6 +2,7 @@ import React from 'react';
 import { useDispatch, useSelector, RootStateOrAny } from 'react-redux';
 import { Fade, Typography, Box } from '@mui/material';
 import BinderContainer from '../containers/BinderContainer';
+import BinderNui from './BinderNui';
 
 export const Binder = () => {
     const dispatch = useDispatch();
@@ -12,7 +13,9 @@ export const Binder = () => {
     return (
         <Fade in={showBinder} timeout={1000}>
             <Box>
-                <BinderContainer></BinderContainer>
+                <BinderNui>
+                    <BinderContainer></BinderContainer>
+                </BinderNui>
             </Box>
         </Fade>
     )
