@@ -9,6 +9,8 @@ import CardProfileContainer from "./containers/CardProfileContainer";
 import { DWrap } from "./DWrap";
 import Nui from "./Nui";
 import { Binder } from "./Binder/Binder";
+import BinderNui from "./Binder/BinderNui";
+import PackContainer from "./Pack/PackContainer";
 
 function App() {
     return (
@@ -18,6 +20,7 @@ function App() {
                     <DWrap>
                         <Nui>
                             <Binder />
+                            <PackContainer />
                             {/* <div>
                                 <Route exact path={"/"} component={BinderContainer} />
                                 <Route exact path={"/profile"} component={CardProfileContainer} />

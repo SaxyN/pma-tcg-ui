@@ -3,12 +3,14 @@ import { cardsReducer } from "./cards/cards.slice";
 import { userReducer } from "./user/user.slice";
 import { binderReducer } from "./binder/binder.slice";
 import logger from "redux-logger";
+import { packReducer } from "./pack/pack.slice";
 
 export const store = configureStore({
     reducer: {
         cards: cardsReducer,
         user: userReducer,
         binder: binderReducer,
+        pack: packReducer,
     },
     middleware: (getDefaultMiddleware) => getDefaultMiddleware({
         serializableCheck: false
