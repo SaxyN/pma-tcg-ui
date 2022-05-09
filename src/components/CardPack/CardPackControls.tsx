@@ -1,5 +1,5 @@
 import React from 'react';
-import { makeStyles}  from '@mui/styles';
+import { makeStyles } from '@mui/styles';
 import { Button } from "@mui/material";
 
 const styles = makeStyles((theme) => ({
@@ -7,7 +7,7 @@ const styles = makeStyles((theme) => ({
         position: "absolute",
         // paddingTop: 'auto',
         bottom: "0",
-        border: 'solid red 2px',
+        // border: 'solid red 2px',
         display: "grid",
         width: "100%",
         gridTemplateColumns: "auto",
@@ -20,6 +20,9 @@ const styles = makeStyles((theme) => ({
         justifyContent: "space-between",
         border: 'solid grey 2px',
         margin: '10px',
+    },
+    button: {
+
     }
 }))
 
@@ -28,8 +31,26 @@ export const CardPackControls = () => {
     return (
         <div className={classes.controlsOuter}>
             <div className={classes.controlsInner}>
-                <Button variant="contained" sx={{color: "white", backgroundColor: "gray", margin: "5px 15px 5px 15px"}}>Open Another</Button>
-                <Button variant="contained" sx={{color: "white", backgroundColor: "gray", margin: "5px 15px 5px 15px"}}>Close</Button>
+                <Button sx={{
+                    color: "white",
+                    backgroundColor: "#2C3340",
+                    margin: "5px 15px 5px 15px",
+                    '&:hover': {
+                        backgroundColor: "#F28F6B",
+                    },
+                    fontSize: "10px",
+                }}
+                    variant="contained" >Open Binder</Button>
+                <Button sx={{
+                    color: "white",
+                    backgroundColor: "#2C3340",
+                    margin: "5px 15px 5px 15px",
+                    '&:hover': {
+                        backgroundColor: "#F28F6B",
+                    },
+                    fontSize: "10px",
+                }}
+                    variant="contained" >Close</Button>
             </div>
         </div>
     )

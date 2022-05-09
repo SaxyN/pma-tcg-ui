@@ -8,8 +8,8 @@ export interface Card {
     specialTag: string,
     tradable: boolean,
     like: boolean,
-    condition: Qualities,
-    quality: number,
+    // condition: Qualities,
+    // quality: number,
 }
 
 export interface Qualities {

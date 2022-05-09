@@ -18,7 +18,7 @@ module.exports = merge(common, {
     ],
     output: {
         filename: "js/[name].bundle.js",
-        path: "C:/FXServer/server-data/resources/pma-laptop/dist/html/",
+        path: "D:/FXServer/server-data/resources/pma-laptop/dist/html/",
     },
     performance: {
         maxEntrypointSize: 512000,

@@ -1,0 +1,241 @@
+.card_epic {
+
+  width: 262.5px;
+  height: 368.75px;
+
+  position: relative;
+  overflow: hidden;
+  margin: 0px;
+  overflow: hidden;
+  z-index: 10;
+  touch-action: none;
+
+  border-radius: 5% / 3.5%;
+  box-shadow:
+    -7px -7px 10px -5px transparent,
+    7px 7px 10px -5px transparent,
+    0 0 5px 0px rgba(255, 255, 255, 0),
+    0 55px 35px -20px rgba(0, 0, 0, 0.5);
+
+  transition: transform 0.5s ease, box-shadow 0.5s ease;
+  will-change: transform, filter;
+
+  background-color: #040712;
+  background-image: var(--front);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+  transform-origin: center;
+}
+
+.card_epic.normal_size {
+  width: 187.5px;
+  height: 262.5px;
+}
+
+.card_epic.medium_size {
+  width: 247.5px;
+  height: 346.5px;
+}
+
+.card_epic.large_size {
+  width: 750px;
+  height: 1050px;
+}
+
+
+.card_epic.eevee {
+  --color1: #f32a6d;
+  --color2: #e7ac3e;
+  --color3: #45e692;
+  --color4: #5ac4e4;
+  --color5: #b153dd;
+  // --front: var(--eeveefront);
+}
+
+.card_epic:hover {
+  box-shadow:
+    -20px -20px 30px -25px var(--color1),
+    20px 20px 30px -25px var(--color2),
+    -7px -7px 10px -5px var(--color1),
+    7px 7px 10px -5px var(--color2),
+    0 0 13px 4px rgba(255, 255, 255, 0.3),
+    0 55px 35px -20px rgba(0, 0, 0, 0.5);
+}
+
+.card_epic.eevee {
+  --color1: #f32a6d;
+  --color2: #e7ac3e;
+  --color3: #45e692;
+  --color4: #5ac4e4;
+  --color5: #b153dd;
+}
+
+.card_epic:before,
+.card_epic:after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  background-repeat: no-repeat;
+  opacity: .5;
+  mix-blend-mode: color-dodge;
+  transition: all .33s ease;
+}
+
+.card_epic:before {
+  background-position: 50% 50%;
+  background-size: 300% 300%;
+  opacity: 1;
+  transition: all ease .5s;
+  filter: brightness(0.5) contrast(1);
+  z-index: 1;
+  background-image: linear-gradient(90deg,
+      transparent 15%,
+      var(--color1) 36%,
+      var(--color2) 43%,
+      var(--color3) 50%,
+      var(--color4) 57%,
+      var(--color5) 64%,
+      transparent 100%);
+  animation: holoGradient 10s infinite;
+  clip-path: polygon(0% 0%, 0% 100%, 8% 100%, 8% 10.5%, 92.5% 10.5%, 92.5% 60%, 8% 60%, 8% 100%, 100% 100%, 100% 0%); // Exluding Picture
+  // filter: brightness(1.6) contrast(1);
+}
+
+.card_epic:after {
+  opacity: 1;
+  // background-image:
+  //   url(https://assets.codepen.io/13471/holo.png);
+  // url("polygon.png");
+  // linear-gradient(90deg, #e02d1650 15%, #fbff0a40 30%, #ffff0030 40%, #00ff8a20 60%, #00cfff40 70%, #cc4cfa50 85%);
+  // clip-path: polygon(0% 0%, 0% 100%, 8% 100%, 8% 10.5%, 92.5% 10.5%, 92.5% 60%, 8% 60%, 8% 100%, 100% 100%, 100% 0%);
+  // clip-path: polygon(8.9% 11.2%, 8.9% 58.9%, 91.5% 58.9%, 91.5% 11.2%); // Just Picture
+  // clip-path: polygon(0% 0%, 0% 67%, 100% 67%, 100% 0%); // Just Upper
+  // clip-path: polygon(0% 0%, 0% 100%, 8% 100%, 8% 10.5%, 92.5% 10.5%, 92.5% 60%, 8% 60%, 8% 100%, 100% 100%, 100% 0%); // Exluding Picture
+  background-position: 50% 50%;
+  background-size: 100%;
+  background-repeat: no-repeat;
+  background-blend-mode: overlay;
+  z-index: 2;
+  filter: brightness(1.0) contrast(0.65);
+  transition: all .5s ease;
+  mix-blend-mode: color-dodge;
+  opacity: .75;
+  // animation: holoGradient 5s infinite;
+}
+
+.card_epic.active:after,
+.card_epic:hover:after {
+  filter: brightness(1.6) contrast(1);
+  ;
+  opacity: 1;
+}
+
+.card_epic.active,
+.card_epic:hover {
+  animation: none;
+  transition: box-shadow 0.1s ease-out;
+}
+
+.card_epic.active:before,
+.card_epic:hover:before {
+  animation: none;
+  background-position: 50% 50%;
+  background-size: 250% 250%;
+  opacity: .88;
+  filter: brightness(.66) contrast(1.33);
+  transition: none;
+}
+
+.card_epic.active:before,
+.card_epic:hover:before,
+.card_epic.active:after,
+.card_epic:hover:after {
+  animation: none;
+  transition: none;
+}
+
+.card_epic.eevee:hover {
+  box-shadow:
+    0 0 30px -5px white,
+    0 0 10px -2px white,
+    0 55px 35px -20px rgba(0, 0, 0, 0.5);
+}
+
+.card_epic.eevee:hover:before,
+.card_epic.eevee.active:before {
+  // background-image: repeating-linear-gradient(90deg,
+  //     transparent 5%,
+  //     var(--color1) 10%,
+  //     var(--color2) 15%,
+  //     var(--color3) 20%,
+  //     var(--color4) 25%,
+  //     var(--color5) 30%,
+  //     transparent 35%);
+  background-image: linear-gradient(90deg,
+      transparent 15%,
+      var(--color1) 36%,
+      var(--color2) 43%,
+      var(--color3) 50%,
+      var(--color4) 57%,
+      var(--color5) 64%,
+      transparent 100%);
+  // background-repeat: repeat;
+  // clip-path: polygon(8.9% 11.2%, 8.9% 58.9%, 91.5% 58.9%, 91.5% 11.2%); // Just Image
+  // clip-path: polygon(0% 0%, 0% 67%, 100% 67%, 100% 0%); // Just Upper
+  // opacity: .5;
+  clip-path: polygon(0% 0%, 0% 100%, 8% 100%, 8% 10.5%, 92.5% 10.5%, 92.5% 60%, 8% 60%, 8% 100%, 100% 100%, 100% 0%); // Excluding Picture
+}
+
+@keyframes holoGradient {
+
+  0%,
+  100% {
+    opacity: 1;
+    background-position: 0% 0%;
+    filter: brightness(0.5) contrast(1);
+  }
+
+  50%,
+  100% {
+    opacity: 1;
+    background-position: 100% 100%;
+    filter: brightness(0.5) contrast(1);
+  }
+
+  0%,
+  100% {
+    opacity: 1;
+    background-position: 0% 0%;
+    filter: brightness(0.5) contrast(1);
+  }
+
+  // 5%,
+  // 9% {
+  //   background-position: 100% 100%;
+  //   opacity: 1;
+  //   filter: brightness(0.5) contrast(1.25);
+  // }
+
+  // 13%,
+  // 17% {
+  //   background-position: 0% 0%;
+  //   opacity: .88;
+  // }
+
+  // 35%,
+  // 39% {
+  //   background-position: 100% 100%;
+  //   opacity: 1;
+  //   filter: brightness(0.5) contrast(1);
+  // }
+
+  // 55% {
+  //   background-position: 0% 0%;
+  //   opacity: 1;
+  //   filter: brightness(0.5) contrast(1.25);
+  // }
+}

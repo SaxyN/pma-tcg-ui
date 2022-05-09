@@ -1,0 +1,162 @@
+.card_grey {
+
+  // 210 x 295 Original
+  // 262.5 x 368.75 1.25x Original
+  // 315 x 442.5 1.5x Original
+  // 420 x 590 x2 Original
+  // width: 262.5px;
+  // height: 368.75px;  
+  position: relative;
+  overflow: hidden;
+  margin: 0px;
+  overflow: hidden;
+  z-index: 10;
+  touch-action: none;
+
+  border-radius: 5% / 3.5%;
+  box-shadow:
+    -7px -7px 10px -5px transparent,
+    7px 7px 10px -5px transparent,
+    0 0 5px 0px rgba(255, 255, 255, 0),
+    0 55px 35px -20px rgba(0, 0, 0, 0.5);
+
+  transition: transform 0.5s ease, box-shadow 0.5s ease;
+  will-change: transform, filter;
+
+  background-color: #040712;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+  transform-origin: center;
+
+}
+
+.card_grey.normal_size {
+  width: 187.5px;
+  height: 262.5px;
+}
+
+.card_grey.medium_size {
+  width: 247.5px;
+  height: 346.5px;
+  // width: 420px;
+  // height: 590px;
+}
+
+.card_grey.large_size {
+  width: 750px;
+  height: 1050px;
+}
+
+.card_grey.eevee {
+  --color1: #f32a6d;
+  --color2: #e7ac3e;
+  --color3: #45e692;
+  --color4: #5ac4e4;
+  --color5: #b153dd;
+}
+
+.card_grey:hover {
+  // box-shadow:
+  //   -20px -20px 30px -25px var(--color1),
+  //   20px 20px 30px -25px var(--color2),
+  //   -7px -7px 10px -5px var(--color1),
+  //   7px 7px 10px -5px var(--color2),
+  //   0 0 13px 4px rgba(255, 255, 255, 0.3),
+  //   0 55px 35px -20px rgba(0, 0, 0, 0.5);
+}
+
+.card_grey.eevee {
+  --color1: #f32a6d;
+  --color2: #e7ac3e;
+  --color3: #45e692;
+  --color4: #5ac4e4;
+  --color5: #b153dd;
+}
+
+.card_grey:before,
+.card_grey:after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  background-repeat: no-repeat;
+  background-color: rgba(0, 0, 0, 1);
+  opacity: 0.5;
+  mix-blend-mode: luminosity;
+  transition: all .33s ease;
+}
+
+// .card_grey:before {
+//   background-position: 50% 50%;
+//   background-size: 300% 300%;
+//   background-color: rgba(0, 0, 0, 0.5);
+//   mix-blend-mode: luminosity;
+//   opacity: .5;
+//   filter: brightness(0.5) contrast(1);
+//   z-index: 1;
+// }
+
+.card_grey:after {
+  opacity: 1;
+  background-position: 50% 50%;
+  background-size: 100%;
+  background-repeat: no-repeat;
+  background-blend-mode: overlay;
+  z-index: 2;
+  filter: brightness(1.0) contrast(0.65);
+  transition: all .33s ease;
+  mix-blend-mode: hue;
+  opacity: .75;
+}
+
+// .card_grey.active:after,
+// .card_grey:hover:after {
+//   filter: brightness(1.6) contrast(1);
+//   ;
+//   opacity: 1;
+// }
+
+// .card_grey.active,
+// .card_grey:hover {
+//   animation: none;
+//   transition: box-shadow 0.1s ease-out;
+// }
+
+// .card_grey.active:before,
+// .card_grey:hover:before {
+//   animation: none;
+//   background-position: 50% 50%;
+//   background-size: 250% 250%;
+//   opacity: .88;
+//   filter: brightness(.66) contrast(1.33);
+//   transition: none;
+// }
+
+// .card_grey.active:before,
+// .card_grey:hover:before,
+// .card_grey.active:after,
+// .card_grey:hover:after {
+//   animation: none;
+//   transition: none;
+// }
+
+.overlay {
+  position: "absolute";
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  opacity: 0.5;
+  z-index: 11;
+}
+
+.card_grey.eevee:hover {
+  // box-shadow:
+  //   0 0 10px -5px white,
+  //   0 0 10px -2px white,
+  //   0 55px 35px -20px rgba(0, 0, 0, 0.5);
+}

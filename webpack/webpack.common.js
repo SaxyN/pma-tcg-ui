@@ -1,4 +1,5 @@
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const CopyPlugin = require("copy-webpack-plugin");
 module.exports = {
     module: {
         rules: [
@@ -19,7 +20,7 @@ module.exports = {
                 type: "asset/resource",
             },
             {
-                test: /\.mp3$/,
+                test: /\.(mp3|ogg|wav)$/,
                 use: "file-loader",
             },
         ],
@@ -29,6 +30,11 @@ module.exports = {
             template: "./public/index.html",
             inject: true,
             minify: false,
+        }),
+        new CopyPlugin({
+            patterns: [
+                { from: "src/assets", to: "assets" },
+            ],
         }),
     ],
     resolve: {
