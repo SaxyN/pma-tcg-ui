@@ -4,7 +4,12 @@ import { useDispatch, useSelector, RootStateOrAny } from "react-redux";
 import { openBinder } from "./redux/binder/binder.slice";
 import { openPack } from "./redux/pack/pack.slice";
 import * as storeActions from "./redux/cards/cards.slice";
+import * as binderActions from "./redux/binder/binder.slice";
 import { generatePack } from './cardpull/cardPuller';
+
+// Mock Data for Dev
+import { mockInventory } from "./mockData/mockInventory";
+import { mockAllCards } from "./mockData/mockAllCards";
 
 interface ProviderProps {
     children: ReactNode;
@@ -39,6 +44,10 @@ const Nui = ({ children }: ProviderProps) => {
         switch (event.data.type) {
             case "OPEN_BINDER":
                 dispatch(openBinder());
+                if (process.env.NODE_ENV === "development") {
+                    dispatch(binderActions.loadCardInventory({ inv: mockInventory, allCards: mockAllCards }))
+                    dispatch(binderActions.createMissingInventory());
+                }
                 break;
             case "OPEN_PACK":
                 dispatch(openPack());

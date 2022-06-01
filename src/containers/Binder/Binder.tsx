@@ -1,10 +1,16 @@
 import React from 'react';
 import { makeStyles } from '@mui/styles';
-import FilterSection from '../../components/FilterSection';
+import FilterSection from '../../components/Filters/FilterSection';
 import ExitButton from '../../components/Buttons/ExitButton';
 // import PUTTS_R from '../../components/CardItem/CardAssets/r_putts_b.png';
-import CardHandler from '../../components/CardHandler/CardHandler';
-import ImageHandler from '../../components/ImageHandler/ImageHandler';
+// import CardHandler from '../../components/CardHandler/CardHandler';
+// import ImageHandler from '../../components/ImageHandler/ImageHandler';
+// import { ClassNames } from '@emotion/react';
+// import { BinderCard } from './BinderCard';
+// import { MissingCard } from './MissingCard';
+import { RootStateOrAny, useSelector, useDispatch } from 'react-redux';
+import { BinderInventory } from './BinderInventory';
+import * as BinderActions from '../../redux/binder/binder.slice';
 
 const styles = makeStyles((theme) => ({
     binderOuter: {
@@ -12,6 +18,7 @@ const styles = makeStyles((theme) => ({
         textAlign: 'center',
         justifyContent: 'center',
         display: 'flex',
+        minWidth: '800px',
         height: '99vh',
     },
     binderMain: {
@@ -19,6 +26,7 @@ const styles = makeStyles((theme) => ({
         justifyContent: 'space-evenly',
         position: 'absolute',
         top: '7.5vh',
+        minWidth: '800px',
         width: '70vw',
         height: '85vh',
         border: 'solid black 2px',
@@ -32,8 +40,8 @@ const styles = makeStyles((theme) => ({
     },
     binderSection: {
         display: 'grid',
-        gap: '5%',
-        gridTemplateColumns: 'repeat(5, auto)',
+        gap: '1% 5%',
+        gridTemplateColumns: 'repeat(5, 1fr)',
         width: '100%',
         justifyContent: 'space-evenly',
         justifyItems: 'center',
@@ -76,56 +84,37 @@ const styles = makeStyles((theme) => ({
 
 const Binder = () => {
     const classes = styles();
+    const dispatch = useDispatch();
+    const cardInventory = useSelector(
+        (state: RootStateOrAny) => state.binder.cardInventory
+    );
+    const trueInventory = useSelector(
+        (state: RootStateOrAny) => state.binder.trueInventory
+    );
+    // const showMissingCards = useSelector(
+    //     (state: RootStateOrAny) => state.binder.showMissingCards
+    // );
+
+    // const renderBinderInventory = () => {
+
+    // }
+
+    const handleSearchChange = (search: string) => {
+        if (search !== "") {
+            dispatch(BinderActions.filterBySearch({ searchParameter: search, plyInventory: trueInventory }))
+        } else {
+            dispatch(BinderActions.createMissingInventory());
+        }
+    }
+
     return (
         <div className={classes.binderOuter}>
             <div className={classes.binderMain}>
                 <div className={classes.binderSection}>
-                    <div className={classes.cardSlot}>
-                        <ImageHandler name={"derek_f"} imageStyle={{ width: "187.5px", height: "262.5px", borderRadius: "5% / 3.5%" }} />
-                        {/* <CardHandler cardImage={"r_putts_b"} cardType={8} sizeTag={1} specialTag="" /> */}
-                    </div>
-                    <div className={classes.cardSlot}>
-                        <ImageHandler name={"full_tony_s_32"} imageStyle={{ width: "187.5px", height: "262.5px", borderRadius: "5% / 3.5%" }} />
-                    </div>
-                    <div className={classes.cardSlot}></div>
-                    <div className={classes.cardSlot}></div>
-                    <div className={classes.cardSlot}></div>
-                    <div className={classes.cardSlot}></div>
-                    <div className={classes.cardSlot}></div>
-                    <div className={classes.cardSlot}></div>
-                    <div className={classes.cardSlot}></div>
-                    <div className={classes.cardSlot}></div>
-                    <div className={classes.cardSlot}></div>
-                    <div className={classes.cardSlot}></div>
-                    <div className={classes.cardSlot}></div>
-                    <div className={classes.cardSlot}></div>
-                    <div className={classes.cardSlot}></div>
-                    <div className={classes.cardSlot}></div>
-                    <div className={classes.cardSlot}></div>
-                    <div className={classes.cardSlot}></div>
-                    <div className={classes.cardSlot}></div>
-                    <div className={classes.cardSlot}></div>
-                    <div className={classes.cardSlot}></div>
-                    <div className={classes.cardSlot}></div>
-                    <div className={classes.cardSlot}></div>
-                    <div className={classes.cardSlot}></div>
-                    <div className={classes.cardSlot}></div>
-                    <div className={classes.cardSlot}></div>
-                    <div className={classes.cardSlot}></div>
-                    <div className={classes.cardSlot}></div>
-                    <div className={classes.cardSlot}></div>
-                    <div className={classes.cardSlot}></div>
-                    <div className={classes.cardSlot}></div>
-                    <div className={classes.cardSlot}></div>
-                    <div className={classes.cardSlot}></div>
+                    <BinderInventory array={cardInventory} />
                 </div>
             </div>
-            <div className={classes.rarityButtons}>
-                <button className={classes.rarityButton}>HOLO</button>
-                <button className={classes.rarityButton}>EPIC</button>
-                <button className={classes.rarityButton}>LEGENDARY</button>
-            </div>
-            <FilterSection />
+            <FilterSection handleSearchChange={handleSearchChange} />
             <ExitButton />
             {/* <div className={classes.searchBarContainer}>
             </div> */}

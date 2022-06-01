@@ -15,7 +15,7 @@ export const BinderContainer = () => {
         <Fade in={showBinder} timeout={1000}>
             <Box>
                 <BinderNui>
-                    <Binder></Binder>
+                    <Binder />
                     {/* <CardProfile /> */}
                 </BinderNui>
             </Box>

@@ -10,15 +10,15 @@ module.exports = merge(common, {
     // devtool: "nosources-source-map",
     plugins: [
         new CleanWebpackPlugin(),
-        // new CopyPlugin({
-        //     patterns: [
-        //         { from: "src/assets/images", to: "assets" },
-        //     ],
-        // }),
+        new CopyPlugin({
+            patterns: [
+                { from: "src/assets/img", to: "assets" },
+            ],
+        }),
     ],
     output: {
         filename: "js/[name].bundle.js",
-        path: "D:/FXServer/server-data/resources/pma-laptop/dist/html/",
+        path: "D:/FXServer/server-data/resources/pma-tcg/dist",
     },
     performance: {
         maxEntrypointSize: 512000,
