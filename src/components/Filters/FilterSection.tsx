@@ -1,10 +1,14 @@
 import React from 'react';
 import { makeStyles } from '@mui/styles';
-import { styled } from '@mui/material/styles';
-import { TextField, Input, Divider, Typography, IconButton } from '@mui/material';
+import { TextField, Input, Divider, Typography, Box } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import FilterAltIcon from '@mui/icons-material/FilterAlt';
-import { ChevronRight } from '@mui/icons-material';
+import { ChevronLeft, ExitToAppOutlined } from '@mui/icons-material';
+
+import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+import DiamondIcon from '@mui/icons-material/Diamond';
+import TagIcon from '@mui/icons-material/Tag';
+import AccountBoxIcon from '@mui/icons-material/AccountBox';
 
 const styles = makeStyles((theme) => ({
     sideSection: {
@@ -47,14 +51,15 @@ const styles = makeStyles((theme) => ({
         },
     },
     filterButton: {
-        position: 'absolute',
-        top: '35vh',
-        left: '13.5vw',
-        borderTopLeftRadius: '5px',
-        borderBottomLeftRadius: '5px',
+        position: 'relative',
+        marginLeft: 'none',
+        width: '4vh',
+        // top: '6vh',
+        // left: '1vh',
+        borderRadius: '5px',
+        backgroundColor: 'white',
         border: 'none',
-        backgroundColor: 'grey',
-        zIndex: 2,
+        zIndex: 10,
         padding: '0.75vh 0.5vh 0.5vh 0.5vh',
         transition: 'ease 250ms',
         '&:hover': {
@@ -63,6 +68,7 @@ const styles = makeStyles((theme) => ({
     },
     chevronIcon: {
         // margin: '0.8vh 0.8vh 2.0vh 0.8vh',
+        position: 'relative',
         margin: "5px 0 0 auto",
     }
 
@@ -70,31 +76,35 @@ const styles = makeStyles((theme) => ({
 }))
 
 
-const FilterSection = ({ handleSearchChange }: any) => {
+const FilterSection = ({ handleSearchChange, handleNameFilter, handleQualityFilter, handleIDFilter }: any) => {
     const classes = styles();
     const [show, setShow] = React.useState(false);
+
     if (show) {
         return (
-            <div className={classes.sideSection}>
-                <div style={{ display: 'flex' }}>
-                    <Typography variant="h6">Filters</Typography>
-                    <ChevronRight onClick={() => setShow(!show)} className={classes.chevronIcon} />
-                </div>
-                <div style={{ display: "flex", padding: '0vh 0vh 1vh 0vh' }}>
-                    <SearchIcon style={{ marginTop: '0.8vh' }} />
-                    <Input placeholder='Search' className={classes.searchBar} onChange={(e) => handleSearchChange(e.target.value)} />
-                </div>
-                <Divider orientation='horizontal' style={{ border: 'solid black 2px' }} />
-                {/* <div className={classes.sideSectionButtons}>
-                    <button className={classes.sideSectionButton}>HOLO</button>
-                    <button className={classes.sideSectionButton}>EPIC</button>
-                    <button className={classes.sideSectionButton}>LEGENDARY</button>
-                </div> */}
-            </div>
+            // <Box className={classes.sideSection}>
+            //     <div style={{ display: 'flex' }}>
+            //         <Typography variant="h6">Filters</Typography>
+            //         <ExitToAppOutlined onClick={() => setShow(!show)} className={classes.chevronIcon} />
+            //     </div>
+            //     <div style={{ display: "flex", padding: '0vh 0vh 1vh 0vh' }}>
+            //         <SearchIcon style={{ marginTop: '0.8vh' }} />
+            //         <Input placeholder='Search' className={classes.searchBar} onChange={(e) => handleSearchChange(e.target.value)} />
+            //     </div>
+            //     <Divider orientation='horizontal' style={{ border: 'solid black 2px' }} />
+            // </Box>
+            <Box style={{ border: 'solid 2px gray', borderRadius: '5px', transition: 'all .2s ease' }}>
+                <button onClick={() => setShow(!show)} className={classes.filterButton}><ChevronLeft /></button>
+                <button className={classes.filterButton}><DiamondIcon onClick={() => handleQualityFilter()} /></button>
+                <button className={classes.filterButton}><TagIcon onClick={() => handleIDFilter()} /></button>
+                <button className={classes.filterButton}><AccountBoxIcon onClick={() => handleNameFilter()} /></button>
+            </Box>
         )
     } else {
         return (
-            <button onClick={() => setShow(!show)} className={classes.filterButton}><FilterAltIcon /></button>
+            <Box style={{ border: 'solid 2px gray', borderRadius: '5px', transition: 'all .2s ease' }}>
+                <button onClick={() => setShow(!show)} className={classes.filterButton}><FilterAltIcon /></button>
+            </Box>
         )
     }
 }

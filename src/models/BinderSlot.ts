@@ -1,6 +1,6 @@
-import { Card } from "../models/CardModel";
+import { CardShorthand } from "../models/CardModel";
 
 export interface BinderSlot {
     slotType: string,
-    slotData: Card,
+    slotData: CardShorthand,
 }

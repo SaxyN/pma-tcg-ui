@@ -96,7 +96,7 @@
 .card_black_pearl:after {
   opacity: 1;
   background-image:
-    url(https://assets.codepen.io/13471/holo.png),
+    // url("../../../assets/img/star_holo.png"),
     url("sparkles.gif");
   // var(--blob);
   //  linear-gradient(125deg, #e02d1650 15%, #fbff0a40 30%, #ffff0030 40%, #00ff8a20 60%, #00cfff40 70%, #cc4cfa50 85%);
@@ -108,7 +108,7 @@
   background-repeat: no-repeat;
   background-blend-mode: overlay;
   z-index: 2;
-  filter: brightness(1.2) contrast(0.65);
+  filter: brightness(1.6) contrast(0.65);
   transition: all .33s ease;
   mix-blend-mode: color-dodge;
   opacity: .75;
@@ -117,8 +117,7 @@
 .card_black_pearl.active:after,
 .card_black_pearl:hover:after {
   filter: brightness(1.6) contrast(1);
-  ;
-  opacity: 1;
+  opacity: var(--hoverOpacity);
 }
 
 .card_black_pearl.active,
@@ -130,7 +129,7 @@
 .card_black_pearl.active:before,
 .card_black_pearl:hover:before {
   animation: none;
-  background-position: 50% 50%;
+  background-position: var(--gradPosX) var(--gradPosY);
   background-size: 250% 250%;
   opacity: .88;
   filter: brightness(.66) contrast(1.33);

@@ -2,7 +2,7 @@ import React, { ReactNode, useEffect } from "react";
 import { useNuiRequest } from "fivem-nui-react-lib";
 import { useDispatch, useSelector, RootStateOrAny } from "react-redux";
 import { openBinder } from "./redux/binder/binder.slice";
-import { openPack } from "./redux/pack/pack.slice";
+import { openPack, updatePackCards } from "./redux/pack/pack.slice";
 import * as storeActions from "./redux/cards/cards.slice";
 import * as binderActions from "./redux/binder/binder.slice";
 import { generatePack } from './cardpull/cardPuller';
@@ -10,6 +10,7 @@ import { generatePack } from './cardpull/cardPuller';
 // Mock Data for Dev
 import { mockInventory } from "./mockData/mockInventory";
 import { mockAllCards } from "./mockData/mockAllCards";
+import { CardList } from "./mockData/mock";
 
 interface ProviderProps {
     children: ReactNode;
@@ -44,13 +45,24 @@ const Nui = ({ children }: ProviderProps) => {
         switch (event.data.type) {
             case "OPEN_BINDER":
                 dispatch(openBinder());
-                if (process.env.NODE_ENV === "development") {
-                    dispatch(binderActions.loadCardInventory({ inv: mockInventory, allCards: mockAllCards }))
+                if (process.env.NODE_ENV !== "development") {
+                    dispatch(binderActions.loadCardInventory({ cardCollection: event.data.cardCollection, allCards: event.data.allCards }))
+                    dispatch(binderActions.createMissingInventory());
+                } else {
+                    dispatch(binderActions.loadCardInventory({ cardCollection: mockInventory, allCards: mockAllCards }))
                     dispatch(binderActions.createMissingInventory());
                 }
                 break;
             case "OPEN_PACK":
+                if (process.env.NODE_ENV !== "development") {
+                    dispatch(updatePackCards({ packCards: event.data.packCards }))
+                } else {
+                    dispatch(updatePackCards({ packCards: CardList }));
+                }
                 dispatch(openPack());
+                break;
+            case "LOAD_ALL_W_TYPES":
+                dispatch(binderActions.loadAllCardsWithTypes({ allCardsWithTypes: event.data.allCardsWithTypes }))
                 break;
             default:
                 break;

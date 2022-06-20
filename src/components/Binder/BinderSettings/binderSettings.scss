@@ -1,0 +1,47 @@
+.settingsWrapper {
+    display: flex;
+}
+
+.settingsButton {
+    position: relative;
+    width: 4vh;
+    margin-left: none;
+    border-radius: 5px;
+    background-color: white;
+    border: none;
+    z-index: 10;
+    padding: 0.75vh 0.5vh 0.5vh 0.5vh;
+    transition: ease 250ms;
+    text-decoration: none;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    cursor: pointer;
+}
+
+.settingsButtonActive {
+    position: relative;
+    width: 4vh;
+    border-radius: 5px;
+    background-color: white;
+    border: none;
+    z-index: 10;
+    padding: 0.75vh 0.5vh 0.5vh 0.5vh;
+    // transition: ease 250ms;
+    text-decoration: none;
+    cursor: pointer;
+    margin-left: 0;
+}
+
+.settingsButton:hover {
+    background-color: lightgray;
+}
+
+.settingsContainer {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    border-radius: 5px;
+    transition: ease 250ms;
+    border: solid var(--color2) 2px;
+}

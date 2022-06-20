@@ -96,7 +96,6 @@
 .card_rainbow:after {
   opacity: 1;
   background-image:
-    url("holo.png"),
     url("sparkles.gif");
   // var(--blob);
   //  linear-gradient(125deg, #e02d1650 15%, #fbff0a40 30%, #ffff0030 40%, #00ff8a20 60%, #00cfff40 70%, #cc4cfa50 85%);
@@ -117,8 +116,7 @@
 .card_rainbow.active:after,
 .card_rainbow:hover:after {
   filter: brightness(1.6) contrast(1);
-  ;
-  opacity: 1;
+  opacity: var(--hoverOpacity);
 }
 
 .card_rainbow.active,
@@ -130,7 +128,7 @@
 .card_rainbow.active:before,
 .card_rainbow:hover:before {
   animation: none;
-  background-position: 50% 50%;
+  background-position: var(--gradPosX) var(--gradPosY);
   background-size: 250% 250%;
   opacity: .88;
   filter: brightness(.66) contrast(1.33);

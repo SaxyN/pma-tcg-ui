@@ -8,17 +8,17 @@ module.exports = merge(common, {
     mode: "production",
     devtool: "inline-source-map",
     // devtool: "nosources-source-map",
-    plugins: [
-        new CleanWebpackPlugin(),
-        new CopyPlugin({
-            patterns: [
-                { from: "src/assets/img", to: "assets" },
-            ],
-        }),
-    ],
+    // plugins: [
+    //     new CleanWebpackPlugin(),
+    //     new CopyPlugin({
+    //         patterns: [
+    //             { from: "src/assets/img", to: "assets" },
+    //         ],
+    //     }),
+    // ],
     output: {
         filename: "js/[name].bundle.js",
-        path: "D:/FXServer/server-data/resources/pma-tcg/dist",
+        path: "D:/FXServer/server-data/resources/pma-tcg/dist/ui",
     },
     performance: {
         maxEntrypointSize: 512000,

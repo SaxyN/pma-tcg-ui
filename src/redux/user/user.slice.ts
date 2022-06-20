@@ -1,25 +1,28 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-// import { Card, CardList } from "../../"
 
 const initialState = {
-    paginationSize: 10,
+    showMissingCards: true,
 }
 
 export const userSlice = createSlice({
     name: "user",
     initialState,
     reducers: {
-        updatePaginationSize: (state, { payload }: PayloadAction<any>) => {
-            state.paginationSize = payload.newPaginationSize;
+        hideMissingCards: (state: any) => {
+            state.showMissingCards = false;
         },
-        resetPaginationSize: (state) => {
-            state.paginationSize = 10;
+        showMissingCards: (state: any) => {
+            state.showMissingCards = true;
+        },
+        resetUserSettings: (state: any) => {
+            state.showMissingCards = true;
         }
     }
 })
 
 export const userReducer = userSlice.reducer
 export const {
-    updatePaginationSize,
-    resetPaginationSize,
+    hideMissingCards,
+    showMissingCards,
+    resetUserSettings
 } = userSlice.actions;
