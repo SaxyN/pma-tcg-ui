@@ -6,7 +6,7 @@ const styles = makeStyles((theme) => ({
     exitButton: {
         position: 'absolute',
         top: '85vh',
-        right: '13.2vw',
+        right: '13.5%',
         borderTopRightRadius: '5px',
         borderBottomRightRadius: '5px',
         border: 'none',

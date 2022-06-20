@@ -114,8 +114,8 @@
 .card_normal.active:after,
 .card_normal:hover:after {
   filter: brightness(1.6) contrast(1);
+  opacity: var(--hoverOpacity);
   ;
-  opacity: 1;
 }
 
 .card_normal.active,
@@ -127,7 +127,7 @@
 .card_normal.active:before,
 .card_normal:hover:before {
   animation: none;
-  background-position: 50% 50%;
+  background-position: var(--gradPosX) var(--gradPosY);
   background-size: 250% 250%;
   opacity: .88;
   filter: brightness(.66) contrast(1.33);

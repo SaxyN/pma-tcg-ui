@@ -20,7 +20,7 @@ const cardSizes = {
     "large": { width: "750px", height: "1050px", borderRadius: "5% / 3.5%" },
 }
 
-const CardHandler = ({ cardImage, cardType, sizeTag, specialTag }: any) => {
+const CardHandler = ({ cardImage, cardType, cardUID, sizeTag, specialTag }: any) => {
 
     function getStyle(tag: any) {
         if (tag === 0) return cardSizes.normal
@@ -31,34 +31,34 @@ const CardHandler = ({ cardImage, cardType, sizeTag, specialTag }: any) => {
 
     switch (cardType) {
         case -1: {
-            return <GreyCard imageFace={cardImage} imageStyle={getStyle(sizeTag)} sizeTag={sizeTag} specialTag={specialTag} />
+            return <GreyCard imageFace={cardImage} imageStyle={getStyle(sizeTag)} cardUID={cardUID} sizeTag={sizeTag} specialTag={specialTag} />
         }
         case 0: {
-            return <NormalCard imageFace={cardImage} imageStyle={getStyle(sizeTag)} sizeTag={sizeTag} specialTag={specialTag} />
+            return <NormalCard imageFace={cardImage} imageStyle={getStyle(sizeTag)} cardUID={cardUID} sizeTag={sizeTag} specialTag={specialTag} />
         }
         case 1: {
-            return <HoloCard imageFace={cardImage} imageStyle={getStyle(sizeTag)} sizeTag={sizeTag} specialTag={specialTag} />
+            return <HoloCard imageFace={cardImage} imageStyle={getStyle(sizeTag)} cardUID={cardUID} sizeTag={sizeTag} specialTag={specialTag} />
         }
         case 2: {
-            return <EpicCard imageFace={cardImage} imageStyle={getStyle(sizeTag)} sizeTag={sizeTag} specialTag={specialTag} />
+            return <EpicCard imageFace={cardImage} imageStyle={getStyle(sizeTag)} cardUID={cardUID} sizeTag={sizeTag} specialTag={specialTag} />
         }
         case 3: {
-            return <LegendaryCard imageFace={cardImage} imageStyle={getStyle(sizeTag)} sizeTag={sizeTag} specialTag={specialTag} />
+            return <LegendaryCard imageFace={cardImage} imageStyle={getStyle(sizeTag)} cardUID={cardUID} sizeTag={sizeTag} specialTag={specialTag} />
         }
         case 4: {
-            return <FullArtCard imageFace={cardImage} imageStyle={getStyle(sizeTag)} sizeTag={sizeTag} specialTag={specialTag} />
+            return <FullArtCard imageFace={cardImage} imageStyle={getStyle(sizeTag)} cardUID={cardUID} sizeTag={sizeTag} specialTag={specialTag} />
         }
         case 5: {
-            return <FullArtCardSpecial imageFace={cardImage} imageStyle={getStyle(sizeTag)} sizeTag={sizeTag} specialTag={specialTag} />
+            return <FullArtCardSpecial imageFace={cardImage} imageStyle={getStyle(sizeTag)} cardUID={cardUID} sizeTag={sizeTag} specialTag={specialTag} />
         }
         case 6: {
-            return <GoldCard imageFace={cardImage} imageStyle={getStyle(sizeTag)} sizeTag={sizeTag} specialTag={specialTag} />
+            return <GoldCard imageFace={cardImage} imageStyle={getStyle(sizeTag)} cardUID={cardUID} sizeTag={sizeTag} specialTag={specialTag} />
         }
         case 7: {
-            return <BlackPearlCard imageFace={cardImage} imageStyle={getStyle(sizeTag)} sizeTag={sizeTag} specialTag={specialTag} />
+            return <BlackPearlCard imageFace={cardImage} imageStyle={getStyle(sizeTag)} cardUID={cardUID} sizeTag={sizeTag} specialTag={specialTag} />
         }
         case 8: {
-            return <RainbowCard imageFace={cardImage} imageStyle={getStyle(sizeTag)} sizeTag={sizeTag} specialTag={specialTag} />
+            return <RainbowCard imageFace={cardImage} imageStyle={getStyle(sizeTag)} cardUID={cardUID} sizeTag={sizeTag} specialTag={specialTag} />
         }
         default:
             return <>Unknown Card Type</>

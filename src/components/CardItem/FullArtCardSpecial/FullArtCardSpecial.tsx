@@ -1,107 +1,154 @@
 import React from "react";
-import $ from "jquery";
 import "./fullartspecialstyle.scss";
 import ImageHandler from '../../ImageHandler/ImageHandler';
+import { motion, useMotionValue, useTransform } from "framer-motion";
 
-const FullArtCardSpecial = ({ imageFace, imageStyle, sizeTag, specialTag }: any) => {
-    const [hover, setHover] = React.useState(false);
+{/* <div className={`card_full_art_special ${specialTag} medium_size eevee`} onMouseOver={() => setHover(true)}> */ }
+// `card_full_art_special ${specialTag} normal_size eevee`
 
-    var x: number = 0;
-    var px: number = 0
-    var py: number = 0
-    var $cards = $(".card_full_art_special");
-    var $style = $(".full_art_special_hover");
+const FullArtCardSpecial = ({ imageFace, imageStyle, cardUID, sizeTag, specialTag }: any) => {
 
-    $cards
-        .on("mousemove", function (e) {
-            // normalise touch/mouse
-            var pos = [e.offsetX, e.offsetY];
-            e.preventDefault();
-            var $card = $(this);
-            // math for mouse position
-            var l = pos[0];
-            var t = pos[1];
-            var h = $card.height();
-            var w = $card.width();
-            if (w && h) {
-                px = Math.abs(Math.floor(100 / w * l) - 100);
-                py = Math.abs(Math.floor(100 / h * t) - 100);
-            }
+    const x = useMotionValue(200);
+    const y = useMotionValue(200);
+    const backX = useMotionValue(200);
+    const backY = useMotionValue(200);
+    const backOpac = useMotionValue(1);
+
+    const rotateX = useTransform(y, [0, 400], [-15, 15]);
+    const rotateY = useTransform(x, [0, 400], [-15, 15]);
+
+    function handleMouse(event: any) {
+        const rect = event.currentTarget.getBoundingClientRect();
+
+        x.set(event.clientX - rect.left);
+        y.set(event.clientY - rect.top);
+
+        backX.set(event.clientX - rect.left);
+        backY.set(event.clientY - rect.top);
+
+        document.querySelectorAll<HTMLElement>(".card_full_art_special").forEach(elem => {
+            var l: any = event.clientX - rect.left;
+            var t: any = event.clientY - rect.top;
+            var h = 400;
+            var w = 400;
+            let px = Math.abs(Math.floor(100 / w * l) - 100);
+            let py = Math.abs(Math.floor(100 / h * t) - 100);
             var pa = (50 - px) + (50 - py);
-            // math for gradient / background positions
+            var p_opc = ((20 + (Math.abs(pa) * 1.5)) / 100);
             var lp = (50 + (px - 50) / 1.5);
             var tp = (50 + (py - 50) / 1.5);
-            var px_spark = (50 + (px - 50) / 7);
-            var py_spark = (50 + (py - 50) / 7);
-            var p_opc = 20 + (Math.abs(pa) * 1.5);
-            var ty = ((tp - 50) / 3.0) * -1;
-            var tx = ((lp - 50) / 2.5) * .5;
-            // css to apply for active card
-            var grad_pos = `background-position: ${lp}% ${tp}%;`
-            var sprk_pos = `background-position: ${px_spark}% ${py_spark}%;`
-            var opc = `opacity: ${p_opc / 100};`
-            var tf = `transform: rotateX(${ty}deg) rotateY(${tx}deg) scale(1.1)`
-            // need to use a <style> tag for psuedo elements
-            var style = `
-      .card_full_art_special:hover:before { ${grad_pos} }  /* gradient */
-      .card_full_art_special:hover:after { ${sprk_pos} ${opc} }   /* sparkles */ 
-    `
-            // set / apply css class and style
-            $cards.removeClass("active");
-            $card.removeClass("animated");
-            $card.attr("style", tf);
-            $style.html(style);
-            clearTimeout(x);
-        }).on("mouseout touchend touchcancel", function () {
-            // remove css, apply custom animation on end
-            var $card = $(this);
-            $style.html("");
-            $card.removeAttr("style");
-            // x = setTimeout(function () {
-            //     $card.addClass("animated");
-            // }, 2500);
+
+            elem?.style.setProperty("--gradPosX", lp.toString() + "%");
+            elem?.style.setProperty("--gradPosY", tp.toString() + "%");
+            elem?.style.setProperty("--hoverOpacity", p_opc.toString());
+
         });
+    }
+
+    function handleReset(event: any) {
+        x.set(200);
+        y.set(200);
+        backX.set(200);
+        backY.set(200);
+        backOpac.set(1);
+    }
 
     switch (sizeTag) {
         case 0:
             return (
-                <>
-                    <div className={`card_full_art_special ${specialTag} normal_size eevee`} onMouseOver={() => setHover(true)}>
-                        {/* <img src={BURLEY_FACE} alt="alt" style={{ width: "262.5px", height: "368.75px", borderRadius: "5% / 3.5%" }} /> */}
-                        <ImageHandler name={imageFace} imageStyle={imageStyle} />
-                    </div>
-                    <style className='full_art_special_hover'></style>
-                </>
+                <motion.div
+                    style={{
+                        width: imageStyle.width,
+                        height: imageStyle.height,
+                        perspective: 2000,
+                    }}
+                    onMouseMove={e => handleMouse(e)}
+                    onMouseLeave={handleReset}
+                >
+                    <motion.div
+                        style={{
+                            rotateX: rotateX,
+                            rotateY: rotateY,
+                        }}
+                        whileHover={{ scale: 1.2 }}
+                    >
+                        <motion.div className={`card_full_art_special ${specialTag} normal_size eevee`}>
+                            <ImageHandler name={imageFace} imageStyle={imageStyle} />
+                        </motion.div>
+                    </motion.div>
+                </motion.div >
             )
         case 1:
             return (
-                <>
-                    <div className={`card_full_art_special ${specialTag} medium_size eevee`} onMouseOver={() => setHover(true)}>
-                        {/* <img src={BURLEY_FACE} alt="alt" style={{ width: "262.5px", height: "368.75px", borderRadius: "5% / 3.5%" }} /> */}
-                        <ImageHandler name={imageFace} imageStyle={imageStyle} />
-                    </div>
-                    <style className='full_art_special_hover'></style>
-                </>
+                <motion.div
+                    style={{
+                        width: imageStyle.width,
+                        height: imageStyle.height,
+                        perspective: 2000,
+                    }}
+                    onMouseMove={e => handleMouse(e)}
+                    onMouseLeave={handleReset}
+                >
+                    <motion.div
+                        style={{
+                            rotateX: rotateX,
+                            rotateY: rotateY,
+                        }}
+                        whileHover={{ scale: 1.2 }}
+                    >
+                        <motion.div className={`card_full_art_special ${specialTag} medium_size eevee`}>
+                            <ImageHandler name={imageFace} imageStyle={imageStyle} />
+                        </motion.div>
+                    </motion.div>
+                </motion.div >
             )
         case 2:
             return (
-                <>
-                    <div className={`card_full_art_special ${specialTag} large_size eevee`} onMouseOver={() => setHover(true)}>
-                        {/* <img src={BURLEY_FACE} alt="alt" style={{ width: "262.5px", height: "368.75px", borderRadius: "5% / 3.5%" }} /> */}
-                        <ImageHandler name={imageFace} imageStyle={imageStyle} />
-                    </div>
-                    <style className='full_art_special_hover'></style>
-                </>
+                <motion.div
+                    style={{
+                        width: imageStyle.width,
+                        height: imageStyle.height,
+                        perspective: 2000,
+                    }}
+                    onMouseMove={e => handleMouse(e)}
+                    onMouseLeave={handleReset}
+                >
+                    <motion.div
+                        style={{
+                            rotateX: rotateX,
+                            rotateY: rotateY,
+                        }}
+                        whileHover={{ scale: 1.2 }}
+                    >
+                        <motion.div className={`card_full_art_special ${specialTag} large_size eevee`}>
+                            <ImageHandler name={imageFace} imageStyle={imageStyle} />
+                        </motion.div>
+                    </motion.div>
+                </motion.div >
             )
         default:
             return (
-                <>
-                    <div className={`card_full_art_special ${specialTag} normal_size eevee`} onMouseOver={() => setHover(true)}>
-                        {/* <img src={BURLEY_FACE} alt="alt" style={{ width: "262.5px", height: "368.75px", borderRadius: "5% / 3.5%" }} /> */}
-                        <ImageHandler name={imageFace} imageStyle={imageStyle} />
-                    </div>
-                    <style className='full_art_special_hover'></style>
-                </>
+                <motion.div
+                    style={{
+                        width: imageStyle.width,
+                        height: imageStyle.height,
+                        perspective: 2000,
+                    }}
+                    onMouseMove={e => handleMouse(e)}
+                    onMouseLeave={handleReset}
+                >
+                    <motion.div
+                        style={{
+                            rotateX: rotateX,
+                            rotateY: rotateY,
+                        }}
+                        whileHover={{ scale: 1.2 }}
+                    >
+                        <motion.div className="card_rainbow normal_size eevee">
+                            <ImageHandler name={imageFace} imageStyle={imageStyle} />
+                        </motion.div>
+                    </motion.div>
+                </motion.div >
             )
     }
 

@@ -1,6 +1,9 @@
 import React from 'react';
+import { useNuiRequest } from "fivem-nui-react-lib";
 import { makeStyles } from '@mui/styles';
 import { Button } from "@mui/material";
+import { useDispatch } from 'react-redux';
+import * as PackActions from '../../redux/pack/pack.slice';
 
 const styles = makeStyles((theme) => ({
     controlsOuter: {
@@ -26,11 +29,29 @@ const styles = makeStyles((theme) => ({
     }
 }))
 
-export const CardPackControls = () => {
+export const CardPackControls = ({ handleButtonClick }: any) => {
+    const { send } = useNuiRequest();
     const classes = styles();
+    const dispatch = useDispatch();
+
+    const handlePackClose = () => {
+        send("pma-tcg:closePack");
+        dispatch(PackActions.closePack());
+    }
+
     return (
         <div className={classes.controlsOuter}>
             <div className={classes.controlsInner}>
+                {/* <Button sx={{
+                    color: "white",
+                    backgroundColor: "#2C3340",
+                    margin: "5px 15px 5px 15px",
+                    '&:hover': {
+                        backgroundColor: "#F28F6B",
+                    },
+                    fontSize: "10px",
+                }}
+                    variant="contained" >Open Binder</Button> */}
                 <Button sx={{
                     color: "white",
                     backgroundColor: "#2C3340",
@@ -40,17 +61,9 @@ export const CardPackControls = () => {
                     },
                     fontSize: "10px",
                 }}
-                    variant="contained" >Open Binder</Button>
-                <Button sx={{
-                    color: "white",
-                    backgroundColor: "#2C3340",
-                    margin: "5px 15px 5px 15px",
-                    '&:hover': {
-                        backgroundColor: "#F28F6B",
-                    },
-                    fontSize: "10px",
-                }}
-                    variant="contained" >Close</Button>
+                    variant="contained"
+                    onClick={() => handlePackClose()}
+                >Close</Button>
             </div>
         </div>
     )

@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { makeStyles } from '@mui/styles';
 import ReactCardFlip from 'react-card-flip';
-import card_back from '../../assets/img/card_back.png';
 
 import cardFlipSfx from "../../assets/audio/card_flip.wav";
 import holoFlipSfx from "../../assets/audio/nice.mp3";
@@ -28,7 +27,7 @@ const styles = makeStyles((theme) => ({
         transition: "box-shadow 0.1s ease-out",
         borderRadius: "5%/3.5%",
         "&:hover": {
-            boxShadow: "0 0 30px 5px blue, 0 0 10px -2px blue, 0 55px 35px -20px rgba(0, 0, 0, 0.5)",
+            boxShadow: "0 0 30px 5px lightgreen, 0 0 10px -2px lightgreen, 0 55px 35px -20px rgba(0, 0, 0, 0.5)",
         }
     },
     epicBack: {
@@ -36,7 +35,7 @@ const styles = makeStyles((theme) => ({
         transition: "box-shadow 0.1s ease-out",
         borderRadius: "5%/3.5%",
         "&:hover": {
-            boxShadow: "0 0 30px 5px #18E3CE, 0 0 10px -2px #18E3CE, 0 55px 35px -20px rgba(0, 0, 0, 0.5)",
+            boxShadow: "0 0 30px 5px blue, 0 0 10px -2px blue, 0 55px 35px -20px rgba(0, 0, 0, 0.5)",
         }
     },
     legendaryBack: {
@@ -44,7 +43,7 @@ const styles = makeStyles((theme) => ({
         transition: "box-shadow 0.1s ease-out",
         borderRadius: "5%/3.5%",
         "&:hover": {
-            boxShadow: "0 0 30px 5px yellow, 0 0 10px -2px yellow, 0 55px 35px -20px rgba(0, 0, 0, 0.5)",
+            boxShadow: "0 0 30px 5px #18E3CE, 0 0 10px -2px #18E3CE, 0 55px 35px -20px rgba(0, 0, 0, 0.5)",
         }
     },
     fullArtBack: {
@@ -52,7 +51,7 @@ const styles = makeStyles((theme) => ({
         transition: "box-shadow 0.1s ease-out",
         borderRadius: "5%/3.5%",
         "&:hover": {
-            boxShadow: "0 0 30px 5px purple, 0 0 10px -2px purple, 0 55px 35px -20px rgba(0, 0, 0, 0.5)",
+            boxShadow: "0 0 30px 5px #F933FF, 0 0 10px -2px #F933FF, 0 55px 35px -20px rgba(0, 0, 0, 0.5)",
         }
     },
     fullArtSpecialBack: {
@@ -89,7 +88,7 @@ const styles = makeStyles((theme) => ({
     },
 }))
 
-const CardFlip = ({ cardType, cardImage, specialTag }: any) => {
+const CardFlip = ({ card }: any) => {
     const classes = styles();
     const [flipped, setFlipped] = useState(false);
     const [normalCard] = useSound(
@@ -124,17 +123,17 @@ const CardFlip = ({ cardType, cardImage, specialTag }: any) => {
     const handleFlip = () => {
         if (!flipped) {
             setFlipped(true)
-            if (cardType === 0) {
+            if (card.type === 0) {
                 normalCard()
-            } else if (cardType === 1) {
+            } else if (card.type === 1) {
                 holoCard()
-            } else if (cardType === 2) {
+            } else if (card.type === 2) {
                 epicCard()
-            } else if (cardType === 3) {
+            } else if (card.type === 3) {
                 legendaryCard()
-            } else if (cardType === 4) {
+            } else if (card.type === 4) {
                 fullArtCard()
-            } else if (cardType === 5) {
+            } else if (card.type === 5) {
                 fullArtSpecialCard()
             }
         }
@@ -144,20 +143,20 @@ const CardFlip = ({ cardType, cardImage, specialTag }: any) => {
         <div style={{ margin: "20px" }}>
             <ReactCardFlip isFlipped={flipped} flipDirection='horizontal'>
                 <div onClick={() => handleFlip()} className={
-                    cardType === 1 ? classes.holoBack :
-                        cardType === 2 ? classes.epicBack :
-                            cardType === 3 ? classes.legendaryBack :
-                                cardType === 4 ? classes.fullArtBack :
-                                    cardType === 5 ? classes.fullArtSpecialBack :
-                                        cardType === 6 ? classes.goldBack :
-                                            cardType === 7 ? classes.blackPearlBack :
-                                                cardType === 8 ? classes.rainbowBack :
+                    card.type === 1 ? classes.holoBack :
+                        card.type === 2 ? classes.epicBack :
+                            card.type === 3 ? classes.legendaryBack :
+                                card.type === 4 ? classes.fullArtBack :
+                                    card.type === 5 ? classes.fullArtSpecialBack :
+                                        card.type === 6 ? classes.goldBack :
+                                            card.type === 7 ? classes.blackPearlBack :
+                                                card.type === 8 ? classes.rainbowBack :
                                                     classes.normalBack}>
                     {/*   width: 375px; height: 525px; width: 247.5px; height: 346.5px; */}
-                    <img src={card_back} alt="logo" style={{ width: "247.5px", height: "346.5px", borderRadius: "5% / 3.5%" }} />
+                    <img src={"../../assets/img/" + card.card_back + ".png"} alt="card_back" style={{ width: "248px", height: "347px", borderRadius: "5% / 3.5%" }} />
                 </div>
                 <>
-                    <CardHandler cardImage={cardImage} cardType={cardType} sizeTag={1} specialTag={specialTag} />
+                    <CardHandler cardImage={card.img} cardType={card.type} cardUID={card.uid} sizeTag={1} specialTag={card.specialTag} />
                 </>
             </ReactCardFlip>
         </div>
