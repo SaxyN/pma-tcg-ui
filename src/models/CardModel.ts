@@ -7,6 +7,22 @@ export interface CardDataDictionary {
     };
 }
 
+export interface CardData {
+    back: string,
+    holoX?: string,
+    holoY?: string,
+    pattern?: string,
+}
+
+export interface PullCard {
+    id: number,
+    img: string,
+    name: string,
+    set: string,
+    specialTag: string,
+    pattern: string,
+}
+
 export interface Card {
     uid: string,
     id: number,
@@ -43,11 +59,4 @@ export interface CardShorthand {
     name: string,
     set: string,
     specialTag: string,
-}
-
-export interface Qualities {
-    centering: number,
-    corners: number,
-    edges: number,
-    face: number,
 }

@@ -1,5 +1,7 @@
 import React, { ReactNode, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
+import { CardShorthand } from '../../models/CardModel';
+import * as BinderActions from '../../redux/binder/binder.slice';
 
 interface Props {
     children: ReactNode;
@@ -22,6 +24,10 @@ const BinderNui = ({ children }: Props) => {
         }
 
     };
+
+    const handleCardShift = (newCard: CardShorthand) => {
+        dispatch(BinderActions.shiftCardInfo({ newCard: newCard }))
+    }
 
     return <>{children}</>;
 };

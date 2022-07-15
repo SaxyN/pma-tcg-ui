@@ -23,13 +23,10 @@ const styles = makeStyles((theme) => ({
         justifyContent: "space-between",
         border: 'solid grey 2px',
         margin: '10px',
-    },
-    button: {
-
     }
 }))
 
-export const CardPackControls = ({ handleButtonClick }: any) => {
+export const CardPackControls = () => {
     const { send } = useNuiRequest();
     const classes = styles();
     const dispatch = useDispatch();
@@ -42,16 +39,6 @@ export const CardPackControls = ({ handleButtonClick }: any) => {
     return (
         <div className={classes.controlsOuter}>
             <div className={classes.controlsInner}>
-                {/* <Button sx={{
-                    color: "white",
-                    backgroundColor: "#2C3340",
-                    margin: "5px 15px 5px 15px",
-                    '&:hover': {
-                        backgroundColor: "#F28F6B",
-                    },
-                    fontSize: "10px",
-                }}
-                    variant="contained" >Open Binder</Button> */}
                 <Button sx={{
                     color: "white",
                     backgroundColor: "#2C3340",

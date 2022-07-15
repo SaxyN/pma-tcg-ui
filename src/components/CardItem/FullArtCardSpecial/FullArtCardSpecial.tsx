@@ -70,7 +70,7 @@ const FullArtCardSpecial = ({ imageFace, imageStyle, cardUID, sizeTag, specialTa
                             rotateX: rotateX,
                             rotateY: rotateY,
                         }}
-                        whileHover={{ scale: 1.2 }}
+                        whileHover={{ scale: 1.1 }}
                     >
                         <motion.div className={`card_full_art_special ${specialTag} normal_size eevee`}>
                             <ImageHandler name={imageFace} imageStyle={imageStyle} />
@@ -94,7 +94,7 @@ const FullArtCardSpecial = ({ imageFace, imageStyle, cardUID, sizeTag, specialTa
                             rotateX: rotateX,
                             rotateY: rotateY,
                         }}
-                        whileHover={{ scale: 1.2 }}
+                        whileHover={{ scale: 1.1 }}
                     >
                         <motion.div className={`card_full_art_special ${specialTag} medium_size eevee`}>
                             <ImageHandler name={imageFace} imageStyle={imageStyle} />
@@ -118,7 +118,7 @@ const FullArtCardSpecial = ({ imageFace, imageStyle, cardUID, sizeTag, specialTa
                             rotateX: rotateX,
                             rotateY: rotateY,
                         }}
-                        whileHover={{ scale: 1.2 }}
+                        whileHover={{ scale: 1.1 }}
                     >
                         <motion.div className={`card_full_art_special ${specialTag} large_size eevee`}>
                             <ImageHandler name={imageFace} imageStyle={imageStyle} />
@@ -142,7 +142,7 @@ const FullArtCardSpecial = ({ imageFace, imageStyle, cardUID, sizeTag, specialTa
                             rotateX: rotateX,
                             rotateY: rotateY,
                         }}
-                        whileHover={{ scale: 1.2 }}
+                        whileHover={{ scale: 1.1 }}
                     >
                         <motion.div className="card_rainbow normal_size eevee">
                             <ImageHandler name={imageFace} imageStyle={imageStyle} />

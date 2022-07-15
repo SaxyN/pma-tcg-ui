@@ -20,7 +20,6 @@ const PackOpener = () => {
                     )
                 })}
             </div>
-            {/* <FramerCard /> */}
             <div style={{ width: "100%", display: "flex", justifyContent: "space-evenly", paddingTop: "25px" }}>
                 {/* <Button style={{ margin: "5px" }} variant="contained" component={Link} to="/packs">Open Another</Button> */}
                 <CardPackControls />

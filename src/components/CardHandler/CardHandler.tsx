@@ -12,15 +12,11 @@ import GreyCard from '../CardItem/GreyCard/GreyCard';
 
 const cardSizes = {
     "normal": { width: "187.5px", height: "262.5px", borderRadius: "5% / 3.5%" },
-    // "normal": { width: "262.5px", height: "368.75px", borderRadius: "5% / 3.5%" },
     "medium": { width: "247.5px", height: "346.5px", borderRadius: "5% / 3.5%" },
-    // "medium": { width: "375px", height: "525px", borderRadius: "5% / 3.5%" },
-    // "medium": { width: "315px", height: "442.5px", borderRadius: "5% / 3.5%" },
-    // "large": { width: "420px", height: "590px", borderRadius: "5% / 3.5%" }
-    "large": { width: "750px", height: "1050px", borderRadius: "5% / 3.5%" },
+    "large": { width: "375px", height: "525px", borderRadius: "5% / 3.5%" },
 }
 
-const CardHandler = ({ cardImage, cardType, cardUID, sizeTag, specialTag }: any) => {
+const CardHandler = ({ cardImage, cardType, cardUID, sizeTag, specialTag, cardHoloX, cardHoloY, pattern, hoverEffects }: any) => {
 
     function getStyle(tag: any) {
         if (tag === 0) return cardSizes.normal
@@ -31,34 +27,34 @@ const CardHandler = ({ cardImage, cardType, cardUID, sizeTag, specialTag }: any)
 
     switch (cardType) {
         case -1: {
-            return <GreyCard imageFace={cardImage} imageStyle={getStyle(sizeTag)} cardUID={cardUID} sizeTag={sizeTag} specialTag={specialTag} />
+            return <GreyCard imageFace={cardImage} imageStyle={getStyle(sizeTag)} cardUID={cardUID} sizeTag={sizeTag} specialTag={specialTag} cardHoloX={cardHoloX} cardHoloY={cardHoloY} pattern={pattern} hoverEffects={hoverEffects} />
         }
         case 0: {
-            return <NormalCard imageFace={cardImage} imageStyle={getStyle(sizeTag)} cardUID={cardUID} sizeTag={sizeTag} specialTag={specialTag} />
+            return <NormalCard imageFace={cardImage} imageStyle={getStyle(sizeTag)} cardUID={cardUID} sizeTag={sizeTag} specialTag={specialTag} cardHoloX={cardHoloX} cardHoloY={cardHoloY} pattern={pattern} hoverEffects={hoverEffects} />
         }
         case 1: {
-            return <HoloCard imageFace={cardImage} imageStyle={getStyle(sizeTag)} cardUID={cardUID} sizeTag={sizeTag} specialTag={specialTag} />
+            return <HoloCard imageFace={cardImage} imageStyle={getStyle(sizeTag)} cardUID={cardUID} sizeTag={sizeTag} specialTag={specialTag} cardHoloX={cardHoloX} cardHoloY={cardHoloY} pattern={pattern} hoverEffects={hoverEffects} />
         }
         case 2: {
-            return <EpicCard imageFace={cardImage} imageStyle={getStyle(sizeTag)} cardUID={cardUID} sizeTag={sizeTag} specialTag={specialTag} />
+            return <EpicCard imageFace={cardImage} imageStyle={getStyle(sizeTag)} cardUID={cardUID} sizeTag={sizeTag} specialTag={specialTag} cardHoloX={cardHoloX} cardHoloY={cardHoloY} pattern={pattern} hoverEffects={hoverEffects} />
         }
         case 3: {
-            return <LegendaryCard imageFace={cardImage} imageStyle={getStyle(sizeTag)} cardUID={cardUID} sizeTag={sizeTag} specialTag={specialTag} />
+            return <LegendaryCard imageFace={cardImage} imageStyle={getStyle(sizeTag)} cardUID={cardUID} sizeTag={sizeTag} specialTag={specialTag} cardHoloX={cardHoloX} cardHoloY={cardHoloY} pattern={pattern} hoverEffects={hoverEffects} />
         }
         case 4: {
-            return <FullArtCard imageFace={cardImage} imageStyle={getStyle(sizeTag)} cardUID={cardUID} sizeTag={sizeTag} specialTag={specialTag} />
+            return <FullArtCard imageFace={cardImage} imageStyle={getStyle(sizeTag)} cardUID={cardUID} sizeTag={sizeTag} specialTag={specialTag} cardHoloX={cardHoloX} cardHoloY={cardHoloY} pattern={pattern} hoverEffects={hoverEffects} />
         }
         case 5: {
-            return <FullArtCardSpecial imageFace={cardImage} imageStyle={getStyle(sizeTag)} cardUID={cardUID} sizeTag={sizeTag} specialTag={specialTag} />
+            return <FullArtCardSpecial imageFace={cardImage} imageStyle={getStyle(sizeTag)} cardUID={cardUID} sizeTag={sizeTag} specialTag={specialTag} cardHoloX={cardHoloX} cardHoloY={cardHoloY} pattern={pattern} hoverEffects={hoverEffects} />
         }
         case 6: {
-            return <GoldCard imageFace={cardImage} imageStyle={getStyle(sizeTag)} cardUID={cardUID} sizeTag={sizeTag} specialTag={specialTag} />
+            return <GoldCard imageFace={cardImage} imageStyle={getStyle(sizeTag)} cardUID={cardUID} sizeTag={sizeTag} specialTag={specialTag} cardHoloX={cardHoloX} cardHoloY={cardHoloY} pattern={pattern} hoverEffects={hoverEffects} />
         }
         case 7: {
-            return <BlackPearlCard imageFace={cardImage} imageStyle={getStyle(sizeTag)} cardUID={cardUID} sizeTag={sizeTag} specialTag={specialTag} />
+            return <BlackPearlCard imageFace={cardImage} imageStyle={getStyle(sizeTag)} cardUID={cardUID} sizeTag={sizeTag} specialTag={specialTag} cardHoloX={cardHoloX} cardHoloY={cardHoloY} pattern={pattern} hoverEffects={hoverEffects} />
         }
         case 8: {
-            return <RainbowCard imageFace={cardImage} imageStyle={getStyle(sizeTag)} cardUID={cardUID} sizeTag={sizeTag} specialTag={specialTag} />
+            return <RainbowCard imageFace={cardImage} imageStyle={getStyle(sizeTag)} cardUID={cardUID} sizeTag={sizeTag} specialTag={specialTag} cardHoloX={cardHoloX} cardHoloY={cardHoloY} pattern={pattern} hoverEffects={hoverEffects} />
         }
         default:
             return <>Unknown Card Type</>

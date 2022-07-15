@@ -17,7 +17,7 @@ export const MissingCard = ({ img, imgStyle, cardUID }: any) => {
     return (
         <div className={classes.binderCardOuter}>
             <div className={classes.binderCardInner}>
-                <img src={"./assets/img/" + img + ".png"} style={imgStyle} alt={cardUID} />
+                <img src={"./assets/img/" + img + ".png"} style={imgStyle} alt={cardUID} loading="lazy" draggable="false" unselectable="on" />
             </div>
         </div>
     )

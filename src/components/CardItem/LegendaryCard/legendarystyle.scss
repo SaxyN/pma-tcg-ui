@@ -1,18 +1,5 @@
 .card_legendary {
 
-  // width: 262.5px;
-  // height: 368.75px;
-  // width: clamp(200px, 61vh, 18vw);
-  // height: clamp(280px, 85vh, 25.2vw);
-  //   @media screen and (min-width: 600px) {
-  //     // width: 61vh;
-  //     // height: 85vh;
-  //     // max-width: 500px;
-  //     // max-height: 700px;
-  //     width: clamp(12.9vw, 61vh, 18vw);
-  //     height: clamp(18vw, 85vh, 25.2vw);
-  //   }
-
   position: relative;
   overflow: hidden;
   margin: 0px;
@@ -49,8 +36,8 @@
 }
 
 .card_legendary.large_size {
-  width: 750px;
-  height: 1050px;
+  width: 375px;
+  height: 525px;
 }
 
 .card_legendary.eevee {
@@ -127,20 +114,13 @@
       var(--color5) 64%,
       transparent 100%);
   animation: holoGradient 10s infinite;
-  // clip-path: polygon(0% 0%, 0% 100%, 8% 100%, 8% 10.5%, 92.5% 10.5%, 92.5% 60%, 8% 60%, 8% 100%, 100% 100%, 100% 0%); // Exluding Picture
-  // mix-blend-mode: color-burn;
   z-index: 1;
 }
 
-.card_legendary:after {
+.card_legendary.holo_large:after {
   opacity: 1;
   background-image:
-    // url("./prism.png")
-    url('../../../assets/img/web_holo.png');
-  // linear-gradient(125deg, #e02d1650 15%, #fbff0a40 30%, #ffff0030 40%, #00ff8a20 60%, #00cfff40 70%, #cc4cfa50 85%);
-  //   clip-path: polygon(0% 0%, 0% 100%, 8% 100%, 8% 10.5%, 92.5% 10.5%, 92.5% 60%, 8% 60%, 8% 100%, 100% 100%, 100% 0%);
-  // clip-path: polygon(8% 10.5%, 8% 59.5%, 92.5% 59.5%, 92.5% 10.5%); // Just Picture
-  // clip-path: polygon(0% 0%, 0% 100%, 8% 100%, 8% 10.5%, 92.5% 10.5%, 92.5% 60%, 8% 60%, 8% 100%, 100% 100%, 100% 0%); // Exluding Picture
+    url('../../../assets/img/holo_large.png');
   background-position: 50% 50%;
   background-size: 300%;
   background-repeat: no-repeat;
@@ -149,7 +129,6 @@
   filter: brightness(0.25) contrast(0.65);
   transition: all .33s ease;
   mix-blend-mode: color-dodge;
-  // animation: holoSparkle 10s infinite;
 }
 
 .card_legendary.active:after,

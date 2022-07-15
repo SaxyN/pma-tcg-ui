@@ -3,14 +3,18 @@ import { useNuiRequest } from "fivem-nui-react-lib";
 import { useDispatch, useSelector, RootStateOrAny } from "react-redux";
 import { openBinder } from "./redux/binder/binder.slice";
 import { openPack, updatePackCards } from "./redux/pack/pack.slice";
-import * as storeActions from "./redux/cards/cards.slice";
+// import * as storeActions from "./redux/cards/cards.slice";
 import * as binderActions from "./redux/binder/binder.slice";
-import { generatePack } from './cardpull/cardPuller';
+import * as showcaseActions from "./redux/showcase/showcase.slice";
+// import { generatePack } from './cardpull/cardPuller';
 
 // Mock Data for Dev
 import { mockInventory } from "./mockData/mockInventory";
+import { mockAllCardsWithTypes } from "./mockData/mockAllCardsWithTypes";
 import { mockAllCards } from "./mockData/mockAllCards";
 import { CardList } from "./mockData/mock";
+import { mockShowcase } from "./mockData/mockShowcase";
+import { EventRepeat } from "@mui/icons-material";
 
 interface ProviderProps {
     children: ReactNode;
@@ -19,20 +23,6 @@ interface ProviderProps {
 const Nui = ({ children }: ProviderProps) => {
     const dispatch = useDispatch();
     const Nui = useNuiRequest();
-    const inventoryData = useSelector((state: RootStateOrAny) => state.cards.inventory);
-    const collection = useSelector((state: RootStateOrAny) => state.cards.collection);
-    const packs = useSelector((state: RootStateOrAny) => state.cards.packs);
-
-    const handlePackOpen = (packData: any) => {
-        let pack = generatePack(packData.type, packData.size, packData.set)
-        dispatch(storeActions.loadNewPack(pack));
-        dispatch(storeActions.updateCollection({ pack: pack, collection }));
-        dispatch(storeActions.updateInventoryData({ pack: pack, inventoryData: inventoryData }))
-        // dispatch(storeActions.updateInventoryData({ inventoryData: updateInven(pack, inventoryData) }))
-        // setTimeout(() => {
-        //     history.push(`${match.url}/packgenerate`);
-        // }, 250);
-    }
 
     useEffect(() => {
         window.addEventListener("message", eventListener);
@@ -47,10 +37,11 @@ const Nui = ({ children }: ProviderProps) => {
                 dispatch(openBinder());
                 if (process.env.NODE_ENV !== "development") {
                     dispatch(binderActions.loadCardInventory({ cardCollection: event.data.cardCollection, allCards: event.data.allCards }))
-                    dispatch(binderActions.createMissingInventory());
+                    dispatch(binderActions.createInventory());
                 } else {
                     dispatch(binderActions.loadCardInventory({ cardCollection: mockInventory, allCards: mockAllCards }))
-                    dispatch(binderActions.createMissingInventory());
+                    dispatch(binderActions.loadAllCardsWithTypes({ allCardsWithTypes: mockAllCardsWithTypes }));
+                    dispatch(binderActions.createInventory());
                 }
                 break;
             case "OPEN_PACK":
@@ -63,6 +54,15 @@ const Nui = ({ children }: ProviderProps) => {
                 break;
             case "LOAD_ALL_W_TYPES":
                 dispatch(binderActions.loadAllCardsWithTypes({ allCardsWithTypes: event.data.allCardsWithTypes }))
+                break;
+            case "OPEN_SHOWCASE":
+                if (process.env.NODE_ENV !== "development") {
+                    dispatch(showcaseActions.openShowcase());
+                    dispatch(showcaseActions.updateShowcase({ showcaseData: event.data.showcaseCard }));
+                } else {
+                    dispatch(showcaseActions.openShowcase());
+                    dispatch(showcaseActions.updateShowcase({ showcaseData: mockShowcase }));
+                }
                 break;
             default:
                 break;

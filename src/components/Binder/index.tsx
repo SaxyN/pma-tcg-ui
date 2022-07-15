@@ -7,34 +7,36 @@ import { BinderInventory } from './BinderInventory';
 import * as BinderActions from '../../redux/binder/binder.slice';
 import { useNuiRequest } from "fivem-nui-react-lib";
 import { BinderSettings } from './BinderSettings';
-import { Box } from '@mui/material';
+import { Box, Pagination } from '@mui/material';
 
 const styles = makeStyles((theme) => ({
     binderOuter: {
-        border: 'solid red 2px',
+        // border: 'solid red 2px',
         textAlign: 'center',
         justifyContent: 'center',
         display: 'flex',
         width: '100%',
         height: '99vh',
         opacity: 1,
+        transition: "all ease 0.2s"
     },
     binderMain: {
         display: 'flex',
         justifyContent: 'space-evenly',
         position: 'relative',
-        top: '7.5vh',
+        top: '2.5vh',
         width: '67vw',
-        height: '85vh',
+        height: '95vh',
         border: 'solid black 2px',
         backgroundColor: '#333844',
         color: 'white',
         borderRadius: '10px',
         zIndex: 5,
         overflowX: 'hidden',
+        transition: "all ease 0.2s"
     },
     binderInner: {
-
+        transition: "all ease 0.2s",
     },
     binderSection: {
         opacity: 1,
@@ -48,7 +50,8 @@ const styles = makeStyles((theme) => ({
         paddingRight: '2vw',
         overflowX: 'hidden',
         padding: '2vh 0 2vh 0',
-        margin: '0 1vh 0 1vh'
+        margin: '0 1vh 0 1vh',
+        transition: "all ease 0.2s"
     },
     exitButton: {
         position: 'relative',
@@ -70,6 +73,7 @@ const styles = makeStyles((theme) => ({
         display: 'grid',
         left: '1vh',
         top: '1vh',
+        transition: "all ease 0.2s"
         // border: 'solid black 2px'
     }
 }))
@@ -78,10 +82,11 @@ const Binder = () => {
     const { send } = useNuiRequest();
     const classes = styles();
     const dispatch = useDispatch();
+    const [currentPage, setCurrentPage] = React.useState<number>(1);
 
     const [showCardInfo, setShowCardInfo] = React.useState(false);
     const [showSettings, setShowSettings] = React.useState(false);
-    const [showFilters, setShowFilters] = React.useState(false);
+    // const [showFilters, setShowFilters] = React.useState(false);
 
     const cardInventory = useSelector(
         (state: RootStateOrAny) => state.binder.cardInventory
@@ -90,6 +95,14 @@ const Binder = () => {
     const trueInventory = useSelector(
         (state: RootStateOrAny) => state.binder.trueInventory
     );
+
+    const showMissingCards = useSelector(
+        (state: RootStateOrAny) => state.binder.showMissingCards
+    )
+
+    const paginationSize = useSelector(
+        (state: RootStateOrAny) => state.binder.paginationSize
+    )
 
     // const handleShowSettings
 
@@ -113,9 +126,33 @@ const Binder = () => {
         dispatch(BinderActions.filterByID());
     }
 
+    const handleFilterReset = () => {
+        if (showMissingCards) {
+            dispatch(BinderActions.createMissingInventory());
+        } else {
+            dispatch(BinderActions.createInventory());
+        }
+    }
+
+    const handleSettingChange = (setting: string) => {
+        if (setting === "Show Unowned") {
+            if (showMissingCards) {
+                dispatch(BinderActions.hideMissingCards());
+                dispatch(BinderActions.createInventory());
+            } else {
+                dispatch(BinderActions.showMissingCards());
+                dispatch(BinderActions.createMissingInventory());
+            }
+        }
+    }
+
     const closeBinderHandler = () => {
         send("pma-tcg:closeBinder");
         dispatch(BinderActions.closeBinder());
+    }
+
+    const handlePageChange = (event: React.ChangeEvent<unknown>, value: number) => {
+        setCurrentPage(value);
     }
 
     return (
@@ -123,7 +160,12 @@ const Binder = () => {
             <div className={classes.binderMain}>
                 <div className={classes.binderInner}>
                     <div className={classes.binderSection}>
-                        <BinderInventory array={cardInventory} showCardInfo={showCardInfo} setShowCardInfo={setShowCardInfo} />
+                        <BinderInventory array={cardInventory.slice(currentPage * 18 - 18, currentPage * 18)} showCardInfo={showCardInfo} setShowCardInfo={setShowCardInfo} />
+                    </div>
+                    <div style={{ position: "absolute", zIndex: 25, left: "50%", bottom: "2%", transform: 'translate(-50%)', }}>
+                        {cardInventory.length > 0 ?
+                            <Pagination color='primary' variant="outlined" count={paginationSize} page={currentPage} onChange={handlePageChange} />
+                            : <></>}
                     </div>
                 </div>
             </div>
@@ -132,7 +174,8 @@ const Binder = () => {
                     <button className={classes.exitButton} onClick={() => closeBinderHandler()}><CloseIcon /></button>
                 </Box>
                 {/* <BinderSettings showSettings={showSettings} setShowSettings={setShowSettings} /> */}
-                <FilterSection handleSearchChange={handleSearchChange} handleIDFilter={handleIDFilter} handleNameFilter={handleNameFilter} handleQualityFilter={handleQualityFilter} />
+                <FilterSection handleSearchChange={handleSearchChange} handleIDFilter={handleIDFilter} handleNameFilter={handleNameFilter} handleQualityFilter={handleQualityFilter} handleFilterReset={handleFilterReset} />
+                <BinderSettings showSettings={showSettings} setShowSettings={setShowSettings} handleSettingChange={handleSettingChange} showMissingCards={showMissingCards} />
             </Box>
         </div>
     )

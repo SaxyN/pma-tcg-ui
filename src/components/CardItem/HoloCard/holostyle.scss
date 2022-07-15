@@ -35,8 +35,8 @@
 }
 
 .card_holo.large_size {
-  width: 750px;
-  height: 1050px;
+  width: 375px;
+  height: 525px;
 }
 
 
@@ -107,15 +107,15 @@
 
 .card_holo:after {
   opacity: 1;
-  background-image:
-    url("../../../assets/img/star_holo.png");
+  // background-image:
+  //   url("../../../assets/img/star_holo.png");
   // url('firework_3.gif');
   // var(--blob);
   //  linear-gradient(125deg, #e02d1650 15%, #fbff0a40 30%, #ffff0030 40%, #00ff8a20 60%, #00cfff40 70%, #cc4cfa50 85%);
   // clip-path: polygon(0% 0%, 0% 100%, 8% 100%, 8% 10.5%, 92.5% 10.5%, 92.5% 60%, 8% 60%, 8% 100%, 100% 100%, 100% 0%);
   clip-path: polygon(0% 0%, 0% 58.5%, 100% 58.5%, 100% 0%); // Just Upper
   // clip-path: polygon(0% 0%, 0% 100%, 8% 100%, 8% 10.5%, 92.5% 10.5%, 92.5% 60%, 8% 60%, 8% 100%, 100% 100%, 100% 0%); // Exluding Picture
-  background-position: 16% 21%;
+  background-position: 50% 50%;
   background-size: 300%;
   background-repeat: no-repeat;
   background-blend-mode: overlay;
