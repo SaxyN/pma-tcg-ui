@@ -49,15 +49,6 @@ const PackContainer = () => {
                     <PackNui>
                         <div className={classes.innerShowcase}>
                             <PackOpener />
-                            {/* {CardList.length > 0 ?
-                                CardList.map((currentValue: any) => {
-                                    return (
-                                        <div key={currentValue.uid} style={{ margin: "15px", borderRadius: "5% / 3.5%" }}>
-                                            <CardHandler cardImage={currentValue.img} cardType={currentValue.type} sizeTag={0} />
-                                        </div>
-                                    )
-                                }) : <></>} */}
-                            {/* <CardPackControls /> */}
                         </div>
                     </PackNui>
                 </Box>

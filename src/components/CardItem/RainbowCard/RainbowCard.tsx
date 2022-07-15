@@ -3,7 +3,7 @@ import "./rainbowstyle.scss";
 import ImageHandler from '../../ImageHandler/ImageHandler';
 import { motion, useMotionValue, useTransform } from "framer-motion";
 
-const RainbowCard = ({ imageFace, imageStyle, sizeTag }: any) => {
+const RainbowCard = ({ imageFace, imageStyle, sizeTag, cardHoloX, cardHoloY, pattern, hoverEffects }: any) => {
 
     const x = useMotionValue(200);
     const y = useMotionValue(200);
@@ -15,31 +15,33 @@ const RainbowCard = ({ imageFace, imageStyle, sizeTag }: any) => {
     const rotateY = useTransform(x, [0, 400], [-15, 15]);
 
     function handleMouse(event: any) {
-        const rect = event.currentTarget.getBoundingClientRect();
+        if (hoverEffects) {
+            const rect = event.currentTarget.getBoundingClientRect();
 
-        x.set(event.clientX - rect.left);
-        y.set(event.clientY - rect.top);
+            x.set(event.clientX - rect.left);
+            y.set(event.clientY - rect.top);
 
-        backX.set(event.clientX - rect.left);
-        backY.set(event.clientY - rect.top);
+            backX.set(event.clientX - rect.left);
+            backY.set(event.clientY - rect.top);
 
-        document.querySelectorAll<HTMLElement>(".card_rainbow").forEach(elem => {
-            var l: any = event.clientX - rect.left;
-            var t: any = event.clientY - rect.top;
-            var h = 400;
-            var w = 400;
-            let px = Math.abs(Math.floor(100 / w * l) - 100);
-            let py = Math.abs(Math.floor(100 / h * t) - 100);
-            var pa = (50 - px) + (50 - py);
-            var p_opc = ((20 + (Math.abs(pa) * 1.5)) / 100);
-            var lp = (50 + (px - 50) / 1.5);
-            var tp = (50 + (py - 50) / 1.5);
+            document.querySelectorAll<HTMLElement>(".card_rainbow").forEach(elem => {
+                var l: any = event.clientX - rect.left;
+                var t: any = event.clientY - rect.top;
+                var h = 400;
+                var w = 400;
+                let px = Math.abs(Math.floor(100 / w * l) - 100);
+                let py = Math.abs(Math.floor(100 / h * t) - 100);
+                var pa = (50 - px) + (50 - py);
+                var p_opc = ((20 + (Math.abs(pa) * 1.5)) / 100);
+                var lp = (50 + (px - 50) / 1.5);
+                var tp = (50 + (py - 50) / 1.5);
 
-            elem?.style.setProperty("--gradPosX", lp.toString() + "%");
-            elem?.style.setProperty("--gradPosY", tp.toString() + "%");
-            elem?.style.setProperty("--hoverOpacity", p_opc.toString());
+                elem?.style.setProperty("--gradPosX", lp.toString() + "%");
+                elem?.style.setProperty("--gradPosY", tp.toString() + "%");
+                elem?.style.setProperty("--hoverOpacity", p_opc.toString());
 
-        });
+            });
+        }
     }
 
     function handleReset(event: any) {
@@ -67,9 +69,9 @@ const RainbowCard = ({ imageFace, imageStyle, sizeTag }: any) => {
                             rotateX: rotateX,
                             rotateY: rotateY,
                         }}
-                        whileHover={{ scale: 1.2 }}
+                        whileHover={{ scale: 1.1 }}
                     >
-                        <motion.div className="card_rainbow normal_size eevee">
+                        <motion.div className={`card_rainbow ${pattern} normal_size eevee`}>
                             <ImageHandler name={imageFace} imageStyle={imageStyle} />
                         </motion.div>
                     </motion.div>
@@ -91,9 +93,9 @@ const RainbowCard = ({ imageFace, imageStyle, sizeTag }: any) => {
                             rotateX: rotateX,
                             rotateY: rotateY,
                         }}
-                        whileHover={{ scale: 1.2 }}
+                        whileHover={{ scale: 1.1 }}
                     >
-                        <motion.div className="card_rainbow medium_size eevee">
+                        <motion.div className={`card_rainbow ${pattern} medium_size eevee`}>
                             <ImageHandler name={imageFace} imageStyle={imageStyle} />
                         </motion.div>
                     </motion.div>
@@ -115,9 +117,9 @@ const RainbowCard = ({ imageFace, imageStyle, sizeTag }: any) => {
                             rotateX: rotateX,
                             rotateY: rotateY,
                         }}
-                        whileHover={{ scale: 1.2 }}
+                        whileHover={{ scale: 1.1 }}
                     >
-                        <motion.div className="card_rainbow large_size eevee">
+                        <motion.div className={`card_rainbow ${pattern} large_size eevee`}>
                             <ImageHandler name={imageFace} imageStyle={imageStyle} />
                         </motion.div>
                     </motion.div>
@@ -139,9 +141,9 @@ const RainbowCard = ({ imageFace, imageStyle, sizeTag }: any) => {
                             rotateX: rotateX,
                             rotateY: rotateY,
                         }}
-                        whileHover={{ scale: 1.2 }}
+                        whileHover={{ scale: 1.1 }}
                     >
-                        <motion.div className="card_rainbow normal_size eevee">
+                        <motion.div className={`card_rainbow ${pattern} normal_size eevee`}>
                             <ImageHandler name={imageFace} imageStyle={imageStyle} />
                         </motion.div>
                     </motion.div>

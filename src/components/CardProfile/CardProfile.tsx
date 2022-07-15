@@ -75,7 +75,7 @@ const CardProfile = () => {
                 <div className={classes.cardOuter}>
                     <div className={classes.imageSection}>
                         <div className={classes.cardImage}>
-                            <img src={CARD_IMAGE} className={classes.image} alt='card_image' />
+                            <img src={CARD_IMAGE} className={classes.image} alt='card_image' loading="lazy" />
                         </div>
                     </div>
                     <div className={classes.qualitySection}>

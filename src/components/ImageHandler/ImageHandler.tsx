@@ -50,7 +50,7 @@ import React from 'react';
 const ImageHandler = ({ name, imageStyle, size, sizeTag }: any) => {
     // const classes = styles();
 
-    return <img src={"./assets/img/" + name + ".png"} alt={name} style={imageStyle} />;
+    return <img src={"./assets/img/" + name + ".png"} alt={name} style={imageStyle} loading="lazy" draggable="false" unselectable="on" />;
     // switch (name) {
     //     // case "pack_design2":
     //     //     return <img src={PACK_DESIGN2} alt="pack" className={size === "l" ? classes.large : classes.small} />

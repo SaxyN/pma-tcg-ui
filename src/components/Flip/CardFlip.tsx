@@ -139,28 +139,30 @@ const CardFlip = ({ card }: any) => {
         }
     }
 
-    return (
-        <div style={{ margin: "20px" }}>
-            <ReactCardFlip isFlipped={flipped} flipDirection='horizontal'>
-                <div onClick={() => handleFlip()} className={
-                    card.type === 1 ? classes.holoBack :
-                        card.type === 2 ? classes.epicBack :
-                            card.type === 3 ? classes.legendaryBack :
-                                card.type === 4 ? classes.fullArtBack :
-                                    card.type === 5 ? classes.fullArtSpecialBack :
-                                        card.type === 6 ? classes.goldBack :
-                                            card.type === 7 ? classes.blackPearlBack :
-                                                card.type === 8 ? classes.rainbowBack :
-                                                    classes.normalBack}>
-                    {/*   width: 375px; height: 525px; width: 247.5px; height: 346.5px; */}
-                    <img src={"../../assets/img/" + card.card_back + ".png"} alt="card_back" style={{ width: "248px", height: "347px", borderRadius: "5% / 3.5%" }} />
-                </div>
-                <>
-                    <CardHandler cardImage={card.img} cardType={card.type} cardUID={card.uid} sizeTag={1} specialTag={card.specialTag} />
-                </>
-            </ReactCardFlip>
-        </div>
-    )
+    if (card) {
+        return (
+            <div style={{ margin: "20px" }}>
+                <ReactCardFlip isFlipped={flipped} flipDirection='horizontal'>
+                    <div onClick={() => handleFlip()} className={
+                        card.type === 1 ? classes.holoBack :
+                            card.type === 2 ? classes.epicBack :
+                                card.type === 3 ? classes.legendaryBack :
+                                    card.type === 4 ? classes.fullArtBack :
+                                        card.type === 5 ? classes.fullArtSpecialBack :
+                                            card.type === 6 ? classes.goldBack :
+                                                card.type === 7 ? classes.blackPearlBack :
+                                                    card.type === 8 ? classes.rainbowBack :
+                                                        classes.normalBack}>
+                        {/*   width: 375px; height: 525px; width: 247.5px; height: 346.5px; */}
+                        <img src={"./assets/img/" + card.card_back + ".png"} alt="card_back" style={{ width: "248px", height: "347px", borderRadius: "5% / 3.5%" }} loading="lazy" />
+                    </div>
+                    <>
+                        <CardHandler cardImage={card.img} cardType={card.type} cardUID={card.uid} sizeTag={1} specialTag={card.specialTag} cardHoloX={card.holoX} cardHoloY={card.holoY} pattern={card.pattern} hoverEffects={true} />
+                    </>
+                </ReactCardFlip>
+            </div>
+        )
+    }
 }
 
 export default CardFlip

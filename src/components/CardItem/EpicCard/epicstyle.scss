@@ -39,8 +39,8 @@
 }
 
 .card_epic.large_size {
-  width: 750px;
-  height: 1050px;
+  width: 375px;
+  height: 525px;
 }
 
 
@@ -101,27 +101,23 @@
       var(--color5) 64%,
       transparent 100%);
   animation: holoGradient 10s infinite;
+  clip-path: polygon(0% 0%, 0% 58.5%, 100% 58.5%, 100% 0%); // Just Upper
   // clip-path: polygon(0% 0%, 0% 100%, 8% 100%, 8% 10.5%, 92.5% 10.5%, 92.5% 60%, 8% 60%, 8% 100%, 100% 100%, 100% 0%); // Exluding Picture
   // filter: brightness(1.6) contrast(1);
 }
 
-.card_epic:after {
+.card_epic.holo_large:after {
   opacity: 1;
-  // background-image:
-  //   url(https://assets.codepen.io/13471/holo.png);
-  // url("polygon.png");
-  // linear-gradient(90deg, #e02d1650 15%, #fbff0a40 30%, #ffff0030 40%, #00ff8a20 60%, #00cfff40 70%, #cc4cfa50 85%);
-  // clip-path: polygon(0% 0%, 0% 100%, 8% 100%, 8% 10.5%, 92.5% 10.5%, 92.5% 60%, 8% 60%, 8% 100%, 100% 100%, 100% 0%);
-  // clip-path: polygon(8.9% 11.2%, 8.9% 58.9%, 91.5% 58.9%, 91.5% 11.2%); // Just Picture
-  // clip-path: polygon(0% 0%, 0% 67%, 100% 67%, 100% 0%); // Just Upper
-  // clip-path: polygon(0% 0%, 0% 100%, 8% 100%, 8% 10.5%, 92.5% 10.5%, 92.5% 60%, 8% 60%, 8% 100%, 100% 100%, 100% 0%); // Exluding Picture
-  background-position: 50% 50%;
-  background-size: 100%;
+
+  background-image: url("../../../assets/img/holo_large.png");
+  clip-path: polygon(0% 0%, 0% 58.5%, 100% 58.5%, 100% 0%); // Just Upper
+  background-position: var(--backPosX) var(--backPosY);
+  background-size: 200%;
   background-repeat: no-repeat;
   background-blend-mode: overlay;
   z-index: 2;
   filter: brightness(1.0) contrast(0.65);
-  transition: all .5s ease;
+  transition: none;
   mix-blend-mode: color-dodge;
   opacity: .75;
   // animation: holoGradient 5s infinite;
@@ -166,14 +162,6 @@
 
 .card_epic.eevee:hover:before,
 .card_epic.eevee.active:before {
-  // background-image: repeating-linear-gradient(90deg,
-  //     transparent 5%,
-  //     var(--color1) 10%,
-  //     var(--color2) 15%,
-  //     var(--color3) 20%,
-  //     var(--color4) 25%,
-  //     var(--color5) 30%,
-  //     transparent 35%);
   background-image: linear-gradient(45deg,
       transparent 15%,
       var(--color1) 36%,
@@ -182,11 +170,7 @@
       var(--color4) 57%,
       var(--color5) 64%,
       transparent 100%);
-  // background-repeat: repeat;
-  // clip-path: polygon(8.9% 11.2%, 8.9% 58.9%, 91.5% 58.9%, 91.5% 11.2%); // Just Image
-  // clip-path: polygon(0% 0%, 0% 67%, 100% 67%, 100% 0%); // Just Upper
-  // opacity: .5;
-  // clip-path: polygon(0% 0%, 0% 100%, 8% 100%, 8% 10.5%, 92.5% 10.5%, 92.5% 60%, 8% 60%, 8% 100%, 100% 100%, 100% 0%); // Excluding Picture
+  clip-path: polygon(0% 0%, 0% 58.5%, 100% 58.5%, 100% 0%); // Just Upper
 }
 
 @keyframes holoGradient {
