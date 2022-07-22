@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { makeStyles } from '@mui/styles';
 import FilterSection from '../Filters/FilterSection';
 import CloseIcon from '@mui/icons-material/Close';
@@ -88,6 +88,14 @@ const Binder = () => {
     const [showSettings, setShowSettings] = React.useState(false);
     // const [showFilters, setShowFilters] = React.useState(false);
 
+
+    useEffect(() => {
+        if (currentPage > paginationSize) {
+            setCurrentPage(1);
+        }
+    })
+
+
     const cardInventory = useSelector(
         (state: RootStateOrAny) => state.binder.cardInventory
     );
@@ -103,8 +111,6 @@ const Binder = () => {
     const paginationSize = useSelector(
         (state: RootStateOrAny) => state.binder.paginationSize
     )
-
-    // const handleShowSettings
 
     const handleSearchChange = (search: string) => {
         if (search !== "") {

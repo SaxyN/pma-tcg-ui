@@ -33,64 +33,53 @@ export const binderSlice = createSlice({
             state.showMissingCards = true;
         },
         swapCardInfo: (state: any, { payload }: PayloadAction<any>) => {
-            let current: Card = payload.current;
-            let newCard: Card = payload.newCard;
+            // let current: Card = payload.current;
+            // let newCard: Card = payload.newCard;
 
-            let subCollection = state.subCollection;
-            let newCardInfo = state.cardInfo;
+            // let subCollection = state.subCollection;
+            // let newCardInfo = state.cardInfo;
 
-            subCollection.push(current);
+            // subCollection.push(current);
 
-            for (var i = 0; i < subCollection.length; i++) {
-                if (newCard.uid === subCollection[i].uid) {
-                    newCardInfo = subCollection[i];
-                    subCollection.splice(i, 1);
-                    break;
-                }
-            }
+            // for (var i = 0; i < subCollection.length; i++) {
+            //     if (newCard.uid === subCollection[i].uid) {
+            //         newCardInfo = subCollection[i];
+            //         subCollection.splice(i, 1);
+            //         break;
+            //     }
+            // }
+            // let newSubCollection = subCollection;
 
-            state.cardInfo = newCardInfo;
-            state.subCollection = subCollection;
+            state.cardInfo = payload.newCardInfo;
+            state.subCollection = payload.newSubCollection;
         },
-        openSpecificCard: (state: any, { payload }: PayloadAction<any>) => {
-            let card = payload.specificCard;
-
-            let newSubCollection: Card[] = [];
-            let newCardInfo: Card;
-
-            for (const key in card.uid) {
-                newSubCollection.push({
-                    uid: key,
-                    id: card.id,
-                    type: card.type,
-                    img: card.img,
-                    card_back: card.uid[key].back,
-                    name: card.name,
-                    set: card.set,
-                    specialTag: card.specialTag,
-                    holoX: card.uid[key].holoX,
-                    holoY: card.uid[key].holoY,
-                    pattern: card.uid[key].pattern,
-                })
-            }
-
-            newCardInfo = newSubCollection[0];
-            newSubCollection.splice(0, 1);
-
-            state.cardInfo = newCardInfo;
-            state.subCollection = newSubCollection;
-        },
-        updateCardInfo: (state: any, { payload }: PayloadAction<any>) => {
+        showCardInfo: (state: any, { payload }: PayloadAction<any>) => {
             // Get name/img/id (either/or but need two of them)
 
-            let subCollection: CardBundle[] = [];
-            let inventory = state.trueInventory
+            let subCollection: Card[] = [];
+            let inventory = state.trueInventory;
 
             // Search through inventory for any of this card of any type
             for (var i = 0; i < inventory.length; i++) {
-                if (inventory[i].img === payload.img && inventory[i].name === payload.name) {
+                if (inventory[i].name === payload.name) {
                     // Append the other occurances of this card to a sub array (This will displayed in the expanded info portion) 
-                    subCollection.push(inventory[i]);
+                    for (const key in inventory[i].uid) {
+                        subCollection.push({
+                            uid: key,
+                            id: inventory[i].id,
+                            type: inventory[i].type,
+                            img: inventory[i].img,
+                            card_back: inventory[i].uid[key].back,
+                            name: inventory[i].name,
+                            set: inventory[i].set,
+                            specialTag: inventory[i].specialTag,
+                            holoX: inventory[i].uid[key].holoX,
+                            holoY: inventory[i].uid[key].holoY,
+                            pattern: inventory[i].uid[key].pattern,
+                            like: inventory[i].uid[key].like,
+                            forTrade: inventory[i].uid[key].forTrade,
+                        })
+                    }
                 }
             }
 
@@ -99,14 +88,15 @@ export const binderSlice = createSlice({
                 return b.type - a.type;
             })
 
-            // Set the highest rarity as the main card
             state.cardInfo = subCollection[0];
-            // Remove that card from the subCollection
-            subCollection.shift();
-            // Set subCollection
             state.subCollection = subCollection;
 
             // state.cardInfo = payload.cardInfo;
+        },
+        updateCardInfo: (state: any, { payload }: PayloadAction<any>) => {
+            // Get name/img/id (either/or but need two of them)
+
+            state.cardInfo = payload.newCardInfo;
         },
         shiftCardInfo: (state: any, { payload }: PayloadAction<any>) => {
             let newCardType = payload.newType;
@@ -286,4 +276,4 @@ export const binderSlice = createSlice({
 })
 
 export const binderReducer = binderSlice.reducer;
-export const { showMissingCards, hideMissingCards, updateCardInfo, filterByID, filterByQuality, shiftCardInfo, filterByName, createInventory, loadAllCardsWithTypes, closeBinder, resetFilter, swapCardInfo, updateActiveCardProfile, openSpecificCard, openBinder, loadCardInventory, createMissingInventory, filterBySearch } = binderSlice.actions;
+export const { showMissingCards, hideMissingCards, updateCardInfo, filterByID, filterByQuality, shiftCardInfo, filterByName, createInventory, loadAllCardsWithTypes, closeBinder, resetFilter, swapCardInfo, updateActiveCardProfile, openBinder, loadCardInventory, showCardInfo, createMissingInventory, filterBySearch } = binderSlice.actions;

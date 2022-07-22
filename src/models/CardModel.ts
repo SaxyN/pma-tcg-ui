@@ -4,15 +4,18 @@ export interface CardDataDictionary {
         holoX?: string,
         holoY?: string,
         pattern?: string,
+        like: boolean,
+        forTrade: boolean,
     };
 }
 
-export interface CardData {
-    back: string,
-    holoX?: string,
-    holoY?: string,
-    pattern?: string,
-}
+// export interface CardData {
+//     back: string,
+//     holoX?: string,
+//     holoY?: string,
+//     pattern?: string,
+//     like?: boolean,
+// }
 
 export interface PullCard {
     id: number,
@@ -32,10 +35,11 @@ export interface Card {
     name: string,
     set: string,
     specialTag: string,
-    like?: boolean,
-    holoX?: string,
-    holoY?: string,
-    pattern?: string,
+    holoX: string,
+    holoY: string,
+    pattern: string,
+    like: boolean,
+    forTrade: boolean,
     // condition: Qualities,
     // quality: number,
     // width: string, height: string, borderRadius: string,

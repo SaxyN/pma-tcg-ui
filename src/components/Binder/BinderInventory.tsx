@@ -1,12 +1,11 @@
 import React, { Fragment } from 'react';
 import { makeStyles } from '@mui/styles';
-import { Fade, Box, Modal, Tooltip, Menu, MenuItem, Backdrop, Pagination } from '@mui/material';
+import { Fade, Box, Modal, Backdrop } from '@mui/material';
 import { BinderCard } from './BinderCard/BinderCard';
 import { MissingCard } from "./MissingCard/MissingCard";
 import { BinderCardInfo } from './BinderCardInfo';
 import { useDispatch } from 'react-redux';
 import * as BinderActions from '../../redux/binder/binder.slice';
-import { SpecificCardInfo } from './SpecificCardInfo';
 
 const styles = makeStyles(() => ({
     cardSlot: {
@@ -23,35 +22,16 @@ export const BinderInventory = ({ array }: any) => {
     const [showCardInfo, setShowCardInfo] = React.useState(false);
     const [showMenu, setShowMenu] = React.useState(false);
     const [showSpecificCard, setShowSpecificCard] = React.useState(false);
-    // const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-    // const open = Boolean(anchorEl);
-
-    // const handleMenuClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    //     setAnchorEl(event.currentTarget);
-    // };
-
-    // const handleMenuClose = () => {
-    //     setAnchorEl(null);
-    // };
 
     const handleClick = React.useCallback((event: any, name: string, img: string) => {
         event.preventDefault();
         switch (event.type) {
             case 'click':
-                dispatch(BinderActions.updateCardInfo({ name: name, img: img }))
+                dispatch(BinderActions.showCardInfo({ name: name }))
                 setShowCardInfo(!showCardInfo);
                 break;
-            // case 'contextmenu':
-            //     setShowMenu(!showMenu);
-            //     break;
         }
     }, [])
-
-    const handleClose = () => {
-        if (showCardInfo) {
-            setShowCardInfo(false);
-        }
-    }
 
     const handleMoreInfoClick = () => {
         setShowCardInfo(!showCardInfo);
@@ -112,13 +92,13 @@ export const BinderInventory = ({ array }: any) => {
                     </Box>
                 </Fade>
             </Modal>
-            <Modal open={showSpecificCard} onClose={() => setShowSpecificCard(!showSpecificCard)}>
+            {/* <Modal open={showSpecificCard} onClose={() => setShowSpecificCard(!showSpecificCard)}>
                 <Fade in={showSpecificCard} timeout={500}>
                     <Box sx={{ display: "flex", justifyContent: "center" }}>
                         <SpecificCardInfo />
                     </Box>
                 </Fade>
-            </Modal>
+            </Modal> */}
         </Fragment >
     )
 }

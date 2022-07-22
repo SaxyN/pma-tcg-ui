@@ -6,6 +6,7 @@ import { openPack, updatePackCards } from "./redux/pack/pack.slice";
 // import * as storeActions from "./redux/cards/cards.slice";
 import * as binderActions from "./redux/binder/binder.slice";
 import * as showcaseActions from "./redux/showcase/showcase.slice";
+import * as tradingActions from "./redux/trading/trading.slice";
 // import { generatePack } from './cardpull/cardPuller';
 
 // Mock Data for Dev
@@ -15,6 +16,7 @@ import { mockAllCards } from "./mockData/mockAllCards";
 import { CardList } from "./mockData/mock";
 import { mockShowcase } from "./mockData/mockShowcase";
 import { EventRepeat } from "@mui/icons-material";
+import { mockTradeData } from "./mockData/mockTradeData";
 
 interface ProviderProps {
     children: ReactNode;
@@ -62,6 +64,15 @@ const Nui = ({ children }: ProviderProps) => {
                 } else {
                     dispatch(showcaseActions.openShowcase());
                     dispatch(showcaseActions.updateShowcase({ showcaseData: mockShowcase }));
+                }
+                break;
+            case "OPEN_TRADING":
+                if (process.env.NODE_ENV !== "development") {
+                    dispatch(tradingActions.openTrading());
+                    dispatch(tradingActions.updateTrade({ tradeData: event.data.tradeData }));
+                } else {
+                    dispatch(tradingActions.openTrading());
+                    dispatch(tradingActions.updateTrade({ tradeData: mockTradeData }));
                 }
                 break;
             default:

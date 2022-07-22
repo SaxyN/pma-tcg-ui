@@ -88,7 +88,7 @@ const styles = makeStyles((theme) => ({
     },
 }))
 
-const CardFlip = ({ card }: any) => {
+const CardFlip = ({ card, onCardFlip, index }: any) => {
     const classes = styles();
     const [flipped, setFlipped] = useState(false);
     const [normalCard] = useSound(
@@ -122,7 +122,8 @@ const CardFlip = ({ card }: any) => {
 
     const handleFlip = () => {
         if (!flipped) {
-            setFlipped(true)
+            setFlipped(true);
+            onCardFlip(index);
             if (card.type === 0) {
                 normalCard()
             } else if (card.type === 1) {

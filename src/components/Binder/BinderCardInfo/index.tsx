@@ -8,6 +8,10 @@ import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import { useDispatch } from 'react-redux';
 import * as BinderActions from '../../../redux/binder/binder.slice';
 import { AdvancedTooltip } from './AdvancedTooltip';
+import { DataGrid } from '@mui/x-data-grid';
+import { useNuiRequest } from "fivem-nui-react-lib";
+import { columns } from './GridDefs';
+import { Card as CardType } from '../../../models/CardModel';
 
 const styles = makeStyles((theme) => ({
     infoCard: {
@@ -47,56 +51,63 @@ const styles = makeStyles((theme) => ({
         padding: "30px 30px 0px 30px",
         transition: "all ease 1s"
     },
+    gridStyles: {
+        marginLeft: "35px",
+    }
 }))
 
 export const BinderCardInfo = ({ handleMoreInfoClick }: any) => {
     const classes = styles();
+    const { send } = useNuiRequest();
     const dispatch = useDispatch();
-    const [open, setOpen] = React.useState(false);
+    const [open, setOpen] = React.useState(true);
 
     const cardInfo = useSelector((state: RootStateOrAny) => state.binder.cardInfo);
     const subCollection = useSelector((state: RootStateOrAny) => state.binder.subCollection);
 
-
-    const handleCardShift = (newType: number) => {
-        dispatch(BinderActions.shiftCardInfo({ newType: newType }));
+    const handleShare = (showcaseData: any) => {
+        send("pma-tcg:createShowcase", showcaseData);
     }
 
-    const handleShowAllCard = () => {
-        handleMoreInfoClick();
-        dispatch(BinderActions.openSpecificCard({ specificCard: cardInfo }));
+    const handleTrade = (tradeData: CardType | null) => {
+        send("pma-tcg:checkNearbyPlayers");
+    }
+
+    const swapCardInfo = (newCard: any) => {
+        if (newCard.row.uid !== cardInfo.uid) {
+            dispatch(BinderActions.updateCardInfo({ newCardInfo: newCard.row }));
+        }
     }
 
     return (
         <div className={classes.infoCard}>
             <Card className={classes.modalStyle}>
-                <Typography variant="h6">{cardInfo.name}</Typography>
                 <CardContent className={classes.modalContent}>
                     <Tooltip TransitionComponent={Zoom} arrow placement="left-start" title={<AdvancedTooltip data={cardInfo} />} sx={{ marginRight: "15px" }}>
                         <Box sx={{ padding: "15px" }}>
-                            <CardHandler cardImage={cardInfo.img} cardType={cardInfo.type} cardUID={Object.keys(cardInfo.uid)[0]} sizeTag={2} specialTag={cardInfo.specialTag} cardHoloX={cardInfo.holoX} cardHoloY={cardInfo.holoX} pattern={cardInfo.uid[Object.keys(cardInfo.uid)[0]].pattern} hoverEffects={true} />
+                            <CardHandler cardImage={cardInfo.img} cardType={cardInfo.type} cardUID={cardInfo.uid} sizeTag={2} specialTag={cardInfo.specialTag} cardHoloX={cardInfo.holoX} cardHoloY={cardInfo.holoX} pattern={cardInfo.pattern} hoverEffects={true} />
                         </Box>
                     </Tooltip>
                     <Collapse in={open} orientation="horizontal" mountOnEnter unmountOnExit>
-                        <div style={{ marginLeft: "50px", marginTop: "15px", display: "flex", }}>
-                            {subCollection.length > 0 ?
-                                subCollection.map((item: any) => {
-                                    return (
-                                        <Tooltip TransitionComponent={Zoom} arrow placement="left-start" title={<AdvancedTooltip data={item} />} sx={{ marginRight: "15px" }}>
-                                            <Box sx={{ margin: "10px", padding: "10px", position: "relative", justifyItems: "center" }} onClick={() => handleCardShift(item.type)}>
-                                                <CardHandler key={Object.keys(item.uid)[0]} cardImage={item.img} cardType={item.type} cardUID={Object.keys(item.uid)[0]} sizeTag={0} specialTag={item.specialTag} cardHoloX={item.holoX} cardHoloY={item.holoX} pattern={item.uid[Object.keys(item.uid)[0]].pattern} hoverEffects={false} />
-                                            </Box>
-                                        </Tooltip>
-                                    )
-                                })
-                                : <></>}
-                        </div>
+                        {subCollection.length > 0 ?
+                            <Box sx={{ height: 550, width: 1200 }}>
+                                <DataGrid
+                                    className={classes.gridStyles}
+                                    columns={columns}
+                                    rows={subCollection}
+                                    pageSize={10}
+                                    rowsPerPageOptions={[]}
+                                    onRowClick={swapCardInfo}
+                                    getRowId={(r) => r.uid}
+                                    showColumnRightBorder={true}
+
+                                />
+                            </Box> : <></>
+                        }
                     </Collapse>
                 </CardContent>
                 <CardActions style={{ paddingTop: "25px", paddingBottom: "15px" }}>
-                    <Tooltip placement="left-start" title={"Open all duplicates of this card"} sx={{ marginRight: "15px" }} enterDelay={1000}>
-                        <Button variant="contained" sx={{ backgroundColor: "gray", '&:hover': { backgroundColor: "orange" } }} onClick={() => handleShowAllCard()}>More Info</Button>
-                    </Tooltip>
+                    <Button variant="contained" sx={{ color: "white", backgroundColor: "gray", '&:hover': { backgroundColor: "orange" } }} onClick={() => handleShare(cardInfo)}>Share</Button>
                     {subCollection.length > 0 ?
                         <IconButton style={{ color: "black", marginLeft: "auto" }} onClick={() => setOpen(!open)}>{!open ? <ChevronRightIcon /> : <ChevronLeftIcon />}</IconButton>
                         : <></>

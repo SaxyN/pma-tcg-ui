@@ -196,7 +196,7 @@ export const mockAllCards: PullCard[] = [
     },
     {
         id: 100,
-        img: '100_putts_bramfield',
+        img: '151_putts_bramfield',
         name: 'Putts Bramfield',
         set: '1A',
         specialTag: '',
@@ -204,8 +204,8 @@ export const mockAllCards: PullCard[] = [
     },
     {
         id: 110,
-        img: '110_pookie_snackson_chupador',
-        name: 'Pookie Snackson-Chupador',
+        img: '165_pookie_snaxson',
+        name: 'Pookie Snaxson',
         set: '1A',
         specialTag: '',
         pattern: '',
