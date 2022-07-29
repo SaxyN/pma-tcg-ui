@@ -166,7 +166,7 @@ const Binder = () => {
             <div className={classes.binderMain}>
                 <div className={classes.binderInner}>
                     <div className={classes.binderSection}>
-                        <BinderInventory array={cardInventory.slice(currentPage * 18 - 18, currentPage * 18)} showCardInfo={showCardInfo} setShowCardInfo={setShowCardInfo} />
+                        <BinderInventory array={cardInventory.slice(currentPage * 18 - 18, currentPage * 18)} />
                     </div>
                     <div style={{ position: "absolute", zIndex: 25, left: "50%", bottom: "2%", transform: 'translate(-50%)', }}>
                         {cardInventory.length > 0 ?

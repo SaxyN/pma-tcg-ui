@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { mockAllCards } from "../../mockData/mockAllCards";
-import { CardShorthand, Card, CardBundle } from "../../models/CardModel";
+import { CardShorthand, Card, CardBundle, CardMiniData } from "../../models/CardModel";
 import { BinderSlot } from "../../models/BinderSlot";
 
 const initialState = {
@@ -53,35 +53,42 @@ export const binderSlice = createSlice({
             state.cardInfo = payload.newCardInfo;
             state.subCollection = payload.newSubCollection;
         },
-        showCardInfo: (state: any, { payload }: PayloadAction<any>) => {
-            // Get name/img/id (either/or but need two of them)
-
+        extractInventory: (state: any, { payload }: PayloadAction<any>) => {
             let subCollection: Card[] = [];
             let inventory = state.trueInventory;
 
             // Search through inventory for any of this card of any type
             for (var i = 0; i < inventory.length; i++) {
-                if (inventory[i].name === payload.name) {
-                    // Append the other occurances of this card to a sub array (This will displayed in the expanded info portion) 
-                    for (const key in inventory[i].uid) {
-                        subCollection.push({
-                            uid: key,
-                            id: inventory[i].id,
-                            type: inventory[i].type,
-                            img: inventory[i].img,
-                            card_back: inventory[i].uid[key].back,
-                            name: inventory[i].name,
-                            set: inventory[i].set,
-                            specialTag: inventory[i].specialTag,
-                            holoX: inventory[i].uid[key].holoX,
-                            holoY: inventory[i].uid[key].holoY,
-                            pattern: inventory[i].uid[key].pattern,
-                            like: inventory[i].uid[key].like,
-                            forTrade: inventory[i].uid[key].forTrade,
-                        })
-                    }
+                for (const key in inventory[i].uid) {
+                    subCollection.push({
+                        uid: key,
+                        id: inventory[i].id,
+                        type: inventory[i].type,
+                        img: inventory[i].img,
+                        card_back: inventory[i].uid[key].back,
+                        name: inventory[i].name,
+                        set: inventory[i].set,
+                        specialTag: inventory[i].specialTag,
+                        holoX: inventory[i].uid[key].holoX,
+                        holoY: inventory[i].uid[key].holoY,
+                        pattern: inventory[i].uid[key].pattern,
+                        like: inventory[i].uid[key].like,
+                        forTrade: inventory[i].uid[key].forTrade,
+                    })
                 }
             }
+
+            // Sort by type (highest -> lowest)
+            subCollection.sort((a: any, b: any) => {
+                return b.type - a.type;
+            })
+
+            state.subCollection = subCollection;
+        },
+        showCardInfo: (state: any, { payload }: PayloadAction<any>) => {
+            // Get name/img/id (either/or but need two of them)
+
+            let subCollection: Card[] = payload.cardData;
 
             // Sort by type (highest -> lowest)
             subCollection.sort((a: any, b: any) => {
@@ -119,6 +126,10 @@ export const binderSlice = createSlice({
             state.subCollection = subCollection;
 
         },
+        clearShowCardData: (state: any, { payload }: PayloadAction<any>) => {
+            state.cardInfo = {};
+            state.subCollection = [];
+        },
         updateActiveCardProfile: (state: any, { payload }: PayloadAction<any>) => {
 
         },
@@ -129,28 +140,8 @@ export const binderSlice = createSlice({
             state.allCardsWithTypes = payload.allCardsWithTypes;
         },
         loadCardInventory: (state: { trueInventory: any; allCards: any, shortInventory: any }, { payload }: PayloadAction<any>) => {
-            state.trueInventory = payload.cardCollection;
             state.allCards = payload.allCards;
-            var collection = payload.cardCollection;
-            var inventory: CardShorthand[] = [];
-
-            let needToAdd: boolean = true;
-            for (var i = 0; i < collection.length; i++) {
-                for (var j = 0; j < inventory.length; j++) {
-                    if (collection[i].img === inventory[j].img && collection[i].name === inventory[j].name) {
-                        needToAdd = false;
-                        if (collection[i].type > inventory[j].type) {
-                            inventory[j] = collection[i];
-                        }
-                    }
-                }
-
-                if (needToAdd) {
-                    inventory.push(collection[i]);
-                } else {
-                    needToAdd = true;
-                }
-            }
+            var inventory: CardMiniData[] = payload.cardCollection;
 
             inventory.sort((a: any, b: any) => {
                 if (a.id === b.id) {
@@ -159,6 +150,7 @@ export const binderSlice = createSlice({
                 return a.id - b.id;
             })
 
+            state.trueInventory = inventory;
             state.shortInventory = inventory;
         },
         createInventory: (state: { cardInventory: any, shortInventory: any, paginationSize: number }) => {
@@ -276,4 +268,4 @@ export const binderSlice = createSlice({
 })
 
 export const binderReducer = binderSlice.reducer;
-export const { showMissingCards, hideMissingCards, updateCardInfo, filterByID, filterByQuality, shiftCardInfo, filterByName, createInventory, loadAllCardsWithTypes, closeBinder, resetFilter, swapCardInfo, updateActiveCardProfile, openBinder, loadCardInventory, showCardInfo, createMissingInventory, filterBySearch } = binderSlice.actions;
+export const { extractInventory, showMissingCards, hideMissingCards, updateCardInfo, filterByID, filterByQuality, shiftCardInfo, filterByName, createInventory, loadAllCardsWithTypes, closeBinder, clearShowCardData, resetFilter, swapCardInfo, updateActiveCardProfile, openBinder, loadCardInventory, showCardInfo, createMissingInventory, filterBySearch } = binderSlice.actions;

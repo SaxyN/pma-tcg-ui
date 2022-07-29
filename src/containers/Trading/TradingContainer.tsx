@@ -12,7 +12,7 @@ export const TradingContainer = () => {
     );
 
     return (
-        <Fade in={showTrading} timeout={1000}>
+        <Fade in={showTrading} timeout={1000} unmountOnExit>
             <Box>
                 <TradingWindow />
             </Box>

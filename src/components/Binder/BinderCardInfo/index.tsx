@@ -69,9 +69,9 @@ export const BinderCardInfo = ({ handleMoreInfoClick }: any) => {
         send("pma-tcg:createShowcase", showcaseData);
     }
 
-    const handleTrade = (tradeData: CardType | null) => {
-        send("pma-tcg:checkNearbyPlayers");
-    }
+    // const handleTrade = (tradeData: CardType | null) => {
+    //     send("pma-tcg:getNearbyPlayers");
+    // }
 
     const swapCardInfo = (newCard: any) => {
         if (newCard.row.uid !== cardInfo.uid) {
@@ -102,12 +102,13 @@ export const BinderCardInfo = ({ handleMoreInfoClick }: any) => {
                                     showColumnRightBorder={true}
 
                                 />
-                            </Box> : <></>
+                            </Box> : <>Loading...</>
                         }
                     </Collapse>
                 </CardContent>
                 <CardActions style={{ paddingTop: "25px", paddingBottom: "15px" }}>
                     <Button variant="contained" sx={{ color: "white", backgroundColor: "gray", '&:hover': { backgroundColor: "orange" } }} onClick={() => handleShare(cardInfo)}>Share</Button>
+                    {/* <Button variant="contained" sx={{ color: "white", backgroundColor: "gray", '&:hover': { backgroundColor: "orange" } }} onClick={() => handleTrade(cardInfo)}>Trade</Button> */}
                     {subCollection.length > 0 ?
                         <IconButton style={{ color: "black", marginLeft: "auto" }} onClick={() => setOpen(!open)}>{!open ? <ChevronRightIcon /> : <ChevronLeftIcon />}</IconButton>
                         : <></>

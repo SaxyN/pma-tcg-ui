@@ -1,13 +1,10 @@
 import React, { ReactNode, useEffect } from "react";
 import { useNuiRequest } from "fivem-nui-react-lib";
-import { useDispatch, useSelector, RootStateOrAny } from "react-redux";
+import { useDispatch } from "react-redux";
 import { openBinder } from "./redux/binder/binder.slice";
 import { openPack, updatePackCards } from "./redux/pack/pack.slice";
-// import * as storeActions from "./redux/cards/cards.slice";
 import * as binderActions from "./redux/binder/binder.slice";
 import * as showcaseActions from "./redux/showcase/showcase.slice";
-import * as tradingActions from "./redux/trading/trading.slice";
-// import { generatePack } from './cardpull/cardPuller';
 
 // Mock Data for Dev
 import { mockInventory } from "./mockData/mockInventory";
@@ -15,8 +12,6 @@ import { mockAllCardsWithTypes } from "./mockData/mockAllCardsWithTypes";
 import { mockAllCards } from "./mockData/mockAllCards";
 import { CardList } from "./mockData/mock";
 import { mockShowcase } from "./mockData/mockShowcase";
-import { EventRepeat } from "@mui/icons-material";
-import { mockTradeData } from "./mockData/mockTradeData";
 
 interface ProviderProps {
     children: ReactNode;
@@ -66,15 +61,25 @@ const Nui = ({ children }: ProviderProps) => {
                     dispatch(showcaseActions.updateShowcase({ showcaseData: mockShowcase }));
                 }
                 break;
-            case "OPEN_TRADING":
+            case "SEND_CARD_DATA":
                 if (process.env.NODE_ENV !== "development") {
-                    dispatch(tradingActions.openTrading());
-                    dispatch(tradingActions.updateTrade({ tradeData: event.data.tradeData }));
+                    dispatch(binderActions.showCardInfo({ cardData: event.data.cardDataBundle }));
                 } else {
-                    dispatch(tradingActions.openTrading());
-                    dispatch(tradingActions.updateTrade({ tradeData: mockTradeData }));
+
                 }
                 break;
+            // case "OPEN_TRADING":
+            //     if (process.env.NODE_ENV !== "development") {
+            //         dispatch(tradingActions.openTrading());
+            //         dispatch(tradingActions.updateTrade({ tradeData: event.data.tradeData }));
+            //     } else {
+            //         dispatch(binderActions.loadCardInventory({ cardCollection: mockInventory, allCards: mockAllCards }))
+            //         dispatch(binderActions.loadAllCardsWithTypes({ allCardsWithTypes: mockAllCardsWithTypes }));
+            //         dispatch(binderActions.createInventory());
+            //         dispatch(tradingActions.openTrading());
+            //         dispatch(tradingActions.updateTrade({ tradeData: mockTradeData }));
+            //     }
+            //     break;
             default:
                 break;
         }

@@ -37,6 +37,7 @@ const PackOpener = () => {
         send("pma-tcg:closePack");
         dispatch(PackActions.closePack());
         setEnableClose(false);
+        console.log("closed");
     }
 
     const handleOpenPackGrid = () => {
@@ -54,13 +55,13 @@ const PackOpener = () => {
                     )
                 })}
             </div>
-            <Fade in={enableClose} timeout={1000}>
+            <Fade in={enableClose} timeout={1000 | 0} unmountOnExit>
                 <div style={{ width: "100%", display: "flex", justifyContent: "space-evenly", paddingTop: "25px" }}>
-                    <CardPackControls handleOpenPackGrid={handleOpenPackGrid} handlePackClose={handlePackClose} />
+                    <CardPackControls handleOpenPackGrid={handleOpenPackGrid} handlePackClose={handlePackClose} enableClose={enableClose} />
                 </div>
             </Fade>
             <Modal open={showPackGrid} onClose={() => setShowPackGrid(!showPackGrid)}>
-                <Fade in={showPackGrid} timeout={500}>
+                <Fade in={showPackGrid} timeout={500 | 0} unmountOnExit>
                     <Box sx={{
                         position: 'fixed',
                         top: '50%',

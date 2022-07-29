@@ -44,7 +44,7 @@ const PackContainer = () => {
 
     return (
         <div style={{ position: "absolute", top: 0, width: "100%" }}>
-            <Fade in={showPack} timeout={1000}>
+            <Fade in={showPack} timeout={1000 | 50} unmountOnExit>
                 <Box>
                     <PackNui>
                         <div className={classes.innerShowcase}>

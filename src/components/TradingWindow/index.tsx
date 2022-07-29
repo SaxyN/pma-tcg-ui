@@ -1,10 +1,17 @@
 import React from 'react';
 import { makeStyles } from '@mui/styles';
-import { Box, Button, Divider, IconButton, Typography } from '@mui/material';
-import { RootStateOrAny, useSelector } from 'react-redux';
+import { Box, Button, Divider, Fade, IconButton, Modal, Typography } from '@mui/material';
+import { RootStateOrAny, useDispatch, useSelector } from 'react-redux';
 import CardHandler from '../CardHandler/CardHandler';
 import { Card } from '../../models/CardModel';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
+
+import * as TradeActions from '../../redux/trading/trading.slice';
+import * as BinderActions from '../../redux/binder/binder.slice';
+
+import { columns } from '../Binder/BinderCardInfo/GridDefs';
+import { DataGrid } from '@mui/x-data-grid';
+import { useNuiRequest } from 'fivem-nui-react-lib';
 
 const styles = makeStyles((theme) => ({
     tradingOuter: {
@@ -72,6 +79,9 @@ const styles = makeStyles((theme) => ({
 
 export const TradingWindow = () => {
     const classes = styles();
+    const dispatch = useDispatch();
+    const { send } = useNuiRequest();
+    const [openGrid, setOpenGrid] = React.useState(false);
 
     const localSelected = useSelector(
         (state: RootStateOrAny) => state.trade.localSelected
@@ -81,12 +91,31 @@ export const TradingWindow = () => {
         (state: RootStateOrAny) => state.trade.remoteSelected
     );
 
+    const subCollection = useSelector(
+        (state: RootStateOrAny) => state.binder.subCollection
+    );
+
+    const handleGetGrid = () => {
+        dispatch(BinderActions.extractInventory({}));
+        setOpenGrid(!openGrid);
+    }
+
+    const handleAddToTrade = (cardToAdd: any) => {
+        if (localSelected.length < 5) {
+            // send("pma-tcg:addCardToTrade", cardToAdd.row);
+        }
+    }
+
+    const handleCancelTrade = () => {
+        send("pma-tcg:cancelTrade");
+    }
+
 
     return (
         <Box className={classes.tradingOuter}>
             <Box className={classes.tradingInner}>
                 <Box className={classes.gridOpenButton}>
-                    <IconButton onClick={() => console.log("BACON")} sx={{ color: "white" }}><AddCircleIcon /></IconButton>
+                    <IconButton onClick={handleGetGrid} sx={{ color: "white" }}><AddCircleIcon /></IconButton>
                 </Box>
                 <Typography variant="h6">Your Offerings</Typography>
                 <Box className={classes.tradeWindow}>
@@ -118,9 +147,35 @@ export const TradingWindow = () => {
                 <Box className={classes.tradeDetails}>
                     <Typography variant="body2">Click accept when you are ready to trade</Typography>
                     <Button variant="contained" className={classes.acceptButton}>Accept</Button>
-                    <Button variant="contained" className={classes.cancelButton}>Cancel Trade</Button>
+                    <Button variant="contained" className={classes.cancelButton} onClick={() => handleCancelTrade()}>Cancel Trade</Button>
                 </Box>
             </Box>
+
+            <Modal open={openGrid} onClose={() => setOpenGrid(!openGrid)}>
+                <Fade in={openGrid} timeout={500 | 0} unmountOnExit>
+                    <Box sx={{
+                        position: 'fixed',
+                        top: '50%',
+                        left: '50%',
+                        transform: 'translate(-50%, -50%)',
+                        backgroundColor: "gray",
+                        border: "solid 2px black",
+                        padding: "15px",
+                        height: 600,
+                        width: 1200,
+                    }}>
+                        <DataGrid
+                            columns={columns}
+                            rows={subCollection}
+                            rowsPerPageOptions={[]}
+                            getRowId={(r) => r.uid}
+                            showColumnRightBorder={true}
+                            disableSelectionOnClick
+                            onRowDoubleClick={handleAddToTrade}
+                        />
+                    </Box>
+                </Fade>
+            </Modal>
         </Box>
     )
 }

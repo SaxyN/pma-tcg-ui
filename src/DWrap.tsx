@@ -12,10 +12,10 @@ interface WrapperProps {
 export const DWrap = ({ children }: WrapperProps) => {
     useEffect(() => {
         if (process.env.NODE_ENV === "development") {
-            // window.postMessage(showBinderJson);
+            window.postMessage(showBinderJson);
             // window.postMessage(showPackJson);
             // window.postMessage(showPresentJson);
-            window.postMessage(showTradingJson);
+            // window.postMessage(showTradingJson);
         }
     }, [])
     return <>{children}</>

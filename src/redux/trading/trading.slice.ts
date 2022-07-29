@@ -34,6 +34,8 @@ export const tradingSlice = createSlice({
         updateTrade: (state: tradingState, { payload }: PayloadAction<any>) => {
             state.localSelected = payload.tradeData.localSelected;
             state.remoteSelected = payload.tradeData.remoteSelected;
+            state.localTradeReady = payload.tradeData.localReady;
+            state.remoteTradeReady = payload.tradeData.remoteReady;
         },
 
     }

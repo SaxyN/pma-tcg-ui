@@ -3,7 +3,7 @@ import { Tooltip, Typography, Zoom, Box } from '@mui/material';
 import "./binderCard.scss";
 
 
-export const BinderCard = ({ showMenu, handleMenuClick, name, img, cardUID, handleClick }: any) => {
+export const BinderCard = ({ name, id, img, cardUID, handleClick }: any) => {
     return (
         <Box>
             <Tooltip
@@ -14,7 +14,7 @@ export const BinderCard = ({ showMenu, handleMenuClick, name, img, cardUID, hand
                     </Fragment>
                 }
                 TransitionComponent={Zoom} arrow placement="right-start">
-                <div className="binderSlot" onClick={(e: any) => handleClick(e, name, img)}>
+                <div className="binderSlot" onClick={(e: any) => handleClick(e, id)}>
                     <img src={"./assets/img/" + img + ".png"} alt={cardUID} className="binderCard" loading="lazy" draggable="false" unselectable="on" />
                 </div>
             </Tooltip>

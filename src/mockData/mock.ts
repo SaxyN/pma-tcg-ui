@@ -41,7 +41,7 @@ export const CardList: Card[] = [
         pattern: "holo_large",
         set: "1A",
         specialTag: "",
-        type: 2,
+        type: 7,
         uid: "eUtNPc5Aa3UszKj",
         like: false,
         forTrade: true,

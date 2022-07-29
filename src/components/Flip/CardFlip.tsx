@@ -9,6 +9,10 @@ import fullArtSpecialSfx from "../../assets/audio/thunder.mp3";
 import legendaryFlipSfx from "../../assets/audio/english_rare.mp3";
 import useSound from "use-sound";
 import CardHandler from '../CardHandler/CardHandler';
+import fullArtSfx from '../../assets/audio/Oooo_3.mp3';
+import goldSfx from '../../assets/audio/goldSfx.mp3';
+import blackPearlSfx from '../../assets/audio/pearlSfx.wav';
+import rainbowSfx from '../../assets/audio/rainbowSfx.mp3';
 
 const styles = makeStyles((theme) => ({
     flipCard: {
@@ -108,11 +112,23 @@ const CardFlip = ({ card, onCardFlip, index }: any) => {
         { volume: 0.25 }
     );
     const [fullArtCard] = useSound(
-        epicFlipSfx,
+        fullArtSfx,
         { volume: 0.25 }
     )
     const [fullArtSpecialCard] = useSound(
         fullArtSpecialSfx,
+        { volume: 0.25 }
+    )
+    const [goldCard] = useSound(
+        goldSfx,
+        { volume: 0.25 }
+    )
+    const [blackPearlCard] = useSound(
+        blackPearlSfx,
+        { volume: 0.25 }
+    )
+    const [rainbowCard] = useSound(
+        rainbowSfx,
         { volume: 0.25 }
     )
     // const [] = useSound(
@@ -136,6 +152,12 @@ const CardFlip = ({ card, onCardFlip, index }: any) => {
                 fullArtCard()
             } else if (card.type === 5) {
                 fullArtSpecialCard()
+            } else if (card.type === 6) {
+                goldCard()
+            } else if (card.type === 7) {
+                blackPearlCard()
+            } else if (card.type === 8) {
+                rainbowCard()
             }
         }
     }

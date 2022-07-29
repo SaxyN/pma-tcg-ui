@@ -19,7 +19,7 @@ const styles = makeStyles((theme) => ({
     }
 }))
 
-export const CardPackControls = ({ handleOpenPackGrid, handlePackClose }: any) => {
+export const CardPackControls = ({ handleOpenPackGrid, handlePackClose, enableClose }: any) => {
     const classes = styles();
 
     return (
@@ -36,6 +36,7 @@ export const CardPackControls = ({ handleOpenPackGrid, handlePackClose }: any) =
                 }}
                     variant="contained"
                     onClick={() => handlePackClose()}
+                    disabled={enableClose === true ? false : true}
                 >Close</Button>
                 <Button sx={{
                     color: "white",
@@ -48,6 +49,7 @@ export const CardPackControls = ({ handleOpenPackGrid, handlePackClose }: any) =
                 }}
                     variant="contained"
                     onClick={() => handleOpenPackGrid()}
+                    disabled={enableClose === true ? false : true}
                 >Info</Button>
             </div>
         </div>

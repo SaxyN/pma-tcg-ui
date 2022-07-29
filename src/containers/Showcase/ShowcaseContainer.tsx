@@ -9,10 +9,11 @@ import { AdvancedTooltip } from '../../components/Binder/BinderCardInfo/Advanced
 
 const styles = makeStyles((theme) => ({
     showcaseOuter: {
-        // border: "solid yellow 2px",
     },
     showcaseButton: {
-        color: "black",
+        color: "white",
+        backgroundColor: "gray",
+        '&:hover': { backgroundColor: "orange" }
     }
 }));
 
@@ -31,18 +32,22 @@ export function ShowcaseContainer() {
 
     return (
         <div style={{ position: "absolute", bottom: 45, right: 45, zIndex: 5 }}>
-            <Fade in={showcaseVisible} timeout={1000}>
+            <Fade in={showcaseVisible} timeout={1000} unmountOnExit>
                 <Box>
                     <ShowcaseNui>
                         <div className={classes.showcaseOuter}>
-                            <Tooltip TransitionComponent={Zoom} arrow placement="left-start" title={<AdvancedTooltip data={showcaseData} />} sx={{ marginRight: "15px" }}>
-                                <Box sx={{ display: "block", textAlign: "center", padding: "10px" }}>
-                                    <Button onClick={() => handleClose()} className={classes.showcaseButton}>Close</Button>
-                                    <Box sx={{ margin: "10px" }}>
+                            <Box sx={{ display: "block", textAlign: "center", padding: "10px" }}>
+                                <Button onClick={() => handleClose()} sx={{
+                                    color: "white",
+                                    backgroundColor: "gray",
+                                    '&:hover': { backgroundColor: "orange" }
+                                }}>Close</Button>
+                                <Tooltip TransitionComponent={Zoom} arrow placement="left-start" title={<AdvancedTooltip data={showcaseData} />} sx={{ marginRight: "25px" }}>
+                                    <Box sx={{ margin: "10px 10px 10px 20px" }}>
                                         <CardHandler cardImage={showcaseData.img} cardType={showcaseData.type} cardUID={showcaseData.uid} sizeTag={1} specialTag={showcaseData.specialTag} holoX={showcaseData.holoX} holoY={showcaseData.holoY} pattern={showcaseData.pattern} hoverEffects={true} />
                                     </Box>
-                                </Box>
-                            </Tooltip>
+                                </Tooltip>
+                            </Box>
                         </div>
                     </ShowcaseNui>
                 </Box>
