@@ -25,10 +25,6 @@ const BinderNui = ({ children }: Props) => {
 
     };
 
-    const handleCardShift = (newCard: CardShorthand) => {
-        dispatch(BinderActions.shiftCardInfo({ newCard: newCard }))
-    }
-
     return <>{children}</>;
 };
 export default BinderNui;

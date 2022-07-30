@@ -87,6 +87,20 @@ export const BinderInventory = ({ array }: any) => {
                                         />
                                     </div>
                                 )
+                            case "undefined":
+                                return (
+                                    <div key={index} className={classes.cardSlot}>
+                                        <MissingCard
+                                            img={'blank_card'}
+                                            imgStyle={{
+                                                width: "100%",
+                                                height: "100%",
+                                                borderRadius: "5% / 3.5%",
+                                            }}
+                                            alt={index}
+                                        />
+                                    </div>
+                                )
                             default:
                                 return (
                                     <></>

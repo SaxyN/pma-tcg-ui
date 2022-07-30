@@ -14,7 +14,7 @@ export interface CardMiniData {
     img: string,
     id: number,
     name: string,
-    type: number,
+    type?: number,
     set: string,
 }
 

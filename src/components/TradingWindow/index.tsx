@@ -6,7 +6,6 @@ import CardHandler from '../CardHandler/CardHandler';
 import { Card } from '../../models/CardModel';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 
-import * as TradeActions from '../../redux/trading/trading.slice';
 import * as BinderActions from '../../redux/binder/binder.slice';
 
 import { columns } from '../Binder/BinderCardInfo/GridDefs';
@@ -96,7 +95,6 @@ export const TradingWindow = () => {
     );
 
     const handleGetGrid = () => {
-        dispatch(BinderActions.extractInventory({}));
         setOpenGrid(!openGrid);
     }
 

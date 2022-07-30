@@ -37,8 +37,8 @@ const Nui = ({ children }: ProviderProps) => {
                     dispatch(binderActions.createInventory());
                 } else {
                     dispatch(binderActions.loadCardInventory({ cardCollection: mockInventory, allCards: mockAllCards }))
-                    dispatch(binderActions.loadAllCardsWithTypes({ allCardsWithTypes: mockAllCardsWithTypes }));
                     dispatch(binderActions.createInventory());
+                    // dispatch(binderActions.createMissingInventory());
                 }
                 break;
             case "OPEN_PACK":
@@ -48,9 +48,6 @@ const Nui = ({ children }: ProviderProps) => {
                     dispatch(updatePackCards({ packCards: CardList }));
                 }
                 dispatch(openPack());
-                break;
-            case "LOAD_ALL_W_TYPES":
-                dispatch(binderActions.loadAllCardsWithTypes({ allCardsWithTypes: event.data.allCardsWithTypes }))
                 break;
             case "OPEN_SHOWCASE":
                 if (process.env.NODE_ENV !== "development") {
@@ -62,11 +59,7 @@ const Nui = ({ children }: ProviderProps) => {
                 }
                 break;
             case "SEND_CARD_DATA":
-                if (process.env.NODE_ENV !== "development") {
-                    dispatch(binderActions.showCardInfo({ cardData: event.data.cardDataBundle }));
-                } else {
-
-                }
+                dispatch(binderActions.showCardInfo({ cardData: event.data.cardDataBundle }));
                 break;
             // case "OPEN_TRADING":
             //     if (process.env.NODE_ENV !== "development") {

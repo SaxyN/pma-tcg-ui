@@ -90,7 +90,7 @@ export const SpecificCardInfo = () => {
         let newCardInfo: CardType | null = null;
 
         console.log(newCard.row.uid);
-        for (var i = 0; i < subCollection.length; i++) {
+        for (let i = 0; i < subCollection.length; i++) {
             if (newCard.row.uid === subCollection[i].uid) {
                 console.log(subCollection[i]);
                 newCardInfo = subCollection[i];

@@ -22,7 +22,7 @@ const PackOpener = () => {
         flipStatus[index] = true;
         let allFlipped = true;
 
-        for (var i = 0; i < flipStatus.length; i++) {
+        for (let i = 0; i < flipStatus.length; i++) {
             if (!flipStatus[i]) {
                 allFlipped = false;
             }
