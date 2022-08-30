@@ -55,13 +55,13 @@ const PackOpener = () => {
                     )
                 })}
             </div>
-            <Fade in={enableClose} timeout={1000 | 0} unmountOnExit>
+            <Fade in={enableClose} timeout={1000 | 0}>
                 <div style={{ width: "100%", display: "flex", justifyContent: "space-evenly", paddingTop: "25px" }}>
                     <CardPackControls handleOpenPackGrid={handleOpenPackGrid} handlePackClose={handlePackClose} enableClose={enableClose} />
                 </div>
             </Fade>
             <Modal open={showPackGrid} onClose={() => setShowPackGrid(!showPackGrid)}>
-                <Fade in={showPackGrid} timeout={500 | 0} unmountOnExit>
+                <Fade in={showPackGrid} timeout={500 | 0}>
                     <Box sx={{
                         position: 'fixed',
                         top: '50%',

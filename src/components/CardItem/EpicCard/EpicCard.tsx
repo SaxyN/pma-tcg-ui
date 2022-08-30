@@ -3,7 +3,7 @@ import "./epicstyle.scss";
 import ImageHandler from '../../ImageHandler/ImageHandler';
 import { motion, useMotionValue, useTransform } from "framer-motion";
 
-const EpicCard = ({ imageFace, imageStyle, cardUID, sizeTag, cardHoloX, cardHoloY, pattern, hoverEffects }: any) => {
+const EpicCard = ({ imageFace, imageStyle, sizeTag, cardHoloX, cardHoloY, pattern, hoverEffects }: any) => {
     const x = useMotionValue(200);
     const y = useMotionValue(200);
     const backX = useMotionValue(200);

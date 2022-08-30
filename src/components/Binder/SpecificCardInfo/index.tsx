@@ -118,7 +118,7 @@ export const SpecificCardInfo = () => {
                             </Box>
                         </Box>
                     </Tooltip>
-                    <Collapse in={open} orientation="horizontal" mountOnEnter unmountOnExit>
+                    <Collapse in={open} orientation="horizontal">
                         {/* <div style={{ marginLeft: "50px", marginTop: "15px", display: "grid", gridTemplateColumns: "auto auto auto" }}>
                             {subCollection.length > 0 ?
                                 subCollection.map((item: any) => {

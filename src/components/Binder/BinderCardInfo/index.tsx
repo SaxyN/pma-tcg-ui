@@ -7,6 +7,7 @@ import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import { useDispatch } from 'react-redux';
 import * as BinderActions from '../../../redux/binder/binder.slice';
+// import * as CardsActions from '../../../redux/cards/cards.slice';
 import { AdvancedTooltip } from './AdvancedTooltip';
 import { DataGrid } from '@mui/x-data-grid';
 import { useNuiRequest } from "fivem-nui-react-lib";
@@ -62,20 +63,16 @@ export const BinderCardInfo = ({ handleMoreInfoClick }: any) => {
     const dispatch = useDispatch();
     const [open, setOpen] = React.useState(true);
 
-    const cardInfo = useSelector((state: RootStateOrAny) => state.binder.cardInfo);
+    const cardInfo = useSelector((state: RootStateOrAny) => state.binder.cardsInfo);
     const subCollection = useSelector((state: RootStateOrAny) => state.binder.subCollection);
 
     const handleShare = (showcaseData: any) => {
         send("pma-tcg:createShowcase", showcaseData);
     }
 
-    // const handleTrade = (tradeData: CardType | null) => {
-    //     send("pma-tcg:getNearbyPlayers");
-    // }
-
     const swapCardInfo = (newCard: any) => {
         if (newCard.row.uid !== cardInfo.uid) {
-            dispatch(BinderActions.updateCardInfo({ newCardInfo: newCard.row }));
+            dispatch(BinderActions.newMainCard({ newCardInfo: newCard.row }));
         }
     }
 
@@ -85,10 +82,12 @@ export const BinderCardInfo = ({ handleMoreInfoClick }: any) => {
                 <CardContent className={classes.modalContent}>
                     <Tooltip TransitionComponent={Zoom} arrow placement="left-start" title={<AdvancedTooltip data={cardInfo} />} sx={{ marginRight: "15px" }}>
                         <Box sx={{ padding: "15px" }}>
-                            <CardHandler cardImage={cardInfo.img} cardType={cardInfo.type} cardUID={cardInfo.uid} sizeTag={2} specialTag={cardInfo.specialTag} cardHoloX={cardInfo.holoX} cardHoloY={cardInfo.holoX} pattern={cardInfo.pattern} hoverEffects={true} />
+                            {(cardInfo &&
+                                <CardHandler cardImage={cardInfo.img} cardType={cardInfo.type} cardUID={cardInfo.uid} sizeTag={2} specialTag={cardInfo.specialTag} cardHoloX={cardInfo.holoX} cardHoloY={cardInfo.holoX} pattern={cardInfo.pattern} hoverEffects={true} />
+                            )}
                         </Box>
                     </Tooltip>
-                    <Collapse in={open} orientation="horizontal" mountOnEnter unmountOnExit>
+                    <Collapse in={open} orientation="horizontal" mountOnEnter>
                         {subCollection.length > 0 ?
                             <Box sx={{ height: 550, width: 1200 }}>
                                 <DataGrid

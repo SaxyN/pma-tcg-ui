@@ -56,8 +56,6 @@ export interface Card {
     holoX: string,
     holoY: string,
     pattern: string,
-    like: boolean,
-    forTrade: boolean,
     // condition: Qualities,
     // quality: number,
     // width: string, height: string, borderRadius: string,

@@ -1,18 +1,20 @@
 import { createSlice, PayloadAction, current } from "@reduxjs/toolkit";
 import { Card, CardMiniData } from "../../models/CardModel";
 import { BinderSlot } from "../../models/BinderSlot";
+import * as CardActions from '../cards/cards.slice';
 
 interface binderState {
     binderVisible: boolean,
     cardInventory: BinderSlot[],
-    trueInventory: CardMiniData[],
+    trueInventory: Card[],
     shortInventory: CardMiniData[],
     allCards: CardMiniData[],
     paginationSize: number,
 
     showMissingCards: boolean,
 
-    cardInfo: Card | {},
+    cardsInfoTable: Card[][],
+    cardsInfo: Card | {},
     subCollection: Card[],
 }
 
@@ -25,7 +27,8 @@ const initialState: binderState = {
     showMissingCards: true,
     paginationSize: 1,
 
-    cardInfo: {},
+    cardsInfoTable: [[]],
+    cardsInfo: {},
     subCollection: [],
 }
 
@@ -33,73 +36,32 @@ export const binderSlice = createSlice({
     name: "binder",
     initialState,
     reducers: {
-        closeBinder: (state: binderState) => {
-            state.binderVisible = false;
-        },
-        hideMissingCards: (state: binderState) => {
-            state.showMissingCards = false;
-        },
-        showMissingCards: (state: binderState) => {
-            state.showMissingCards = true;
-        },
-        swapCardInfo: (state: binderState, { payload }: PayloadAction<any>) => {
-            state.cardInfo = payload.newCardInfo;
-            state.subCollection = payload.newSubCollection;
-        },
-        showCardInfo: (state: binderState, { payload }: PayloadAction<any>) => {
-            // Get name/img/id (either/or but need two of them)
-
-            let subCollection: Card[] = payload.cardData;
-
-            // Sort by type (highest -> lowest)
-            subCollection.sort((a: Card, b: Card) => {
-                return b.type - a.type;
-            })
-
-            state.cardInfo = subCollection[0];
-            state.subCollection = subCollection;
-
-            // state.cardInfo = payload.cardInfo;
-        },
-        updateCardInfo: (state: binderState, { payload }: PayloadAction<any>) => {
-            state.cardInfo = payload.newCardInfo;
-        },
-        clearShowCardData: (state: binderState, { payload }: PayloadAction<any>) => {
-            state.cardInfo = {
-                img: "",
-                id: -1,
-                name: "",
-                type: -1,
-                set: "",
-            };
-            state.subCollection = [];
-        },
-        openBinder: (state: any) => {
-            state.binderVisible = true;
-        },
         loadCardInventory: (state: binderState, { payload }: PayloadAction<any>) => {
             state.allCards = payload.allCards;
-            let inventory: CardMiniData[] = payload.cardCollection;
+            let inventory: Card[] = payload.cardCollection;
 
             inventory.sort((a: CardMiniData, b: CardMiniData) => {
                 return a.id - b.id;
             })
 
             state.trueInventory = inventory;
-            state.shortInventory = inventory;
-        },
-        createInventory: (state: binderState) => {
-            let playerInventory = state.shortInventory;
-            let allCards = state.allCards;
+
+
+            let playerInventory: Card[] = inventory;
+            let allCards: CardMiniData[] = payload.allCards;
             let finalInventory: BinderSlot[] = [];
-            finalInventory.length = state.allCards.length;
+            let cardsInfoTable: Card[][] = [[]];
+            finalInventory.length = allCards.length;
+            cardsInfoTable.length = allCards.length;
 
             playerInventory.sort((a: CardMiniData, b: CardMiniData) => {
                 return a.id - b.id;
             })
 
             playerInventory.forEach((element: CardMiniData) => {
-                finalInventory[element.id] = { slotType: "owned", slotData: element };
+                if (finalInventory[element.id] === undefined) {
+                    finalInventory[element.id] = { slotType: "owned", slotData: element };
+                }
             });
 
             allCards.forEach(element => {
@@ -122,24 +84,106 @@ export const binderSlice = createSlice({
                     };
                 }
             }
-            console.log(finalInventory);
-            state.cardInventory = finalInventory;
-            state.paginationSize = Math.ceil(finalInventory.length / 18);
-        },
-        createMissingInventory: (state: binderState) => {
-            let finalInventory: BinderSlot[] = [];
-            let playerInventory = state.cardInventory;
-            let allCards = state.allCards;
+
             allCards.forEach(element => {
-                if (playerInventory[element.id].slotType === "undefined") {
-                    playerInventory[element.id] = { slotType: "missing", slotData: element };
-                } else if (playerInventory[element.id] === undefined) {
+                if (finalInventory[element.id].slotType === "undefined") {
+                    finalInventory[element.id] = { slotType: "missing", slotData: element };
+                } else if (finalInventory[element.id] === undefined) {
                     console.error("BAD SLOT AT " + element.id);
                 }
             })
-            finalInventory = playerInventory;
-            state.cardInventory = playerInventory;
-            state.paginationSize = Math.ceil(playerInventory.length / 18);
+
+            playerInventory.forEach((element: Card) => {
+                if (cardsInfoTable[element.id] === undefined) {
+                    cardsInfoTable[element.id] = [element];
+                } else {
+                    cardsInfoTable[element.id].push(element);
+                }
+            })
+
+            state.cardsInfoTable = cardsInfoTable;
+            state.cardInventory = finalInventory;
+            state.paginationSize = Math.ceil(finalInventory.length / 18);
+
+        },
+        newMainCard: (state: binderState, { payload }: PayloadAction<any>) => {
+            state.cardsInfo = payload.newCardInfo;
+        },
+        getCardCollection: (state: binderState, { payload }: PayloadAction<any>) => {
+            console.log(payload.id);
+            state.subCollection = state.cardsInfoTable[payload.id].sort((a: Card, b: Card) => {
+                return b.type - a.type;
+            });
+            state.cardsInfo = state.subCollection[0];
+        },
+        closeBinder: (state: binderState) => {
+            state.binderVisible = false;
+        },
+        hideMissingCards: (state: binderState) => {
+            state.showMissingCards = false;
+        },
+        showMissingCards: (state: binderState) => {
+            state.showMissingCards = true;
+        },
+        swapCardInfo: (state: binderState, { payload }: PayloadAction<any>) => {
+            state.cardsInfo = payload.newCardInfo;
+            state.subCollection = payload.newSubCollection;
+        },
+        showCardInfo: (state: binderState, { payload }: PayloadAction<any>) => {
+            // Get name/img/id (either/or but need two of them)
+
+            let subCollection: Card[] = payload.cardData;
+
+            // Sort by type (highest -> lowest)
+            subCollection.sort((a: Card, b: Card) => {
+                return b.type - a.type;
+            })
+
+            state.cardsInfo = subCollection[0];
+            state.subCollection = subCollection;
+
+            // state.cardInfo = payload.cardInfo;
+        },
+        checkCollection: (state: binderState, { payload }: PayloadAction<any>) => {
+            let cardInventory = state.cardInventory;
+            let cardsInfoTable: Card[][] = state.cardsInfoTable;
+            let packCards = payload.packCards;
+            packCards.forEach((element: Card) => {
+                if (cardInventory[element.id].slotType === "missing") {
+                    cardInventory[element.id].slotType = "owned";
+                    cardInventory[element.id].slotData = {
+                        img: element.img,
+                        id: element.id,
+                        name: element.name,
+                        type: element.type,
+                        set: element.set,
+                    };
+                }
+
+                if (cardsInfoTable[element.id] === undefined) {
+                    cardsInfoTable[element.id] = [element];
+                } else {
+                    cardsInfoTable[element.id].push(element);
+                }
+            })
+
+            state.cardInventory = cardInventory;
+        },
+        updateCardInfo: (state: binderState, { payload }: PayloadAction<any>) => {
+            state.cardsInfo = payload.newCardInfo;
+        },
+        clearShowCardData: (state: binderState, { payload }: PayloadAction<any>) => {
+            state.cardsInfo = {
+                img: "",
+                id: -1,
+                name: "",
+                type: -1,
+                set: "",
+            };
+            state.subCollection = [];
+        },
+        openBinder: (state: any) => {
+            state.binderVisible = true;
         },
         filterBySearch: (state: binderState, { payload }: PayloadAction<any>) => {
             let searchString = payload.searchParameter;
@@ -223,4 +267,22 @@ export const binderSlice = createSlice({
 })
 
 export const binderReducer = binderSlice.reducer;
-export const { showMissingCards, hideMissingCards, updateCardInfo, filterByID, filterByQuality, filterByName, createInventory, closeBinder, clearShowCardData, resetFilter, swapCardInfo, openBinder, loadCardInventory, showCardInfo, createMissingInventory, filterBySearch } = binderSlice.actions;
+export const {
+    loadCardInventory,
+    newMainCard,
+    getCardCollection,
+    showMissingCards,
+    hideMissingCards,
+    updateCardInfo,
+    filterByID,
+    filterByQuality,
+    filterByName,
+    closeBinder,
+    clearShowCardData,
+    resetFilter,
+    swapCardInfo,
+    openBinder,
+    showCardInfo,
+    filterBySearch,
+    checkCollection
+} = binderSlice.actions;

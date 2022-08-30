@@ -150,7 +150,7 @@ export const TradingWindow = () => {
             </Box>
 
             <Modal open={openGrid} onClose={() => setOpenGrid(!openGrid)}>
-                <Fade in={openGrid} timeout={500 | 0} unmountOnExit>
+                <Fade in={openGrid} timeout={500 | 0}>
                     <Box sx={{
                         position: 'fixed',
                         top: '50%',

@@ -7,10 +7,12 @@ import Backdrop from '@mui/material/Backdrop';
 import Typography from '@mui/material/Typography';
 import { BinderCard } from './BinderCard/BinderCard';
 import { MissingCard } from "./MissingCard/MissingCard";
+import { OpenSlot } from './OpenSlot.tsx/OpenSlot';
 import { BinderCardInfo } from './BinderCardInfo';
 import { useDispatch } from 'react-redux';
-import { clearShowCardData } from '../../redux/binder/binder.slice';
 import { useNuiRequest } from 'fivem-nui-react-lib';
+
+import * as binderActions from '../../redux/binder/binder.slice';
 
 const styles = makeStyles(() => ({
     cardSlot: {
@@ -32,8 +34,8 @@ export const BinderInventory = ({ array }: any) => {
         event.preventDefault();
         switch (event.type) {
             case 'click':
-                console.log("Fetch Card Data")
-                send("pma-tcg:getCardData", id);
+                // send("pma-tcg:getCardData", id);
+                dispatch(binderActions.getCardCollection({ id: id }))
                 setShowCardInfo(!showCardInfo);
                 break;
         }
@@ -90,7 +92,7 @@ export const BinderInventory = ({ array }: any) => {
                             case "undefined":
                                 return (
                                     <div key={index} className={classes.cardSlot}>
-                                        <MissingCard
+                                        <OpenSlot
                                             img={'blank_card'}
                                             imgStyle={{
                                                 width: "100%",

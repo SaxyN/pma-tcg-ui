@@ -116,7 +116,7 @@ const Binder = () => {
         if (search !== "") {
             dispatch(BinderActions.filterBySearch({ searchParameter: search, plyInventory: trueInventory }))
         } else {
-            dispatch(BinderActions.createMissingInventory());
+            // dispatch(BinderActions.createMissingInventory());
         }
     }
 
@@ -134,9 +134,8 @@ const Binder = () => {
 
     const handleFilterReset = () => {
         if (showMissingCards) {
-            dispatch(BinderActions.createMissingInventory());
+            // dispatch(BinderActions.createMissingInventory());
         } else {
-            dispatch(BinderActions.createInventory());
         }
     }
 
@@ -144,10 +143,9 @@ const Binder = () => {
         if (setting === "Show Unowned") {
             if (showMissingCards) {
                 dispatch(BinderActions.hideMissingCards());
-                dispatch(BinderActions.createInventory());
             } else {
                 dispatch(BinderActions.showMissingCards());
-                dispatch(BinderActions.createMissingInventory());
+                // dispatch(BinderActions.createMissingInventory());
             }
         }
     }

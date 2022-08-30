@@ -5,6 +5,7 @@ import { openBinder } from "./redux/binder/binder.slice";
 import { openPack, updatePackCards } from "./redux/pack/pack.slice";
 import * as binderActions from "./redux/binder/binder.slice";
 import * as showcaseActions from "./redux/showcase/showcase.slice";
+import * as cardActions from './redux/cards/cards.slice';
 
 // Mock Data for Dev
 import { mockInventory } from "./mockData/mockInventory";
@@ -32,18 +33,19 @@ const Nui = ({ children }: ProviderProps) => {
         switch (event.data.type) {
             case "OPEN_BINDER":
                 dispatch(openBinder());
+                // dispatch(binderActions.loadCardInventory({ cardCollection: mockInventory, allCards: mockAllCards }))
+                break;
+            case "INIT_LOAD":
                 if (process.env.NODE_ENV !== "development") {
                     dispatch(binderActions.loadCardInventory({ cardCollection: event.data.cardCollection, allCards: event.data.allCards }))
-                    dispatch(binderActions.createInventory());
                 } else {
                     dispatch(binderActions.loadCardInventory({ cardCollection: mockInventory, allCards: mockAllCards }))
-                    dispatch(binderActions.createInventory());
-                    // dispatch(binderActions.createMissingInventory());
                 }
                 break;
             case "OPEN_PACK":
                 if (process.env.NODE_ENV !== "development") {
-                    dispatch(updatePackCards({ packCards: event.data.packCards }))
+                    dispatch(updatePackCards({ packCards: event.data.packCards }));
+                    dispatch(binderActions.checkCollection({ packCards: event.data.packCards }));
                 } else {
                     dispatch(updatePackCards({ packCards: CardList }));
                 }
@@ -59,20 +61,8 @@ const Nui = ({ children }: ProviderProps) => {
                 }
                 break;
             case "SEND_CARD_DATA":
-                dispatch(binderActions.showCardInfo({ cardData: event.data.cardDataBundle }));
+                dispatch(cardActions.addToCardInfoTable({ cardDataBundle: event.data.cardDataBundle }));
                 break;
-            // case "OPEN_TRADING":
-            //     if (process.env.NODE_ENV !== "development") {
-            //         dispatch(tradingActions.openTrading());
-            //         dispatch(tradingActions.updateTrade({ tradeData: event.data.tradeData }));
-            //     } else {
-            //         dispatch(binderActions.loadCardInventory({ cardCollection: mockInventory, allCards: mockAllCards }))
-            //         dispatch(binderActions.loadAllCardsWithTypes({ allCardsWithTypes: mockAllCardsWithTypes }));
-            //         dispatch(binderActions.createInventory());
-            //         dispatch(tradingActions.openTrading());
-            //         dispatch(tradingActions.updateTrade({ tradeData: mockTradeData }));
-            //     }
-            //     break;
             default:
                 break;
         }

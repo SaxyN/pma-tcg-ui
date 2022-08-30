@@ -10,7 +10,7 @@ export const BinderContainer = () => {
     );
 
     return (
-        <Fade in={showBinder} timeout={1000} unmountOnExit>
+        <Fade in={showBinder} timeout={1000}>
             <Box>
                 <BinderNui>
                     <Binder />
