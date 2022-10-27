@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import "./epicstyle.scss";
 import ImageHandler from '../../ImageHandler/ImageHandler';
 import { motion, useMotionValue, useTransform } from "framer-motion";
@@ -13,10 +13,16 @@ const EpicCard = ({ imageFace, imageStyle, sizeTag, cardHoloX, cardHoloY, patter
     const rotateX = useTransform(y, [0, 400], [-15, 15]);
     const rotateY = useTransform(x, [0, 400], [-15, 15]);
 
-    document.querySelectorAll<HTMLElement>(".card_epic").forEach(elem => {
+    useEffect(() => {
+        const elem = document.querySelector<HTMLElement>(".card_epic");
         elem?.style.setProperty("--backPosX", cardHoloX);
         elem?.style.setProperty("--backPosY", cardHoloY);
-    })
+    }, [])
+
+    // document.querySelectorAll<HTMLElement>(".card_epic").forEach(elem => {
+    //     elem?.style.setProperty("--backPosX", cardHoloX);
+    //     elem?.style.setProperty("--backPosY", cardHoloY);
+    // })
 
     function handleMouse(event: any) {
         if (hoverEffects) {

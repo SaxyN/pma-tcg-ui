@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import ImageHandler from '../../ImageHandler/ImageHandler';
 import { motion, useMotionValue, useTransform } from "framer-motion";
 import "./legendarystyle.scss";
@@ -12,11 +12,16 @@ const LegendaryCard = ({ imageFace, imageStyle, sizeTag, cardHoloX, cardHoloY, p
 
     const rotateX = useTransform(y, [0, 400], [-15, 15]);
     const rotateY = useTransform(x, [0, 400], [-15, 15]);
-
-    document.querySelectorAll<HTMLElement>(".card_legendary").forEach(elem => {
+    useEffect(() => {
+        const elem = document.querySelector<HTMLElement>(".card_legendary");
         elem?.style.setProperty("--backPosX", cardHoloX);
         elem?.style.setProperty("--backPosY", cardHoloY);
-    })
+    }, [])
+
+    // document.querySelectorAll<HTMLElement>(".card_legendary").forEach(elem => {
+    //     elem?.style.setProperty("--backPosX", cardHoloX);
+    //     elem?.style.setProperty("--backPosY", cardHoloY);
+    // })
 
     function handleMouse(event: any) {
         if (hoverEffects) {

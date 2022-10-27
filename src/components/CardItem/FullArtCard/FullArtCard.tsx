@@ -13,10 +13,14 @@ const FullArtCard = ({ imageFace, imageStyle, sizeTag, cardHoloX, cardHoloY, pat
     const rotateX = useTransform(y, [0, 400], [-15, 15]);
     const rotateY = useTransform(x, [0, 400], [-15, 15]);
 
-    document.querySelectorAll<HTMLElement>(".card_full_art").forEach(elem => {
-        elem?.style.setProperty("--backPosX", cardHoloX);
-        elem?.style.setProperty("--backPosY", cardHoloY);
-    })
+    const elem = document.querySelector<HTMLElement>(".card_full_art");
+    elem?.style.setProperty("--backPosX", cardHoloX);
+    elem?.style.setProperty("--backPosY", cardHoloY);
+
+    // document.querySelectorAll<HTMLElement>(".card_full_art").forEach(elem => {
+    //     elem?.style.setProperty("--backPosX", cardHoloX);
+    //     elem?.style.setProperty("--backPosY", cardHoloY);
+    // })
 
     function handleMouse(event: any) {
         if (hoverEffects) {
@@ -81,7 +85,7 @@ const FullArtCard = ({ imageFace, imageStyle, sizeTag, cardHoloX, cardHoloY, pat
                             <ImageHandler name={imageFace} imageStyle={imageStyle} />
                         </motion.div>
                     </motion.div>
-                </motion.div >
+                </motion.div>
             )
         case 1:
             return (
@@ -105,7 +109,7 @@ const FullArtCard = ({ imageFace, imageStyle, sizeTag, cardHoloX, cardHoloY, pat
                             <ImageHandler name={imageFace} imageStyle={imageStyle} />
                         </motion.div>
                     </motion.div>
-                </motion.div >
+                </motion.div>
             )
         case 2:
             return (
@@ -129,7 +133,7 @@ const FullArtCard = ({ imageFace, imageStyle, sizeTag, cardHoloX, cardHoloY, pat
                             <ImageHandler name={imageFace} imageStyle={imageStyle} />
                         </motion.div>
                     </motion.div>
-                </motion.div >
+                </motion.div>
             )
         default:
             return (
@@ -153,7 +157,7 @@ const FullArtCard = ({ imageFace, imageStyle, sizeTag, cardHoloX, cardHoloY, pat
                             <ImageHandler name={imageFace} imageStyle={imageStyle} />
                         </motion.div>
                     </motion.div>
-                </motion.div >
+                </motion.div>
             )
     }
 }
