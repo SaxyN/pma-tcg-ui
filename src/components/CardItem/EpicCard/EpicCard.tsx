@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import "./epicstyle.scss";
 import ImageHandler from '../../ImageHandler/ImageHandler';
 import { motion, useMotionValue, useTransform } from "framer-motion";
 
-const EpicCard = ({ imageFace, imageStyle, cardUID, sizeTag, cardHoloX, cardHoloY, pattern, hoverEffects }: any) => {
+const EpicCard = ({ imageFace, imageStyle, sizeTag, cardHoloX, cardHoloY, pattern, hoverEffects }: any) => {
     const x = useMotionValue(200);
     const y = useMotionValue(200);
     const backX = useMotionValue(200);
@@ -13,10 +13,16 @@ const EpicCard = ({ imageFace, imageStyle, cardUID, sizeTag, cardHoloX, cardHolo
     const rotateX = useTransform(y, [0, 400], [-15, 15]);
     const rotateY = useTransform(x, [0, 400], [-15, 15]);
 
-    document.querySelectorAll<HTMLElement>(".card_epic").forEach(elem => {
+    useEffect(() => {
+        const elem = document.querySelector<HTMLElement>(".card_epic");
         elem?.style.setProperty("--backPosX", cardHoloX);
         elem?.style.setProperty("--backPosY", cardHoloY);
-    })
+    }, [])
+
+    // document.querySelectorAll<HTMLElement>(".card_epic").forEach(elem => {
+    //     elem?.style.setProperty("--backPosX", cardHoloX);
+    //     elem?.style.setProperty("--backPosY", cardHoloY);
+    // })
 
     function handleMouse(event: any) {
         if (hoverEffects) {
@@ -30,16 +36,16 @@ const EpicCard = ({ imageFace, imageStyle, cardUID, sizeTag, cardHoloX, cardHolo
             backY.set(event.clientY - rect.top);
 
             document.querySelectorAll<HTMLElement>(".card_epic").forEach(elem => {
-                var l: any = event.clientX - rect.left;
-                var t: any = event.clientY - rect.top;
-                var h = 400;
-                var w = 400;
+                let l: any = event.clientX - rect.left;
+                let t: any = event.clientY - rect.top;
+                let h = 400;
+                let w = 400;
                 let px = Math.abs(Math.floor(100 / w * l) - 100);
                 let py = Math.abs(Math.floor(100 / h * t) - 100);
-                var pa = (50 - px) + (50 - py);
-                var p_opc = ((20 + (Math.abs(pa) * 1.5)) / 100);
-                var lp = (50 + (px - 50) / 1.5);
-                var tp = (50 + (py - 50) / 1.5);
+                let pa = (50 - px) + (50 - py);
+                let p_opc = ((20 + (Math.abs(pa) * 1.5)) / 100);
+                let lp = (50 + (px - 50) / 1.5);
+                let tp = (50 + (py - 50) / 1.5);
 
                 elem?.style.setProperty("--gradPosX", lp.toString() + "%");
                 elem?.style.setProperty("--gradPosY", tp.toString() + "%");

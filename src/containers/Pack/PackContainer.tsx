@@ -1,11 +1,8 @@
 import React from 'react';
 import { useSelector, RootStateOrAny } from 'react-redux';
-import { Fade, Box, Typography } from '@mui/material';
+import { Fade, Box } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import PackNui from './PackNui';
-import { CardPackControls } from '../../components/CardPack/CardPackControls';
-import CardHandler from '../../components/CardHandler/CardHandler';
-import { CardList } from '../../mockData/mock'; // Mock Data
 import PackOpener from '../../components/Packs/PackOpener';
 
 const styles = makeStyles((theme) => ({
@@ -44,7 +41,7 @@ const PackContainer = () => {
 
     return (
         <div style={{ position: "absolute", top: 0, width: "100%" }}>
-            <Fade in={showPack} timeout={1000}>
+            <Fade in={showPack} timeout={1000 | 50}>
                 <Box>
                     <PackNui>
                         <div className={classes.innerShowcase}>

@@ -35,7 +35,7 @@ export const BinderSettings = ({ setShowSettings, showSettings, handleSettingCha
                 </button>
                 <Collapse in={showSettings} orientation="vertical">
                     <Box style={{ transition: "all .2s ease", backgroundColor: "white" }}>
-                        <Checkbox style={{ width: "39px" }} checked={showMissingCards} onChange={() => handleSettingChange("Show Unowned")} />
+                        <Checkbox style={{ width: "39px" }} checked={showMissingCards} onChange={() => handleSettingChange("Show Unowned")} disabled />
                         <Typography variant="body2" fontSize={"10px"}>Show All</Typography>
                     </Box>
                 </Collapse>

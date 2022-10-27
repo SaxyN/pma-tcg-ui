@@ -10,6 +10,8 @@ import * as BinderActions from '../../../redux/binder/binder.slice';
 import { AdvancedTooltip } from '../BinderCardInfo/AdvancedTooltip';
 import { Card as CardType } from '../../../models/CardModel';
 import { useNuiRequest } from "fivem-nui-react-lib";
+import { DataGrid } from '@mui/x-data-grid';
+import { columns } from '../BinderCardInfo/GridDefs';
 
 const styles = makeStyles((theme) => ({
     infoCard: {
@@ -21,7 +23,8 @@ const styles = makeStyles((theme) => ({
         marginRight: "auto",
         width: "500px",
         height: "300px",
-        maxHeight: "80%"
+        maxHeight: "80%",
+        backgroundColor: "#2C3340",
     },
     modalContent: {
         display: "flex"
@@ -58,8 +61,8 @@ export const SpecificCardInfo = () => {
     const { send } = useNuiRequest();
     const classes = styles();
     const dispatch = useDispatch();
-    const [open, setOpen] = React.useState(false);
-    const [currentCard, setCurrentCard] = React.useState({});
+    const [open, setOpen] = React.useState(true);
+    const [currentCard, setCurrentCard] = React.useState<CardType | null>(null);
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
     const menuOpen = Boolean(anchorEl);
     const handleClick = (event: React.MouseEvent<HTMLDivElement>) => {
@@ -67,7 +70,7 @@ export const SpecificCardInfo = () => {
     };
     const handleClose = () => {
         setAnchorEl(null);
-        setCurrentCard({});
+        setCurrentCard(null);
     };
 
     const cardInfo = useSelector((state: RootStateOrAny) => state.binder.cardInfo);
@@ -77,8 +80,31 @@ export const SpecificCardInfo = () => {
         send("pma-tcg:createShowcase", showcaseData);
     }
 
+    const handleTrade = (tradeData: CardType | null) => {
+        send("pma-tcg:checkNearbyPlayers");
+    }
+
+
     const swapCardInfo = (newCard: any) => {
-        dispatch(BinderActions.swapCardInfo({ current: cardInfo, newCard: newCard }));
+        let newSubCollection: CardType[] = [];
+        let newCardInfo: CardType | null = null;
+
+        console.log(newCard.row.uid);
+        for (let i = 0; i < subCollection.length; i++) {
+            if (newCard.row.uid === subCollection[i].uid) {
+                console.log(subCollection[i]);
+                newCardInfo = subCollection[i];
+                newSubCollection.push(cardInfo);
+            } else {
+                newSubCollection.push(subCollection[i]);
+            }
+        }
+
+        console.log(subCollection, cardInfo);
+        console.log(newSubCollection, newCardInfo);
+
+        // dispatch(BinderActions.swapCardInfo({ current: cardInfo, newCard: newCard }));
+        dispatch(BinderActions.swapCardInfo({ newCardInfo: newCardInfo, newSubCollection: newSubCollection }));
     }
 
     return (
@@ -87,13 +113,13 @@ export const SpecificCardInfo = () => {
                 <CardContent className={classes.modalContent}>
                     <Tooltip TransitionComponent={Zoom} arrow placement="left-start" title={<AdvancedTooltip data={cardInfo} />} sx={{ marginRight: "15px" }}>
                         <Box sx={{ padding: "15px", maxHeight: "500px" }} >
-                            <Box onClick={(event) => { handleClick(event); setCurrentCard(cardInfo) }}>
+                            <Box>
                                 <CardHandler cardImage={cardInfo.img} cardType={cardInfo.type} cardUID={cardInfo.uid} sizeTag={2} specialTag={cardInfo.specialTag} cardHoloX={cardInfo.holoX} cardHoloY={cardInfo.holoX} pattern={cardInfo.pattern} hoverEffects={true} />
                             </Box>
                         </Box>
                     </Tooltip>
-                    <Collapse in={open} orientation="horizontal" mountOnEnter unmountOnExit>
-                        <div style={{ marginLeft: "50px", marginTop: "15px", display: "grid", gridTemplateColumns: "auto auto auto" }}>
+                    <Collapse in={open} orientation="horizontal">
+                        {/* <div style={{ marginLeft: "50px", marginTop: "15px", display: "grid", gridTemplateColumns: "auto auto auto" }}>
                             {subCollection.length > 0 ?
                                 subCollection.map((item: any) => {
                                     if (cardInfo.uid !== item.uid) {
@@ -111,12 +137,26 @@ export const SpecificCardInfo = () => {
                                     }
                                 })
                                 : <></>}
-                        </div>
+                        </div> */}
+                        {console.log(subCollection)}
+                        {subCollection.length > 0 ?
+                            <Box sx={{ height: 600, width: 1200 }}>
+                                <DataGrid
+                                    sx={{ marginLeft: "35px", color: "white" }}
+                                    columns={columns}
+                                    rows={subCollection}
+                                    // pageSize={10}
+                                    rowsPerPageOptions={[]}
+                                    onRowClick={swapCardInfo}
+                                    getRowId={(r) => r.uid}
+                                />
+                            </Box> : <></>
+                        }
                     </Collapse>
                 </CardContent>
                 <CardActions style={{ paddingTop: "35px", paddingBottom: "25px", justifyContent: "center" }}>
-                    <Button variant="contained" sx={{ backgroundColor: "gray", '&:hover': { backgroundColor: "orange" } }} onClick={() => handleShare(currentCard)}>Share</Button>
-                    <Button variant="contained" sx={{ backgroundColor: "gray", '&:hover': { backgroundColor: "orange" } }}>Trade</Button>
+                    <Button variant="contained" sx={{ color: "white", backgroundColor: "gray", '&:hover': { backgroundColor: "orange" } }} onClick={() => handleShare(cardInfo)}>Share</Button>
+                    <Button variant="contained" sx={{ color: "white", backgroundColor: "gray", '&:hover': { backgroundColor: "orange" } }} onClick={() => handleTrade(currentCard)}>Trade</Button>
                     {subCollection.length > 0 ?
                         <IconButton style={{ color: "black", marginLeft: "auto" }} onClick={() => setOpen(!open)}>{!open ? <ChevronRightIcon /> : <ChevronLeftIcon />}</IconButton>
                         : <></>

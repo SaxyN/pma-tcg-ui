@@ -9,6 +9,8 @@ import Nui from "./Nui";
 import PackContainer from "./containers/Pack/PackContainer";
 import { BinderContainer } from "./containers/Binder/BinderContainer";
 import { ShowcaseContainer } from "./containers/Showcase/ShowcaseContainer";
+import { SnackbarProvider } from 'notistack';
+import { TradingContainer } from "./containers/Trading/TradingContainer";
 
 function App() {
     return (
@@ -17,9 +19,12 @@ function App() {
                 <HashRouter>
                     <DWrap>
                         <Nui>
-                            <BinderContainer />
-                            <PackContainer />
-                            <ShowcaseContainer />
+                            <SnackbarProvider maxSnack={3}>
+                                <BinderContainer />
+                                <PackContainer />
+                                <ShowcaseContainer />
+                                <TradingContainer />
+                            </SnackbarProvider>
                         </Nui>
                     </DWrap>
                 </HashRouter>

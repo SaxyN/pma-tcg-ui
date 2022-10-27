@@ -42,7 +42,7 @@ const FilterSection = ({ handleSearchChange, handleNameFilter, handleQualityFilt
     return (
         <div>
             <Box style={{ border: 'solid 2px gray', borderRadius: '5px', transition: 'all .2s ease', width: "min-content" }}>
-                <button onClick={() => setShowFilters(!showFilters)} className={classes.filterButton}>{!showFilters ? <FilterAltIcon /> : <ExpandLessIcon />}</button>
+                <button onClick={() => setShowFilters(!showFilters)} className={classes.filterButton} disabled>{!showFilters ? <FilterAltIcon /> : <ExpandLessIcon />}</button>
                 <Collapse in={showFilters} orientation="vertical">
                     <Box style={{ transition: 'all .2s ease' }}>
                         <button className={classes.filterButton} onClick={() => handleQualityFilter()}><DiamondIcon /> <Typography fontSize={"10px"} textAlign={"center"} variant="body2">Rarity</Typography></button>

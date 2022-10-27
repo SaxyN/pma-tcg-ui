@@ -21,6 +21,8 @@ const initialState: showcaseState = {
         holoX: "",
         holoY: "",
         pattern: "",
+        forTrade: false,
+        like: false,
     },
 }
 
@@ -50,6 +52,8 @@ export const showcaseSlice = createSlice({
                 holoX: "",
                 holoY: "",
                 pattern: "",
+                forTrade: false,
+                like: false,
             }
         }
     }

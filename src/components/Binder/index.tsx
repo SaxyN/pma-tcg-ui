@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { makeStyles } from '@mui/styles';
 import FilterSection from '../Filters/FilterSection';
 import CloseIcon from '@mui/icons-material/Close';
@@ -88,6 +88,14 @@ const Binder = () => {
     const [showSettings, setShowSettings] = React.useState(false);
     // const [showFilters, setShowFilters] = React.useState(false);
 
+
+    useEffect(() => {
+        if (currentPage > paginationSize) {
+            setCurrentPage(1);
+        }
+    })
+
+
     const cardInventory = useSelector(
         (state: RootStateOrAny) => state.binder.cardInventory
     );
@@ -104,13 +112,11 @@ const Binder = () => {
         (state: RootStateOrAny) => state.binder.paginationSize
     )
 
-    // const handleShowSettings
-
     const handleSearchChange = (search: string) => {
         if (search !== "") {
             dispatch(BinderActions.filterBySearch({ searchParameter: search, plyInventory: trueInventory }))
         } else {
-            dispatch(BinderActions.createMissingInventory());
+            // dispatch(BinderActions.createMissingInventory());
         }
     }
 
@@ -128,9 +134,8 @@ const Binder = () => {
 
     const handleFilterReset = () => {
         if (showMissingCards) {
-            dispatch(BinderActions.createMissingInventory());
+            // dispatch(BinderActions.createMissingInventory());
         } else {
-            dispatch(BinderActions.createInventory());
         }
     }
 
@@ -138,10 +143,9 @@ const Binder = () => {
         if (setting === "Show Unowned") {
             if (showMissingCards) {
                 dispatch(BinderActions.hideMissingCards());
-                dispatch(BinderActions.createInventory());
             } else {
                 dispatch(BinderActions.showMissingCards());
-                dispatch(BinderActions.createMissingInventory());
+                // dispatch(BinderActions.createMissingInventory());
             }
         }
     }
@@ -160,7 +164,7 @@ const Binder = () => {
             <div className={classes.binderMain}>
                 <div className={classes.binderInner}>
                     <div className={classes.binderSection}>
-                        <BinderInventory array={cardInventory.slice(currentPage * 18 - 18, currentPage * 18)} showCardInfo={showCardInfo} setShowCardInfo={setShowCardInfo} />
+                        <BinderInventory array={cardInventory.slice(currentPage * 18 - 18, currentPage * 18)} />
                     </div>
                     <div style={{ position: "absolute", zIndex: 25, left: "50%", bottom: "2%", transform: 'translate(-50%)', }}>
                         {cardInventory.length > 0 ?

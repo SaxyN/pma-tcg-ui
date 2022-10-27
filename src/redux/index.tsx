@@ -1,18 +1,20 @@
 import { Action, configureStore, ThunkAction } from "@reduxjs/toolkit";
-// import { cardsReducer } from "./cards/cards.slice";
 import { userReducer } from "./user/user.slice";
 import { binderReducer } from "./binder/binder.slice";
 import { showcaseReducer } from "./showcase/showcase.slice";
-import logger from "redux-logger";
 import { packReducer } from "./pack/pack.slice";
+import { tradingReducer } from "./trading/trading.slice";
+import { cardsReducer } from "./cards/cards.slice";
+import logger from "redux-logger";
 
 export const store = configureStore({
     reducer: {
-        // cards: cardsReducer,
         user: userReducer,
         binder: binderReducer,
+        cards: cardsReducer,
         pack: packReducer,
         showcase: showcaseReducer,
+        trade: tradingReducer,
     },
     middleware: (getDefaultMiddleware) => getDefaultMiddleware({
         serializableCheck: false

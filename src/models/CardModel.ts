@@ -4,22 +4,43 @@ export interface CardDataDictionary {
         holoX?: string,
         holoY?: string,
         pattern?: string,
+        like: boolean,
+        forTrade: boolean,
     };
 }
 
-export interface CardData {
+// THIS IS THE NEW CARD BINDERS TABLE DATASET
+export interface CardMiniData {
+    img: string,
+    id: number,
+    name: string,
+    type?: number,
+    set: string,
+}
+
+// THIS IS THE NEW CARD DATA TABLE DATASET
+export interface CardMetaData {
+    uid: string,
     back: string,
+    type: number,
     holoX?: string,
     holoY?: string,
     pattern?: string,
 }
+
+// export interface CardData {
+//     back: string,
+//     holoX?: string,
+//     holoY?: string,
+//     pattern?: string,
+//     like?: boolean,
+// }
 
 export interface PullCard {
     id: number,
     img: string,
     name: string,
     set: string,
-    specialTag: string,
     pattern: string,
 }
 
@@ -32,10 +53,9 @@ export interface Card {
     name: string,
     set: string,
     specialTag: string,
-    like?: boolean,
-    holoX?: string,
-    holoY?: string,
-    pattern?: string,
+    holoX: string,
+    holoY: string,
+    pattern: string,
     // condition: Qualities,
     // quality: number,
     // width: string, height: string, borderRadius: string,
